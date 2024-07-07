@@ -1,17 +1,31 @@
-#include "raylib.h"
+#include <iostream>
+#include <raylib.h>
+
+#define FPS 60
+
+Texture2D carl;
 
 int main(void)
 {
-    InitWindow(800, 450, "raylib [core] example - basic window");
+
+    const int screenWidth = 800;
+    const int screenHeight = 450;
+
+    InitWindow(screenWidth, screenHeight, "Main window");
+    SetTargetFPS(FPS);
+    SetWindowPosition(100, 100);
+    carl = LoadTexture("carl.png");
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+        DrawTexture(carl, 0, 0, WHITE);
+
         EndDrawing();
     }
 
+    UnloadTexture(carl);
     CloseWindow();
 
     return 0;
