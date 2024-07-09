@@ -44,6 +44,22 @@ void input(void)
     {
         player_position.x += player_speed;
     }
+    if (IsKeyDown(KEY_W) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT_SHIFT))
+    {
+        player_position.y -= player_speed * 2;
+    }
+    if (IsKeyDown(KEY_S) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT_SHIFT))
+    {
+        player_position.y += player_speed * 2;
+    }
+    if (IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT))
+    {
+        player_position.x -= player_speed * 2;
+    }
+    if (IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT))
+    {
+        player_position.x += player_speed * 2;
+    }
 }
 
 void update(void)
