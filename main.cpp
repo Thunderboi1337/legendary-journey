@@ -3,30 +3,73 @@
 
 #define FPS 60
 
+const int screenWidth = 800;
+const int screenHeight = 450;
+
+static int player_x = 400;
+static int player_y = 225;
+const int player_speed = 3;
+
 Texture2D carl;
+
+void init(void)
+{
+    InitWindow(screenWidth, screenHeight, "Main window");
+    SetTargetFPS(FPS);
+    carl = LoadTexture("carl.png");
+}
+
+void exit(void)
+{
+    UnloadTexture(carl);
+    CloseWindow();
+}
+
+void input(void)
+{
+    if (IsKeyDown(KEY_W))
+    {
+        player_y -= player_speed;
+    }
+    if (IsKeyDown(KEY_S))
+    {
+        player_y += player_speed;
+    }
+    if (IsKeyDown(KEY_A))
+    {
+        player_x -= player_speed;
+    }
+    if (IsKeyDown(KEY_D))
+    {
+        player_x += player_speed;
+    }
+}
+
+void update(void)
+{
+    // Any additional game logic updates can be added here
+}
+
+void render(void)
+{
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+    DrawRectangle(player_x, player_y, 20, 20, BLUE);
+    EndDrawing();
+}
 
 int main(void)
 {
-
-    const int screenWidth = 800;
-    const int screenHeight = 450;
-
-    InitWindow(screenWidth, screenHeight, "Main window");
-    SetTargetFPS(FPS);
-    SetWindowPosition(100, 100);
-    carl = LoadTexture("carl.png");
+    init();
 
     while (!WindowShouldClose())
     {
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawTexture(carl, 0, 0, WHITE);
-
-        EndDrawing();
+        input();
+        update();
+        render();
     }
 
-    UnloadTexture(carl);
-    CloseWindow();
+    exit();
 
     return 0;
 }
