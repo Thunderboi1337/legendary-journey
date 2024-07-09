@@ -1,14 +1,15 @@
 #include <iostream>
 #include <raylib.h>
+#include <vector>
 
 #define FPS 60
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
-static int player_x = 400;
-static int player_y = 225;
 const int player_speed = 3;
+
+Vector2 player_position = {400, 225};
 
 Texture2D carl;
 
@@ -27,21 +28,21 @@ void exit(void)
 
 void input(void)
 {
-    if (IsKeyDown(KEY_W))
+    if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))
     {
-        player_y -= player_speed;
+        player_position.y -= player_speed;
     }
-    if (IsKeyDown(KEY_S))
+    if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
     {
-        player_y += player_speed;
+        player_position.y += player_speed;
     }
-    if (IsKeyDown(KEY_A))
+    if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))
     {
-        player_x -= player_speed;
+        player_position.x -= player_speed;
     }
-    if (IsKeyDown(KEY_D))
+    if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
     {
-        player_x += player_speed;
+        player_position.x += player_speed;
     }
 }
 
@@ -54,7 +55,7 @@ void render(void)
 {
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    DrawRectangle(player_x, player_y, 20, 20, BLUE);
+    DrawRectangle(player_position.x, player_position.y, 20, 20, BLUE);
     EndDrawing();
 }
 
