@@ -1,17 +1,16 @@
 #include <iostream>
 #include <raylib.h>
 #include <vector>
+#include "guy.h"
 
 #define FPS 60
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
-const int player_speed = 3;
-
-Vector2 player_position = {400, 225};
-
 Texture2D carl;
+
+Guy guy = Guy();
 
 void init(void)
 {
@@ -28,50 +27,19 @@ void exit(void)
 
 void input(void)
 {
-    if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))
-    {
-        player_position.y -= player_speed;
-    }
-    if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
-    {
-        player_position.y += player_speed;
-    }
-    if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))
-    {
-        player_position.x -= player_speed;
-    }
-    if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
-    {
-        player_position.x += player_speed;
-    }
-    if (IsKeyDown(KEY_W) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-        player_position.y -= player_speed * 2;
-    }
-    if (IsKeyDown(KEY_S) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-        player_position.y += player_speed * 2;
-    }
-    if (IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-        player_position.x -= player_speed * 2;
-    }
-    if (IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-        player_position.x += player_speed * 2;
-    }
+    guy.input();
 }
 
 void update(void)
 {
-    // Any additional game logic updates can be added here
+    guy.cooldowns(0.2);
 }
 
 void render(void)
 {
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    DrawRectangle(player_position.x, player_position.y, 20, 20, BLUE);
+    guy.update();
     EndDrawing();
 }
 

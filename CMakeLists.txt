@@ -21,6 +21,7 @@ FetchContent_Declare(
 set(RAYLIB_BUILD_EXAMPLES OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(raylib)
 
+add_library(guylib guy.cpp)
 
 
 # Create the executable
@@ -28,7 +29,7 @@ add_executable(main main.cpp)
 
 
 # Link libraries to the main executable
-target_link_libraries(main raylib)
+target_link_libraries(main raylib guylib)
 
 # Apply strict compile flags only to the main executable
 target_compile_options(main PRIVATE ${STRICT_COMPILE_FLAGS})
