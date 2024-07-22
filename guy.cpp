@@ -79,4 +79,11 @@ void Guy::input(void)
 void Guy::update(void)
 {
     DrawRectangle(player_position.x, player_position.y, 20, 20, BLUE);
+    if (!dash_active)
+    {
+        if (cooldowns(0.2))
+        {
+            dash_active = true;
+        }
+    }
 }
