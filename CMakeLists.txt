@@ -22,6 +22,7 @@ set(RAYLIB_BUILD_EXAMPLES OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(raylib)
 
 add_library(guylib guy.cpp)
+add_library(gridlib grid.cpp)
 
 
 # Create the executable
@@ -29,10 +30,16 @@ add_executable(main main.cpp)
 
 
 # Link libraries to the main executable
-target_link_libraries(main raylib guylib)
+target_link_libraries(main raylib guylib gridlib)
 
 # Apply strict compile flags only to the main executable
 target_compile_options(main PRIVATE ${STRICT_COMPILE_FLAGS})
 
 # Make sure Raylib is built before linking
 add_dependencies(main raylib)
+
+
+set(TILE_IMAGE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/sprites/tile.png)
+add_custom_command(
+    TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${TILE_IMAGE_PATH} $<TARGET_FILE_DIR:main>)

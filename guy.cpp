@@ -78,7 +78,6 @@ void Guy::input(void)
 
 void Guy::update(void)
 {
-    DrawRectangle(player_position.x, player_position.y, 20, 20, BLUE);
     if (!dash_active)
     {
         if (cooldowns(0.2))
@@ -86,4 +85,17 @@ void Guy::update(void)
             dash_active = true;
         }
     }
+
+    DrawRectangle(player_position.x - 10, player_position.y - 10, 20, 20, BLUE);
+
+    char position_text[50];
+    sprintf(position_text, "X: %.2f, Y: %.2f", player_position.x, player_position.y);
+
+    EndMode2D(); // End applying the camera transformation
+}
+
+Vector2 Guy::target_postition()
+{
+
+    return player_position;
 }

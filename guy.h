@@ -13,6 +13,7 @@ public:
     bool cooldowns(double interval);
     void input(void);
     void update(void);
+    Vector2 target_postition();
 
     static bool dash_active;
 
