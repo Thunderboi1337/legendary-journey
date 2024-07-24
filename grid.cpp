@@ -4,7 +4,7 @@
 
 Grid::Grid()
 {
-    tile = LoadTexture("tile_000.png");
+    tile = LoadTexture("tile_023.png");
     if (tile.id == 0)
     {
         std::cerr << "Failed to load texture!" << std::endl;
@@ -24,7 +24,7 @@ void Grid::render(void)
         for (int x = 0; x < World.x; x++)
         {
 
-            Vector2 position = {x * 32, y * 32};
+            Vector2 position = {x * 30, y * 30};
             // Convert to isometric coordinates
             position = IsoConvert(position);
             DrawTexture(tile, position.x, position.y, WHITE);
