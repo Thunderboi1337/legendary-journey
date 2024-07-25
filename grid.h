@@ -1,23 +1,23 @@
 #ifndef GRID_H
 #define GRID_H
 
+#include <string>
+#include <vector>
 #include "raylib.h"
 
 class Grid
 {
-
 public:
     Grid();
     ~Grid();
-
-    Vector2 World{100, 100};
-    Texture2D tile;
-
+    bool loadFromFile(const std::string &filename);
     void render(void);
 
 private:
+    int width, height;
+    std::vector<std::vector<int>> map;
+    Texture2D tilesetTexture;
+    int tileSize;
 };
-
-Vector2 IsoConvert(Vector2 cartesian);
 
 #endif

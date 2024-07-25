@@ -92,6 +92,7 @@ void Guy::update(void)
     sprintf(position_text, "X: %.2f, Y: %.2f", player_position.x, player_position.y);
 
     EndMode2D(); // End applying the camera transformation
+    DrawText(position_text, 10, 10, 20, DARKGRAY);
 }
 
 Vector2 Guy::target_postition()

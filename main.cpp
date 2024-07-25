@@ -21,6 +21,8 @@ int main(void)
     Guy guy = Guy();
     Grid grid = Grid();
 
+    grid.loadFromFile("test.tmj");
+
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     cam.rotation = 0.0f;

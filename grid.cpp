@@ -1,41 +1,102 @@
 #include <iostream>
 
 #include "grid.h"
+#include <fstream>
+#include <nlohmann/json.hpp>
 
-Grid::Grid()
+using json = nlohmann::json;
+
+Grid::Grid() : width(0), height(0) {}
+
+Grid::~Grid() {}
+
+bool Grid::loadFromFile(const std::string &filename)
 {
-    tile = LoadTexture("tile_023.png");
-    if (tile.id == 0)
+    std::ifstream file(filename);
+    if (!file.is_open())
     {
-        std::cerr << "Failed to load texture!" << std::endl;
+        std::cerr << "Failed to open file: " << filename << std::endl;
+        return false;
     }
-}
 
-Grid::~Grid()
-{
-    UnloadTexture(tile);
+    json j;
+    try
+    {
+        file >> j;
+    }
+    catch (const json::exception &e)
+    {
+        std::cerr << "JSON parsing error: " << e.what() << std::endl;
+        return false;
+    }
+    file.close();
+
+    // Parse JSON data
+    try
+    {
+        width = j.at("width").get<int>();
+        height = j.at("height").get<int>();
+
+        auto layers = j.at("layers");
+        for (const auto &layer : layers)
+        {
+            if (layer.at("type") == "tilelayer")
+            {
+                auto data = layer.at("data");
+                map.resize(height, std::vector<int>(width));
+                for (int i = 0; i < height; ++i)
+                {
+                    for (int j = 0; j < width; ++j)
+                    {
+                        map[i][j] = data.at(i * width + j).get<int>();
+                    }
+                }
+            }
+        }
+
+        // Load tileset texture
+        auto tilesets = j.at("tilesets");
+        if (!tilesets.empty())
+        {
+            auto tileset = tilesets[0];
+            std::string imagePath = tileset.at("image").get<std::string>();
+            tileSize = tileset.at("tilewidth").get<int>();
+            tilesetTexture = LoadTexture(imagePath.c_str());
+        }
+        else
+        {
+            std::cerr << "No tilesets found in JSON file." << std::endl;
+            return false;
+        }
+    }
+    catch (const json::exception &e)
+    {
+        std::cerr << "JSON field error: " << e.what() << std::endl;
+        return false;
+    }
+
+    return true;
 }
 
 void Grid::render(void)
 {
-
-    for (int y = 0; y < World.y; y++)
+    if (tilesetTexture.id == 0)
     {
-        for (int x = 0; x < World.x; x++)
-        {
+        return; // Texture not loaded
+    }
 
-            Vector2 position = {x * 30, y * 30};
-            // Convert to isometric coordinates
-            position = IsoConvert(position);
-            DrawTexture(tile, position.x, position.y, WHITE);
+    for (int i = 0; i < height; ++i)
+    {
+        for (int j = 0; j < width; ++j)
+        {
+            int tileIndex = map[i][j];
+            int tilesPerRow = tilesetTexture.width / tileSize;
+            int tileX = (tileIndex % tilesPerRow) * tileSize;
+            int tileY = (tileIndex / tilesPerRow) * tileSize;
+            Rectangle sourceRect = {(float)tileX, (float)tileY, (float)tileSize, (float)tileSize};
+            Rectangle destRect = {(float)(j * tileSize), (float)(i * tileSize), (float)tileSize, (float)tileSize};
+
+            DrawTextureRec(tilesetTexture, sourceRect, (Vector2){destRect.x, destRect.y}, WHITE);
         }
     }
-}
-
-Vector2 IsoConvert(Vector2 cartesian)
-{
-    Vector2 iso;
-    iso.x = (cartesian.x - cartesian.y) * 0.5f;
-    iso.y = (cartesian.x + cartesian.y) * 0.25f;
-    return iso;
 }
