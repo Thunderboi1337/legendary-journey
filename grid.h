@@ -5,6 +5,9 @@
 #include <vector>
 #include "raylib.h"
 
+#define RAYLIB_TILESON_IMPLEMENTATION
+#include "raylib-tileson.h"
+
 class Grid
 {
 public:

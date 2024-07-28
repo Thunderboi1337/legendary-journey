@@ -13,13 +13,40 @@ endif()
 include(FetchContent)
 
 # Raylib
-set(RAYLIB_VERSION 4.5.0)
-FetchContent_Declare(
+set(RAYLIB_VERSION 4.0.0)
+find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
+if (NOT raylib_FOUND) # If there's none, fetch and build raylib
+  include(FetchContent)
+  FetchContent_Declare(
     raylib
     URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
-)
-set(RAYLIB_BUILD_EXAMPLES OFF CACHE INTERNAL "")
-FetchContent_MakeAvailable(raylib)
+  )
+  FetchContent_GetProperties(raylib)
+  if (NOT raylib_POPULATED) # Have we downloaded raylib yet?
+    set(FETCHCONTENT_QUIET NO)
+    FetchContent_Populate(raylib)
+    set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
+    add_subdirectory(${raylib_SOURCE_DIR} ${raylib_BINARY_DIR})
+  endif()
+endif()
+
+set(RAYGUI_VERSION 3.2)
+find_package(raygui ${RAYGUI_VERSION} QUIET) # QUIET or REQUIRED
+if (NOT raygui_FOUND) # If there's none, fetch and build raygui
+  include(FetchContent)
+  FetchContent_Declare(
+    raygui
+    URL https://github.com/raysan5/raygui/archive/refs/tags/${RAYGUI_VERSION}.tar.gz
+  )
+  FetchContent_GetProperties(raygui)
+  if (NOT raygui_POPULATED) # Have we downloaded raygui yet?
+    set(FETCHCONTENT_QUIET NO)
+    FetchContent_Populate(raygui)
+    set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
+    add_subdirectory(${raygui_SOURCE_DIR}/projects/CMake ${raygui_BINARY_DIR})
+  endif()
+endif()
+
 
 # nlohmann/json
 FetchContent_Declare(
@@ -32,13 +59,14 @@ FetchContent_MakeAvailable(json)
 # Add your libraries
 add_library(guylib guy.cpp)
 add_library(gridlib grid.cpp)
+add_library(tylesonlib ThirdParty/tileson/src/raylib-tileson.cpp)
 
 # Create the executable
 add_executable(main main.cpp)
 
 # Include directories for json
-target_include_directories(gridlib PRIVATE ${json_SOURCE_DIR}/include)
-target_include_directories(main PRIVATE ${json_SOURCE_DIR}/include)
+target_include_directories(gridlib PRIVATE ${json_SOURCE_DIR}/include . ThirdParty/raylib-cpp/include ThirdParty/tileson/include )
+
 
 # Link libraries to the main executable
 target_link_libraries(main raylib guylib gridlib nlohmann_json::nlohmann_json)
