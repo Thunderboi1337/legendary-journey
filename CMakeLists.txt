@@ -9,6 +9,13 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
 endif()
 
+if (MSVC)
+    add_compile_options(/wd4068) # Disable unknown pragma warning. https://docs.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-1-c4068
+    add_compile_options(/wd4996) # Disable unsecure function warnings (e.g., sprintf())
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(-fpermissive)
+endif()
+
 # Dependencies
 include(FetchContent)
 
@@ -47,7 +54,6 @@ if (NOT raygui_FOUND) # If there's none, fetch and build raygui
   endif()
 endif()
 
-
 # nlohmann/json
 FetchContent_Declare(
     json
@@ -55,10 +61,12 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(json)
 
-
 # Add your libraries
 add_library(guylib guy.cpp)
 add_library(gridlib grid.cpp)
+
+# Ensure the include directories are set for tileson
+include_directories(ThirdParty/tileson/include)
 add_library(tylesonlib ThirdParty/tileson/src/raylib-tileson.cpp)
 
 # Create the executable
@@ -67,9 +75,8 @@ add_executable(main main.cpp)
 # Include directories for json
 target_include_directories(gridlib PRIVATE ${json_SOURCE_DIR}/include . ThirdParty/raylib-cpp/include ThirdParty/tileson/include )
 
-
 # Link libraries to the main executable
-target_link_libraries(main raylib guylib gridlib nlohmann_json::nlohmann_json)
+target_link_libraries(main raylib guylib gridlib tylesonlib nlohmann_json::nlohmann_json)
 
 # Apply strict compile flags only to the main executable
 target_compile_options(main PRIVATE ${STRICT_COMPILE_FLAGS})
