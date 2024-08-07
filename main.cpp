@@ -39,8 +39,8 @@ int main(void)
         ClearBackground(RAYWHITE);
         BeginMode2D(cam);
 
-        grid.render();
         objects.render();
+        grid.render();
         cam.target = guy.target_postition();
         guy.update();
         guy.DrawHitbox(isColliding);
