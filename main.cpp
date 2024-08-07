@@ -3,6 +3,7 @@
 #include <vector>
 #include "guy.h"
 #include "grid.h"
+#include "objects.h"
 
 #define FPS 60
 
@@ -20,6 +21,9 @@ int main(void)
     init();
     Guy guy = Guy();
     Grid grid = Grid();
+    Objects objects = Objects();
+
+    objects.GetWorldObjects();
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -35,6 +39,7 @@ int main(void)
         BeginMode2D(cam);
 
         grid.render();
+        objects.render();
         cam.target = guy.target_postition();
         guy.update();
         guy.DrawHitbox(false);
