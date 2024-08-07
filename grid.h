@@ -12,7 +12,7 @@ public:
     ~Grid();
 
     void render(void);
-    Map map = LoadTiled("mapss.json");
+    Map map = LoadTiled("maps.json");
 
 private:
     Texture2D tilesetTexture;

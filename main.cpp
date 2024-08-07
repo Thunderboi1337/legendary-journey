@@ -37,7 +37,7 @@ int main(void)
         grid.render();
         cam.target = guy.target_postition();
         guy.update();
-
+        guy.DrawHitbox(false);
         EndMode2D();
         EndDrawing();
     }
