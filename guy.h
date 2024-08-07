@@ -10,14 +10,14 @@ public:
     Guy();
     ~Guy();
 
-    bool cooldowns(double interval);
     void input(void);
     void update(void);
+    Vector2 target_postition();
 
-    static bool dash_active;
+    Rectangle GetRect();
+    void DrawHitbox(bool isColliding);
 
-    double last_update_time;
-    const int player_speed = 3;
+    int player_speed;
     Vector2 player_position;
 
 private:
