@@ -57,3 +57,15 @@ void Objects::render(void)
         DrawRectangle(rect.x, rect.y, rect.width, rect.height, RED);
     }
 }
+
+bool Objects::isColliding(const Rectangle &rect)
+{
+    for (const auto &objectRect : rectangles)
+    {
+        if (CheckCollisionRecs(rect, objectRect))
+        {
+            return true;
+        }
+    }
+    return false;
+}

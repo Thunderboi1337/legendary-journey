@@ -33,6 +33,7 @@ int main(void)
     while (!WindowShouldClose())
     {
         guy.input();
+        bool isColliding = objects.isColliding(guy.GetRect());
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -42,7 +43,7 @@ int main(void)
         objects.render();
         cam.target = guy.target_postition();
         guy.update();
-        guy.DrawHitbox(false);
+        guy.DrawHitbox(isColliding);
         EndMode2D();
         EndDrawing();
     }

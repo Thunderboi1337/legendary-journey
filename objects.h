@@ -19,6 +19,8 @@ public:
     void render(void);
 
     std::vector<Rectangle> rectangles;
+
+    bool isColliding(const Rectangle &rect);
     // Other methods like collision detection can be added here
 
 private:
