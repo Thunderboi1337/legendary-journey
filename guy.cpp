@@ -36,23 +36,39 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
         new_position.x += player_speed * 10;
 
     // Create a rectangle representing the new position
-    Rectangle new_rect = {new_position.x, new_position.y, 20, 20};
+    Rectangle new_rectx = {new_position.x, player_position.y, 20, 20};
+    Rectangle new_recty = {player_position.x, new_position.y, 20, 20};
 
     // Check for collisions at the new position
-    bool collision = false;
+    int collision_x = 0;
+    int collision_y = 0;
+
     for (const auto &obstacle : obstacles)
     {
-        if (CheckCollisionRecs(new_rect, obstacle))
+        if (CheckCollisionRecs(new_rectx, obstacle))
         {
-            collision = true;
+            collision_x = 1;
+            break;
+        }
+    }
+    for (const auto &obstacle : obstacles)
+    {
+        if (CheckCollisionRecs(new_recty, obstacle))
+        {
+            collision_y = 1;
             break;
         }
     }
 
     // Update the player position only if there's no collision
-    if (!collision)
+    if (collision_x != 1)
     {
-        player_position = new_position;
+        player_position.x = new_position.x;
+    }
+    if (collision_y != 1)
+    {
+
+        player_position.y = new_position.y;
     }
 }
 

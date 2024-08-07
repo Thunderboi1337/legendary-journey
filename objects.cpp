@@ -33,12 +33,6 @@ void Objects::GetWorldObjects()
                         rect.y = object["y"];
 
                         rectangles.push_back(rect);
-
-                        std::cout
-                            << "Object height: " << height << std::endl;
-                        std::cout << "Object width: " << width << std::endl;
-                        std::cout << "Object x: " << x << std::endl;
-                        std::cout << "Object y: " << y << std::endl;
                     }
                 }
             }
