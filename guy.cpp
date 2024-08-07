@@ -11,10 +11,19 @@ Guy::~Guy()
 {
 }
 
-void Guy::input(void)
+void Guy::input(const std::vector<Rectangle> &obstacles)
 {
     if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))
     {
+        for (const auto &obstacle : obstacles)
+        {
+            if (CheckCollisionRecs(GetRect(), obstacle))
+            {
+                // If a collision is detected, do not update the position
+                return;
+            }
+        }
+
         player_position.y -= player_speed;
     }
     if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))

@@ -17,10 +17,11 @@ public:
 
     void GetWorldObjects();
     void render(void);
-
     std::vector<Rectangle> rectangles;
 
+    std::vector<Rectangle> GetObjects();
     bool isColliding(const Rectangle &rect);
+
     // Other methods like collision detection can be added here
 
 private:

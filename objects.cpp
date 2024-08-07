@@ -58,6 +58,12 @@ void Objects::render(void)
     }
 }
 
+std::vector<Rectangle> Objects::GetObjects()
+{
+
+    return std::vector<Rectangle>(rectangles);
+}
+
 bool Objects::isColliding(const Rectangle &rect)
 {
     for (const auto &objectRect : rectangles)
