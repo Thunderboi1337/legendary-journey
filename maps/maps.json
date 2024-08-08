@@ -10986,7 +10986,7 @@
               {
                      "columns": 8,
                      "firstgid": 1,
-                     "image": "..\/..\/Downloads\/Texture\/TX Tileset Grass.png",
+                     "image": "TX Tileset Grass.png",
                      "imageheight": 256,
                      "imagewidth": 256,
                      "margin": 0,
@@ -10999,7 +10999,7 @@
               {
                      "columns": 16,
                      "firstgid": 65,
-                     "image": "..\/..\/Downloads\/Texture\/TX Tileset Wall.png",
+                     "image": "TX Tileset Wall.png",
                      "imageheight": 512,
                      "imagewidth": 512,
                      "margin": 0,

@@ -10,6 +10,10 @@ Objects::Objects()
     file.close();
 }
 
+Objects::~Objects()
+{
+}
+
 void Objects::GetWorldObjects()
 {
     Rectangle rect;

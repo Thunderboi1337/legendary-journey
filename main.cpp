@@ -36,6 +36,7 @@ int main(void)
         bool isColliding = objects.isColliding(guy.GetRect());
 
         BeginDrawing();
+
         ClearBackground(RAYWHITE);
         BeginMode2D(cam);
 
@@ -44,11 +45,16 @@ int main(void)
         cam.target = guy.target_postition();
         guy.update();
         guy.DrawHitbox(isColliding);
+
+        sprintf(position_text, "X: %.2f, Y: %.2f", player_position.x, player_position.y);
+
         EndMode2D();
         EndDrawing();
     }
 
     grid.~Grid();
+    guy.~Guy();
+    objects.~Objects();
     CloseWindow();
 
     return 0;

@@ -85,7 +85,16 @@ target_compile_options(main PRIVATE ${STRICT_COMPILE_FLAGS})
 # Make sure Raylib is built before linking
 add_dependencies(main raylib)
 
-set(TILE_IMAGE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/sprites/)
+# Define the path to your maps.json file
+set(MAPS_JSON_PATH ${CMAKE_CURRENT_SOURCE_DIR}/maps/maps.json)
+
+# Copy maps.json to the target directory after building the executable
+add_custom_command(
+    TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${MAPS_JSON_PATH} $<TARGET_FILE_DIR:main>
+)
+
+set(TILE_IMAGE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/sprites/*.png)
 add_custom_command(
     TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${TILE_IMAGE_PATH} $<TARGET_FILE_DIR:main>)

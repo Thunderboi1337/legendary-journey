@@ -12,6 +12,7 @@ class Objects
 {
 public:
     Objects();
+    ~Objects();
 
     json data;
 
