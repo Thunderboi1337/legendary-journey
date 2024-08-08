@@ -63,7 +63,7 @@ FetchContent_MakeAvailable(json)
 
 # Add your libraries
 add_library(guylib guy.cpp)
-add_library(gridlib grid.cpp)
+add_library(worldlib world.cpp)
 add_library(objectslib objects.cpp)
 
 # Ensure the include directories are set for tileson
@@ -74,10 +74,10 @@ add_library(tylesonlib ThirdParty/tileson/src/raylib-tileson.cpp)
 add_executable(main main.cpp)
 
 # Include directories for json
-target_include_directories(gridlib PRIVATE ${json_SOURCE_DIR}/include . ThirdParty/raylib-cpp/include ThirdParty/tileson/include )
+target_include_directories(worldlib PRIVATE ${json_SOURCE_DIR}/include . ThirdParty/raylib-cpp/include ThirdParty/tileson/include )
 target_include_directories(objectslib PRIVATE ${json_SOURCE_DIR}/include )
 # Link libraries to the main executable
-target_link_libraries(main raylib guylib gridlib tylesonlib nlohmann_json::nlohmann_json objectslib)
+target_link_libraries(main raylib guylib worldlib tylesonlib nlohmann_json::nlohmann_json objectslib)
 
 # Apply strict compile flags only to the main executable
 target_compile_options(main PRIVATE ${STRICT_COMPILE_FLAGS})

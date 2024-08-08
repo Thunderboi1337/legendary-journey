@@ -20,8 +20,6 @@ void Objects::GetWorldObjects()
 
     try
     {
-        std::cout << data["objects"] << std::endl;
-
         if (data.contains("layers"))
         {
             for (const auto &layer : data["layers"])

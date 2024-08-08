@@ -2,7 +2,7 @@
 #include <raylib.h>
 #include <vector>
 #include "guy.h"
-#include "grid.h"
+#include "world.h"
 #include "objects.h"
 
 #define FPS 60
@@ -20,7 +20,7 @@ int main(void)
 {
     init();
     Guy guy = Guy();
-    Grid grid = Grid();
+    World world = World();
     Objects objects = Objects();
 
     Camera2D cam = {0};
@@ -41,7 +41,7 @@ int main(void)
         BeginMode2D(cam);
 
         objects.render();
-        grid.render();
+        world.render();
         cam.target = guy.target_postition();
         guy.update();
         guy.DrawHitbox(isColliding);
@@ -55,7 +55,7 @@ int main(void)
         EndDrawing();
     }
 
-    grid.~Grid();
+    world.~World();
     guy.~Guy();
     objects.~Objects();
     CloseWindow();
