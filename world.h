@@ -1,15 +1,15 @@
-#ifndef GRID_H
-#define GRID_H
+#ifndef WORLD_H
+#define WORLD_H
 
 #include "raylib.h"
 #define RAYLIB_TILESON_IMPLEMENTATION
 #include "raylib-tileson.h"
 
-class Grid
+class World
 {
 public:
-    Grid();
-    ~Grid();
+    World();
+    ~World();
 
     Map map = LoadTiled("maps.json");
 

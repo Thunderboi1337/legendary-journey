@@ -10,14 +10,16 @@ Objects::Objects()
     file.close();
 }
 
+Objects::~Objects()
+{
+}
+
 void Objects::GetWorldObjects()
 {
     Rectangle rect;
 
     try
     {
-        std::cout << data["objects"] << std::endl;
-
         if (data.contains("layers"))
         {
             for (const auto &layer : data["layers"])

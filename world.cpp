@@ -1,16 +1,16 @@
-#include "grid.h"
+#include "world.h"
 #include <iostream>
 
-Grid::Grid()
+World::World()
 {
 }
 
-Grid::~Grid()
+World::~World()
 {
     UnloadMap(map);
 }
 
-void Grid::render(void)
+void World::render(void)
 {
     DrawTiled(map, 0, 0, WHITE);
 }
