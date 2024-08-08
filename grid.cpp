@@ -1,6 +1,9 @@
 #include "grid.h"
+#include <iostream>
 
-Grid::Grid() {}
+Grid::Grid()
+{
+}
 
 Grid::~Grid()
 {

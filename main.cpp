@@ -3,6 +3,7 @@
 #include <vector>
 #include "guy.h"
 #include "grid.h"
+#include "objects.h"
 
 #define FPS 60
 
@@ -20,24 +21,29 @@ int main(void)
     init();
     Guy guy = Guy();
     Grid grid = Grid();
+    Objects objects = Objects();
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     cam.rotation = 0.0f;
     cam.zoom = 1.0f;
 
+    objects.GetWorldObjects();
+
     while (!WindowShouldClose())
     {
-        guy.input();
+        guy.input(objects.GetObjects());
+        bool isColliding = objects.isColliding(guy.GetRect());
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
         BeginMode2D(cam);
 
+        objects.render();
         grid.render();
         cam.target = guy.target_postition();
         guy.update();
-        guy.DrawHitbox(false);
+        guy.DrawHitbox(isColliding);
         EndMode2D();
         EndDrawing();
     }

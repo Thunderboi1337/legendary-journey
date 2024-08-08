@@ -11,42 +11,64 @@ Guy::~Guy()
 {
 }
 
-void Guy::input(void)
+void Guy::input(const std::vector<Rectangle> &obstacles)
 {
+    Vector2 new_position = player_position; // Start with the current position
+
+    // Handle normal movement
     if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))
-    {
-        player_position.y -= player_speed;
-    }
+        new_position.y -= player_speed;
     if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
-    {
-        player_position.y += player_speed;
-    }
+        new_position.y += player_speed;
     if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))
-    {
-        player_position.x -= player_speed;
-    }
+        new_position.x -= player_speed;
     if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
-    {
-        player_position.x += player_speed;
-    }
+        new_position.x += player_speed;
+
+    // Handle sprint movement
     if (IsKeyDown(KEY_W) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-
-        player_position.y -= player_speed * 10;
-    }
+        new_position.y -= player_speed * 10;
     if (IsKeyDown(KEY_S) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-        player_position.y += player_speed * 10;
-    }
+        new_position.y += player_speed * 10;
     if (IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-
-        player_position.x -= player_speed * 10;
-    }
+        new_position.x -= player_speed * 10;
     if (IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT))
+        new_position.x += player_speed * 10;
+
+    // Create a rectangle representing the new position
+    Rectangle new_rectx = {new_position.x, player_position.y, 20, 20};
+    Rectangle new_recty = {player_position.x, new_position.y, 20, 20};
+
+    // Check for collisions at the new position
+    int collision_x = 0;
+    int collision_y = 0;
+
+    for (const auto &obstacle : obstacles)
+    {
+        if (CheckCollisionRecs(new_rectx, obstacle))
+        {
+            collision_x = 1;
+            break;
+        }
+    }
+    for (const auto &obstacle : obstacles)
+    {
+        if (CheckCollisionRecs(new_recty, obstacle))
+        {
+            collision_y = 1;
+            break;
+        }
+    }
+
+    // Update the player position only if there's no collision
+    if (collision_x != 1)
+    {
+        player_position.x = new_position.x;
+    }
+    if (collision_y != 1)
     {
 
-        player_position.x += player_speed * 10;
+        player_position.y = new_position.y;
     }
 }
 

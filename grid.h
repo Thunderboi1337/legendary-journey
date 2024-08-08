@@ -11,8 +11,9 @@ public:
     Grid();
     ~Grid();
 
-    void render(void);
     Map map = LoadTiled("maps.json");
+
+    void render(void);
 
 private:
     Texture2D tilesetTexture;

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <raylib.h>
+#include <vector>
 
 class Guy
 {
@@ -10,7 +11,7 @@ public:
     Guy();
     ~Guy();
 
-    void input(void);
+    void input(const std::vector<Rectangle> &obstacles);
     void update(void);
     Vector2 target_postition();
 
