@@ -2,6 +2,7 @@
 #define ENEMIES_H
 
 #include "raylib.h"
+#include <vector>
 
 class Enemies
 {
@@ -14,7 +15,10 @@ public:
     ~Enemies();
 
     void render();
-    void move(Vector2 guy_position);
+    void move(Vector2 guy_position, const std::vector<Rectangle> &obstacles);
+
+    Rectangle GetRect();
+    void DrawHitbox(bool isColliding);
 };
 
 #endif

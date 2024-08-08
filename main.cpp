@@ -36,8 +36,9 @@ int main(void)
     {
         guy.input(objects.GetObjects());
         bool isColliding = objects.isColliding(guy.GetRect());
+        bool isEColliding = objects.isColliding(enemies.GetRect());
 
-        enemies.move(guy.target_postition());
+        enemies.move(guy.target_postition(), objects.GetObjects());
 
         BeginDrawing();
 
@@ -49,7 +50,14 @@ int main(void)
         cam.target = guy.target_postition();
         guy.render();
         enemies.render();
+        enemies.DrawHitbox(isEColliding);
         guy.DrawHitbox(isColliding);
+
+        if (CheckCollisionRecs(guy.GetRect(), enemies.GetRect()))
+        {
+            enemies.DrawHitbox(true);
+            guy.DrawHitbox(true);
+        }
 
         char position_text[50];
         sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);
@@ -63,6 +71,7 @@ int main(void)
     world.~World();
     guy.~Guy();
     objects.~Objects();
+    enemies.~Enemies();
     CloseWindow();
 
     return 0;
