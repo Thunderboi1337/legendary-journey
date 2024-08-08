@@ -61,7 +61,6 @@ int main(void)
         guy.render();
         enemies.render();
         enemies.DrawHitbox(isEColliding);
-        guy.DrawHitbox(isColliding);
 
         char position_text[50];
         sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);

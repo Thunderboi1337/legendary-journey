@@ -2,13 +2,22 @@
 
 Guy::Guy()
 {
+    sprite = LoadTexture("knight.png");
 
-    player_position = {811, 973};
     player_speed = 3;
+    player_position = {811, 973};
+
+    currentFrame = 0;
+    framesCounter = 0;
+    framesSpeed = 3;
+    frameCounter = 0;
+
+    frameRec = {0.0f, 0.0f, (float)sprite.width / 9, (float)sprite.height / 9};
 }
 
 Guy::~Guy()
 {
+    UnloadTexture(sprite);
 }
 
 void Guy::input(const std::vector<Rectangle> &obstacles)
@@ -74,7 +83,21 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
 
 void Guy::render(void)
 {
-    DrawRectangle(player_position.x, player_position.y, 20, 20, BLUE);
+
+    frameCounter++;
+
+    if (frameCounter >= (60 / framesSpeed))
+    {
+        frameCounter = 0;
+        currentFrame++;
+
+        if (currentFrame > 2)
+            currentFrame = 0;
+
+        frameRec.x = (float)currentFrame * (float)sprite.width / 8;
+    }
+
+    DrawTextureRec(sprite, frameRec, player_position, WHITE);
 }
 
 Vector2 Guy::target_postition()

@@ -21,6 +21,15 @@ public:
     int player_speed;
     Vector2 player_position;
 
+    Texture2D sprite;
+
+    // Animation variables
+    int currentFrame;
+    int framesCounter;
+    int framesSpeed;
+    int frameCounter; // Current frame in the animation
+    Rectangle frameRec;
+
 private:
 };
 
