@@ -48,16 +48,20 @@ int main(void)
         objects.render();
         world.render();
         cam.target = guy.target_postition();
-        guy.render();
-        enemies.render();
-        enemies.DrawHitbox(isEColliding);
-        guy.DrawHitbox(isColliding);
 
         if (CheckCollisionRecs(guy.GetRect(), enemies.GetRect()))
         {
             enemies.DrawHitbox(true);
             guy.DrawHitbox(true);
+            char bang[] = "BANG";
+            Vector2 pos = guy.target_postition();
+            DrawText(bang, pos.x, pos.y - 30, 20, RED);
         }
+
+        guy.render();
+        enemies.render();
+        enemies.DrawHitbox(isEColliding);
+        guy.DrawHitbox(isColliding);
 
         char position_text[50];
         sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);
