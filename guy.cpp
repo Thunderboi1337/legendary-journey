@@ -72,7 +72,7 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
     }
 }
 
-void Guy::update(void)
+void Guy::render(void)
 {
     DrawRectangle(player_position.x, player_position.y, 20, 20, BLUE);
 }

@@ -4,6 +4,7 @@
 #include "guy.h"
 #include "world.h"
 #include "objects.h"
+#include "enemies.h"
 
 #define FPS 60
 
@@ -22,6 +23,7 @@ int main(void)
     Guy guy = Guy();
     World world = World();
     Objects objects = Objects();
+    Enemies enemies = Enemies();
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -35,6 +37,8 @@ int main(void)
         guy.input(objects.GetObjects());
         bool isColliding = objects.isColliding(guy.GetRect());
 
+        enemies.move(guy.target_postition());
+
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
@@ -43,7 +47,8 @@ int main(void)
         objects.render();
         world.render();
         cam.target = guy.target_postition();
-        guy.update();
+        guy.render();
+        enemies.render();
         guy.DrawHitbox(isColliding);
 
         char position_text[50];

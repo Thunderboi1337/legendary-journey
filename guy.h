@@ -12,7 +12,7 @@ public:
     ~Guy();
 
     void input(const std::vector<Rectangle> &obstacles);
-    void update(void);
+    void render(void);
     Vector2 target_postition();
 
     Rectangle GetRect();
