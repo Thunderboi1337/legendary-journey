@@ -74,13 +74,7 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
 
 void Guy::update(void)
 {
-
-    char position_text[50];
-    sprintf(position_text, "X: %.2f, Y: %.2f", player_position.x, player_position.y);
-
     DrawRectangle(player_position.x, player_position.y, 20, 20, BLUE);
-
-    DrawText(position_text, 10, 10, 20, DARKGRAY);
 }
 
 Vector2 Guy::target_postition()

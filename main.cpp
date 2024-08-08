@@ -46,9 +46,12 @@ int main(void)
         guy.update();
         guy.DrawHitbox(isColliding);
 
-        sprintf(position_text, "X: %.2f, Y: %.2f", player_position.x, player_position.y);
+        char position_text[50];
+        sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);
 
         EndMode2D();
+
+        DrawText(position_text, 10, 10, 20, DARKGRAY);
         EndDrawing();
     }
 
