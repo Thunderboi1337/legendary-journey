@@ -5,6 +5,15 @@
 #include <raylib.h>
 #include <vector>
 
+#define IDLE_FRAME_COUNT 4
+
+enum PlayerState
+{
+    IDLE,
+    RUNNING,
+    ROLL
+};
+
 class Guy
 {
 public:
@@ -12,7 +21,7 @@ public:
     ~Guy();
 
     void input(const std::vector<Rectangle> &obstacles);
-    void update(void);
+    void render(void);
     Vector2 target_postition();
 
     Rectangle GetRect();
@@ -20,6 +29,18 @@ public:
 
     int player_speed;
     Vector2 player_position;
+
+    Texture2D sprite;
+
+    // Animation variables
+    int currentFrame;
+    int framesCounter;
+    int framesSpeed;
+    int frameCounter; // Current frame in the animation
+    Rectangle frameRec;
+
+    PlayerState player_state;
+    bool facingRight;
 
 private:
 };

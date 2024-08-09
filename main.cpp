@@ -4,6 +4,7 @@
 #include "guy.h"
 #include "world.h"
 #include "objects.h"
+#include "enemies.h"
 
 #define FPS 60
 
@@ -22,6 +23,7 @@ int main(void)
     Guy guy = Guy();
     World world = World();
     Objects objects = Objects();
+    Enemies enemies = Enemies();
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -34,6 +36,9 @@ int main(void)
     {
         guy.input(objects.GetObjects());
         bool isColliding = objects.isColliding(guy.GetRect());
+        bool isEColliding = objects.isColliding(enemies.GetRect());
+
+        enemies.move(guy.target_postition(), objects.GetObjects());
 
         BeginDrawing();
 
@@ -43,8 +48,21 @@ int main(void)
         objects.render();
         world.render();
         cam.target = guy.target_postition();
-        guy.update();
-        guy.DrawHitbox(isColliding);
+
+        if (CheckCollisionRecs(guy.GetRect(), enemies.GetRect()))
+        {
+            enemies.DrawHitbox(true);
+            guy.DrawHitbox(true);
+            char bang[] = "BANG";
+            Vector2 pos = guy.target_postition();
+            DrawText(bang, pos.x, pos.y - 30, 20, RED);
+        }
+
+        enemies.DrawHitbox(true);
+        guy.DrawHitbox(true);
+
+        guy.render();
+        enemies.render();
 
         char position_text[50];
         sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);
@@ -58,6 +76,7 @@ int main(void)
     world.~World();
     guy.~Guy();
     objects.~Objects();
+    enemies.~Enemies();
     CloseWindow();
 
     return 0;
