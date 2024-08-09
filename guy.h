@@ -5,6 +5,8 @@
 #include <raylib.h>
 #include <vector>
 
+#define IDLE_FRAME_COUNT 4
+
 class Guy
 {
 public:
@@ -29,6 +31,16 @@ public:
     int framesSpeed;
     int frameCounter; // Current frame in the animation
     Rectangle frameRec;
+
+    enum PlayerState
+    {
+        IDLE,
+        RUNNING,
+        ROLL
+    };
+
+    PlayerState player_state;
+    bool facingRight;
 
 private:
 };
