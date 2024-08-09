@@ -159,14 +159,16 @@ void Guy::render(void)
         frameRec.y = 5 * (float)sprite.height / 8; // Third row for running animation
         frameRec.x = (float)currentFrame * (float)sprite.width / 8;
     }
+    float scaleFactor = 1.5f;
 
     if (facingRight)
     {
         Vector2 adjustedPosition = player_position;
-        adjustedPosition.x -= (frameRec.width - 23); // Adjust to keep sprite centered
-        adjustedPosition.y -= 9;
+        adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sprite centered
+        adjustedPosition.y -= 15 * scaleFactor;
 
-        DrawTextureRec(sprite, frameRec, adjustedPosition, WHITE);
+        DrawTexturePro(sprite, frameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
+                       {0, 0}, 0.0f, WHITE);
     }
     else
     {
@@ -175,9 +177,11 @@ void Guy::render(void)
         flippedFrameRec.width *= -1; // Invert the width
 
         Vector2 adjustedPosition = player_position;
-        adjustedPosition.x -= (frameRec.width - 23); // Adjust to keep sprite centered
-        adjustedPosition.y -= 9;
-        DrawTextureRec(sprite, flippedFrameRec, adjustedPosition, WHITE);
+        adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sprite centered
+        adjustedPosition.y -= 15 * scaleFactor;
+
+        DrawTexturePro(sprite, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
+                       {0, 0}, 0.0f, WHITE);
     }
 }
 

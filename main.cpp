@@ -58,6 +58,9 @@ int main(void)
             DrawText(bang, pos.x, pos.y - 30, 20, RED);
         }
 
+        enemies.DrawHitbox(true);
+        guy.DrawHitbox(true);
+
         guy.render();
         enemies.render();
 

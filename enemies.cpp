@@ -51,8 +51,8 @@ void Enemies::render()
 
     if (facingRight)
     {
-        adjustedPosition.x -= (frameRec.width - 10) * scaleFactor; // Adjust to keep sprite centered
-        adjustedPosition.y += 16;                                  // Adjust vertical positioning if needed
+        adjustedPosition.x -= (frameRec.width - 23) * scaleFactor; // Adjust to keep sprite centered
+        adjustedPosition.y -= 16;                                  // Adjust vertical positioning if needed
 
         DrawTexturePro(sprite, frameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
                        {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
@@ -63,8 +63,8 @@ void Enemies::render()
         Rectangle flippedFrameRec = frameRec;
         flippedFrameRec.width *= -1; // Invert the width
 
-        adjustedPosition.x -= (frameRec.width + 10) * scaleFactor; // Adjust to keep sprite centered
-        adjustedPosition.y += 16;                                  // Adjust vertical positioning if needed
+        adjustedPosition.x -= (frameRec.width - 23) * scaleFactor; // Adjust to keep sprite centered
+        adjustedPosition.y -= 16;                                  // Adjust vertical positioning if needed
 
         DrawTexturePro(sprite, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
                        {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
