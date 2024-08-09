@@ -79,8 +79,8 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
     }
 
     // Create a rectangle representing the new position
-    Rectangle new_rectx = {new_position.x, player_position.y, 10, 20};
-    Rectangle new_recty = {player_position.x, new_position.y, 10, 20};
+    Rectangle new_rectx = {new_position.x, player_position.y, 15, 20};
+    Rectangle new_recty = {player_position.x, new_position.y, 15, 20};
 
     // Check for collisions at the new position
     int collision_x = 0;
@@ -163,8 +163,8 @@ void Guy::render(void)
     if (facingRight)
     {
         Vector2 adjustedPosition = player_position;
-        adjustedPosition.x -= (frameRec.width - 22); // Adjust to keep sprite centered
-        adjustedPosition.y -= 10;
+        adjustedPosition.x -= (frameRec.width - 23); // Adjust to keep sprite centered
+        adjustedPosition.y -= 9;
 
         DrawTextureRec(sprite, frameRec, adjustedPosition, WHITE);
     }
@@ -175,8 +175,8 @@ void Guy::render(void)
         flippedFrameRec.width *= -1; // Invert the width
 
         Vector2 adjustedPosition = player_position;
-        adjustedPosition.x -= (frameRec.width - 22); // Adjust to keep sprite centered
-        adjustedPosition.y -= 10;
+        adjustedPosition.x -= (frameRec.width - 23); // Adjust to keep sprite centered
+        adjustedPosition.y -= 9;
         DrawTextureRec(sprite, flippedFrameRec, adjustedPosition, WHITE);
     }
 }
