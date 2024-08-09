@@ -8,12 +8,12 @@ Enemies::Enemies()
     enemies_position = {811, 800};
     enemies_speed = 2;
 
-    framesSpeed = 10;
+    framesSpeed = 5;
     currentFrame = 0;
     framesCounter = 0;
     frameCounter = 0;
 
-    frameRec = {0.0f, 0.0f, (float)sprite.width / 8, (float)sprite.height / 8};
+    frameRec = {0.0f, 0.0f, (float)sprite.width / 4, (float)sprite.height / 3};
 
     facingRight = true;
 }
@@ -38,20 +38,24 @@ void Enemies::render()
             currentFrame = 0;
 
         // Set the frameRec for the current frame
-        frameRec.x = (float)currentFrame * (float)sprite.width / 8;
+        frameRec.x = (float)currentFrame * (float)sprite.width / 4;
     }
 
     // Set the frameRec y-position to point to the correct animation row
-    frameRec.y = 2 * (float)sprite.height / 8;
+    frameRec.y = 1 * (float)sprite.height / 3;
 
     Vector2 adjustedPosition = enemies_position;
 
+    // Define the scale factor
+    float scaleFactor = 2.0f; // Adjust this value to scale the sprite to your desired size
+
     if (facingRight)
     {
-        adjustedPosition.x -= (frameRec.width - 26); // Adjust to keep sprite centered
-        adjustedPosition.y -= 10;                    // Adjust vertical positioning if needed
+        adjustedPosition.x -= (frameRec.width - 10) * scaleFactor; // Adjust to keep sprite centered
+        adjustedPosition.y += 16;                                  // Adjust vertical positioning if needed
 
-        DrawTextureRec(sprite, frameRec, adjustedPosition, WHITE);
+        DrawTexturePro(sprite, frameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
     }
     else
     {
@@ -59,14 +63,14 @@ void Enemies::render()
         Rectangle flippedFrameRec = frameRec;
         flippedFrameRec.width *= -1; // Invert the width
 
-        adjustedPosition.x -= (frameRec.width - 26); // Adjust to keep sprite centered
-        adjustedPosition.y -= 10;                    // Adjust vertical positioning if needed
+        adjustedPosition.x -= (frameRec.width + 10) * scaleFactor; // Adjust to keep sprite centered
+        adjustedPosition.y += 16;                                  // Adjust vertical positioning if needed
 
-        DrawTextureRec(sprite, flippedFrameRec, adjustedPosition, WHITE);
+        DrawTexturePro(sprite, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
     }
 
     // Draw hitbox for debugging
-    DrawRectangle(enemies_position.x, enemies_position.y, 20, 20, BLUE);
 }
 
 void Enemies::move(Vector2 guy_position, const std::vector<Rectangle> &obstacles)
