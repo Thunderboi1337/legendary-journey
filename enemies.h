@@ -19,6 +19,17 @@ public:
 
     Rectangle GetRect();
     void DrawHitbox(bool isColliding);
+
+    Texture2D sprite;
+
+    // Animation variables
+    int currentFrame;
+    int framesCounter;
+    int framesSpeed;
+    int frameCounter; // Current frame in the animation
+    Rectangle frameRec;
+
+    bool facingRight;
 };
 
 #endif

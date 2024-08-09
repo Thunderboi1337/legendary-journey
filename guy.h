@@ -7,6 +7,13 @@
 
 #define IDLE_FRAME_COUNT 4
 
+enum PlayerState
+{
+    IDLE,
+    RUNNING,
+    ROLL
+};
+
 class Guy
 {
 public:
@@ -31,13 +38,6 @@ public:
     int framesSpeed;
     int frameCounter; // Current frame in the animation
     Rectangle frameRec;
-
-    enum PlayerState
-    {
-        IDLE,
-        RUNNING,
-        ROLL
-    };
 
     PlayerState player_state;
     bool facingRight;

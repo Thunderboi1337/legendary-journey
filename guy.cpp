@@ -5,9 +5,9 @@ Guy::Guy()
     sprite = LoadTexture("knight.png");
 
     player_speed = 3;
-    framesSpeed = 10;
     player_position = {811, 973};
 
+    framesSpeed = 10;
     currentFrame = 0;
     framesCounter = 0;
     frameCounter = 0;
@@ -56,31 +56,31 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
     // Handle sprint movement
     if (IsKeyDown(KEY_W) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT_SHIFT))
     {
-        new_position.y -= player_speed * 10;
+        new_position.y -= player_speed * 5;
         player_state = ROLL;
     }
 
     if (IsKeyDown(KEY_S) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT_SHIFT))
     {
-        new_position.y += player_speed * 10;
+        new_position.y += player_speed * 5;
         player_state = ROLL;
     }
     if (IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT))
     {
-        new_position.x -= player_speed * 10;
+        new_position.x -= player_speed * 5;
         player_state = ROLL;
         facingRight = false;
     }
     if (IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT))
     {
-        new_position.x += player_speed * 10;
+        new_position.x += player_speed * 5;
         player_state = ROLL;
         facingRight = true;
     }
 
     // Create a rectangle representing the new position
-    Rectangle new_rectx = {new_position.x, player_position.y, 20, 20};
-    Rectangle new_recty = {player_position.x, new_position.y, 20, 20};
+    Rectangle new_rectx = {new_position.x, player_position.y, 10, 20};
+    Rectangle new_recty = {player_position.x, new_position.y, 10, 20};
 
     // Check for collisions at the new position
     int collision_x = 0;
@@ -163,7 +163,7 @@ void Guy::render(void)
     if (facingRight)
     {
         Vector2 adjustedPosition = player_position;
-        adjustedPosition.x -= (frameRec.width - 26); // Adjust to keep sprite centered
+        adjustedPosition.x -= (frameRec.width - 22); // Adjust to keep sprite centered
         adjustedPosition.y -= 10;
 
         DrawTextureRec(sprite, frameRec, adjustedPosition, WHITE);
@@ -175,7 +175,7 @@ void Guy::render(void)
         flippedFrameRec.width *= -1; // Invert the width
 
         Vector2 adjustedPosition = player_position;
-        adjustedPosition.x -= (frameRec.width - 26); // Adjust to keep sprite centered
+        adjustedPosition.x -= (frameRec.width - 22); // Adjust to keep sprite centered
         adjustedPosition.y -= 10;
         DrawTextureRec(sprite, flippedFrameRec, adjustedPosition, WHITE);
     }
@@ -189,7 +189,7 @@ Vector2 Guy::target_postition()
 
 Rectangle Guy::GetRect()
 {
-    return Rectangle{player_position.x, player_position.y, 20, 20};
+    return Rectangle{player_position.x, player_position.y, 15, 20};
 }
 
 void Guy::DrawHitbox(bool isColliding)
