@@ -1,9 +1,9 @@
 #include "objects.h"
 #include <iostream>
 
-Objects::Objects()
+Objects::Objects(std::string file_name)
 {
-    std::ifstream file("maps.json");
+    std::ifstream file(file_name);
 
     data = json::parse(file);
 

@@ -11,7 +11,7 @@ using json = nlohmann::json;
 class Objects
 {
 public:
-    Objects();
+    Objects(std::string file_name);
     ~Objects();
 
     json data;

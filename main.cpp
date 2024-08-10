@@ -22,7 +22,8 @@ int main(void)
     init();
     Guy guy = Guy();
     World world = World();
-    Objects objects = Objects();
+    Objects objects = Objects("maps.json");
+    Objects trees = Objects("trees.json");
     Enemies enemies = Enemies();
 
     Camera2D cam = {0};
@@ -31,20 +32,26 @@ int main(void)
     cam.zoom = 1.0f;
 
     objects.GetWorldObjects();
+    trees.GetWorldObjects();
 
     while (!WindowShouldClose())
     {
-        guy.input(objects.GetObjects());
+        std::vector<Rectangle> objcts;
+        objcts = objects.GetObjects();
+        std::vector<Rectangle> treeObjects = trees.GetObjects();
+        objcts.insert(objcts.end(), treeObjects.begin(), treeObjects.end());
+
+        guy.input(objcts);
         bool isColliding = objects.isColliding(guy.GetRect());
         bool isEColliding = objects.isColliding(enemies.GetRect());
 
-        enemies.move(guy.target_postition(), objects.GetObjects());
+        enemies.move(guy.target_postition(), objcts);
 
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
         BeginMode2D(cam);
-
+        trees.render();
         objects.render();
         world.render();
         cam.target = guy.target_postition();
@@ -58,11 +65,10 @@ int main(void)
             DrawText(bang, pos.x, pos.y - 30, 20, RED);
         }
 
-        enemies.DrawHitbox(true);
-        guy.DrawHitbox(true);
-
         guy.render();
         enemies.render();
+
+        world.render_trees();
 
         char position_text[50];
         sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);
