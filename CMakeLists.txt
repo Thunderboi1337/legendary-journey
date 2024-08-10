@@ -87,7 +87,7 @@ target_compile_options(main PRIVATE ${STRICT_COMPILE_FLAGS})
 add_dependencies(main raylib)
 
 # Define the path to your maps.json file
-set(MAPS_JSON_PATH ${CMAKE_CURRENT_SOURCE_DIR}/maps/maps.json)
+set(MAPS_JSON_PATH ${CMAKE_CURRENT_SOURCE_DIR}/maps/*.json)
 
 # Copy maps.json to the target directory after building the executable
 add_custom_command(
