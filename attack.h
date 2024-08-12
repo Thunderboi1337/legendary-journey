@@ -2,6 +2,7 @@
 #define ATTACK_H
 
 #include "raylib.h"
+#include <vector>
 
 enum AttackState
 {
@@ -21,7 +22,6 @@ public:
 
     void input(const std::vector<Rectangle> &obstacles);
     void render(void);
-    void Attack(void);
     void DrawHitbox(bool isColliding);
 
     Rectangle GetRect();
