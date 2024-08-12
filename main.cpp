@@ -66,7 +66,7 @@ int main(void)
         }
 
         guy.render();
-        enemies.render();
+        // enemies.render();
 
         world.render_trees();
 

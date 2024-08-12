@@ -11,7 +11,14 @@ enum PlayerState
 {
     IDLE,
     RUNNING,
-    ROLL
+    ROLL,
+};
+
+enum AttackState
+{
+    RESTING,
+    SWORD
+
 };
 
 class Guy
@@ -31,6 +38,7 @@ public:
     Vector2 player_position;
 
     Texture2D sprite;
+    Texture2D sword;
 
     // Animation variables
     int currentFrame;
@@ -39,6 +47,10 @@ public:
     int frameCounter; // Current frame in the animation
     Rectangle frameRec;
 
+    void Movement(void);
+    void Attack(void);
+
+    AttackState attack_state;
     PlayerState player_state;
     bool facingRight;
 

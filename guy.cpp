@@ -3,6 +3,7 @@
 Guy::Guy()
 {
     sprite = LoadTexture("knight.png");
+    sword = LoadTexture("machete_iron.png");
 
     player_speed = 3;
     player_position = {811, 973};
@@ -15,12 +16,14 @@ Guy::Guy()
     frameRec = {0.0f, 0.0f, (float)sprite.width / 8, (float)sprite.height / 8};
 
     player_state = IDLE;
+    attack_state = RESTING;
     facingRight = true;
 }
 
 Guy::~Guy()
 {
     UnloadTexture(sprite);
+    UnloadTexture(sword);
 }
 
 void Guy::input(const std::vector<Rectangle> &obstacles)
@@ -78,6 +81,11 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
         facingRight = true;
     }
 
+    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+    {
+        attack_state = SWORD;
+    }
+
     // Create a rectangle representing the new position
     Rectangle new_rectx = {new_position.x, player_position.y, 15, 20};
     Rectangle new_recty = {player_position.x, new_position.y, 15, 20};
@@ -117,7 +125,29 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
 
 void Guy::render(void)
 {
+    Movement();
+    Attack();
+}
 
+Vector2 Guy::target_postition()
+{
+
+    return player_position;
+}
+
+Rectangle Guy::GetRect()
+{
+    return Rectangle{player_position.x, player_position.y, 15, 20};
+}
+
+void Guy::DrawHitbox(bool isColliding)
+{
+    Color outlinecolor = isColliding ? RED : BLACK;
+    DrawRectangleLinesEx(GetRect(), 3, outlinecolor);
+}
+
+void Guy::Movement(void)
+{
     frameCounter++;
 
     if (frameCounter >= (60 / framesSpeed))
@@ -159,6 +189,7 @@ void Guy::render(void)
         frameRec.y = 5 * (float)sprite.height / 8; // Third row for running animation
         frameRec.x = (float)currentFrame * (float)sprite.width / 8;
     }
+
     float scaleFactor = 1.5f;
 
     if (facingRight)
@@ -185,19 +216,82 @@ void Guy::render(void)
     }
 }
 
-Vector2 Guy::target_postition()
+void Guy::Attack(void)
 {
 
-    return player_position;
-}
+    frameCounter++;
 
-Rectangle Guy::GetRect()
-{
-    return Rectangle{player_position.x, player_position.y, 15, 20};
-}
+    if (frameCounter >= (60 / framesSpeed))
+    {
+        frameCounter = 0;
+        currentFrame = 0;
 
-void Guy::DrawHitbox(bool isColliding)
-{
-    Color outlinecolor = isColliding ? RED : BLACK;
-    DrawRectangleLinesEx(GetRect(), 3, outlinecolor);
+        if (currentFrame > 4)
+            currentFrame = 0;
+
+        frameRec.x = (float)currentFrame * (float)sword.width;
+    }
+
+    Vector2 adjustedPosition = player_position;
+    float scaleFactor = 1.5f;
+    float rotation = 0.0f;
+
+    if (attack_state == RESTING)
+    {
+
+        // First 8 frames (0 to 7) are on the first row of the run animation
+        frameRec.x = (float)currentFrame * (float)sword.width;
+        rotation = 90.0f;
+        adjustedPosition.x += 55;
+        adjustedPosition.y += 10;
+    }
+    else if (attack_state == SWORD)
+    {
+        frameRec.y = 2 * (float)sword.height / 4;
+        frameRec.x = (float)currentFrame * (float)sword.width / 4;
+        if (currentFrame == 0)
+        {
+            adjustedPosition.x -= 10; // left to right
+            adjustedPosition.y -= 5;  // up and down
+        }
+        else if (currentFrame == 1)
+        {
+            rotation = 15.0f;
+            adjustedPosition.y -= 5;
+        }
+        else if (currentFrame == 2)
+        {
+            rotation = -45.0f;
+            adjustedPosition.x += 20; // left to right
+            adjustedPosition.y -= 5;
+        }
+        else if (currentFrame == 3)
+        {
+            rotation = -90.0f;
+            adjustedPosition.x += 40;
+            adjustedPosition.y -= 10;
+        }
+    }
+
+    if (facingRight)
+    {
+
+        adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sprite centered
+        adjustedPosition.y -= 15 * scaleFactor;
+
+        DrawTexturePro(sword, frameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
+                       {0, 0}, rotation, WHITE);
+    }
+    else
+    {
+        // Flip the sprite by drawing with a negative width
+        Rectangle flippedFrameRec = frameRec;
+        flippedFrameRec.width *= -1; // Invert the width
+
+        adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sprite centered
+        adjustedPosition.y -= 15 * scaleFactor;
+
+        DrawTexturePro(sword, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
+                       {0, 0}, rotation, WHITE);
+    }
 }
