@@ -35,7 +35,10 @@ public:
     int currentFrame;
     int framesCounter;
     int framesSpeed;
-    int frameCounter; // Current frame in the animation
+    int frameCounter;
+
+    bool attackRight;
+    int screenWidth;
 };
 
 #endif
