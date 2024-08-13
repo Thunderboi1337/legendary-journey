@@ -53,7 +53,7 @@ void Attack::render(Vector2 player_position, bool facingRight)
         frameCounter = 0;
         currentFrame++;
 
-        if (currentFrame > 3)
+        if (currentFrame > 3 || attack_state == RESTING)
             currentFrame = 0;
 
         frameRec.x = (float)currentFrame * (float)sword.width;
