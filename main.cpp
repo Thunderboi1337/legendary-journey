@@ -69,7 +69,7 @@ int main(void)
         }
 
         guy.render();
-        attack.render(guy.target_postition());
+        attack.render(guy.target_postition(), guy.IsFacingRight());
 
         // enemies.render();
 

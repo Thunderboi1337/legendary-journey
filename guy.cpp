@@ -203,6 +203,11 @@ Rectangle Guy::GetRect()
     return Rectangle{player_position.x, player_position.y, 15, 20};
 }
 
+bool Guy::IsFacingRight(void)
+{
+    return facingRight;
+}
+
 void Guy::DrawHitbox(bool isColliding)
 {
     Color outlinecolor = isColliding ? RED : BLACK;

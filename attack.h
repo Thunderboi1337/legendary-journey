@@ -8,7 +8,6 @@ enum AttackState
 {
     RESTING,
     SWORD
-
 };
 
 class Attack
@@ -21,7 +20,7 @@ public:
     AttackState attack_state;
 
     void input(void);
-    void render(Vector2 plater_position);
+    void render(Vector2 plater_position, bool facingRight);
     void DrawHitbox(bool isColliding);
 
     Rectangle GetRect();
@@ -36,7 +35,6 @@ public:
     int framesCounter;
     int framesSpeed;
     int frameCounter; // Current frame in the animation
-    bool facingRight;
 };
 
 #endif

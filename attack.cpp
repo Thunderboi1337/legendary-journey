@@ -15,7 +15,6 @@ Attack::Attack()
     frameRec = {0.0f, 0.0f, (float)sword.width / 4, (float)sword.height / 2};
 
     attack_state = RESTING;
-    facingRight = true;
 }
 
 Attack::~Attack()
@@ -32,14 +31,14 @@ void Attack::input()
     }
 }
 
-void Attack::render(Vector2 plater_position)
+void Attack::render(Vector2 plater_position, bool facingRight)
 {
     frameCounter++;
 
     if (frameCounter >= (60 / framesSpeed))
     {
         frameCounter = 0;
-        currentFrame++;
+        currentFrame = 3;
 
         if (currentFrame > 3)
             currentFrame = 0;
@@ -84,18 +83,16 @@ void Attack::render(Vector2 plater_position)
             else if (currentFrame == 2)
             {
 
-                adjustedPosition.x += 70; // left to right
+                adjustedPosition.x += 75; // left to right
                 adjustedPosition.y += 10;
                 rotation += 90;
             }
             else if (currentFrame == 3)
             {
 
-                adjustedPosition.x += 70; // left to right
+                adjustedPosition.x += 75; // left to right
                 adjustedPosition.y += 10;
                 rotation += 90;
-
-                attack_state = RESTING;
             }
         }
         adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sword centered
@@ -106,36 +103,38 @@ void Attack::render(Vector2 plater_position)
     }
     else
     {
-        if (attack_state == SWORD)
+        if (attack_state == RESTING)
+        {
+            adjustedPosition.x -= 20;
+        }
+        else if (attack_state == SWORD)
         {
             if (currentFrame == 0)
             {
-                adjustedPosition.x += 30; // left to right
-                adjustedPosition.y -= 5;  // up and down
-                rotation += 30;           // DONE
+                adjustedPosition.x -= 25; // left to right
+                adjustedPosition.y += 20; // up and down
+                rotation -= 30;           // DONE
             }
 
             else if (currentFrame == 1)
             {
-                adjustedPosition.x += 60; // DONE
-                adjustedPosition.y += 5;
-                rotation += 75;
+                adjustedPosition.x -= 25; // left to right
+                adjustedPosition.y += 50; // up and down
+                rotation -= 75;           // Done
             }
             else if (currentFrame == 2)
             {
 
-                adjustedPosition.x += 70; // left to right
-                adjustedPosition.y += 10;
-                rotation += 90;
+                adjustedPosition.x -= 25; // left to right
+                adjustedPosition.y += 57; // up and down
+                rotation -= 90;
             }
             else if (currentFrame == 3)
             {
 
-                adjustedPosition.x += 70; // left to right
-                adjustedPosition.y += 10;
-                rotation += 90;
-
-                attack_state = RESTING;
+                adjustedPosition.x -= 26; // left to right
+                adjustedPosition.y += 57; // up and down
+                rotation -= 90;
             }
         }
 

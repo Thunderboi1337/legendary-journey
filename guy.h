@@ -27,6 +27,7 @@ public:
 
     Vector2 target_postition();
     Rectangle GetRect();
+    bool IsFacingRight(void);
 
     Vector2 player_position;
     Texture2D sprite;
