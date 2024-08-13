@@ -208,6 +208,12 @@ bool Guy::IsFacingRight(void)
     return facingRight;
 }
 
+enum PlayerState Guy::GetPlayerState(void)
+{
+
+    return player_state;
+}
+
 void Guy::DrawHitbox(bool isColliding)
 {
     Color outlinecolor = isColliding ? RED : BLACK;
