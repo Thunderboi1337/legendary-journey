@@ -59,7 +59,7 @@ int main(void)
         world.render();
         cam.target = guy.target_postition();
 
-        if (CheckCollisionRecs(guy.GetRect(), enemies.GetRect()))
+        if (CheckCollisionRecs(attack.GetRect(), enemies.GetRect()))
         {
             enemies.DrawHitbox(true);
             guy.DrawHitbox(true);
@@ -71,7 +71,7 @@ int main(void)
         guy.render();
         attack.render(guy.target_postition(), guy.IsFacingRight());
 
-        // enemies.render();
+        enemies.render();
 
         world.render_trees();
 

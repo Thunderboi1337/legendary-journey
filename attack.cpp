@@ -5,7 +5,6 @@ Attack::Attack()
     sword = LoadTexture("machete_iron.png");
 
     player_speed = 3;
-    player_position = {811, 973};
 
     framesSpeed = 10;
     currentFrame = 0;
@@ -13,6 +12,7 @@ Attack::Attack()
     frameCounter = 0;
 
     frameRec = {0.0f, 0.0f, (float)sword.width / 4, (float)sword.height / 2};
+    damage_hitbox = {0, 0, 0, 0};
 
     attack_state = RESTING;
 }
@@ -30,7 +30,7 @@ void Attack::input()
     }
 }
 
-void Attack::render(Vector2 plater_position, bool facingRight)
+void Attack::render(Vector2 player_position, bool facingRight)
 {
     frameCounter++;
 
@@ -45,7 +45,7 @@ void Attack::render(Vector2 plater_position, bool facingRight)
         frameRec.x = (float)currentFrame * (float)sword.width;
     }
 
-    Vector2 adjustedPosition = plater_position;
+    Vector2 adjustedPosition = player_position;
     float scaleFactor = 1.5f;
     float rotation = 0.0f;
 
@@ -60,12 +60,14 @@ void Attack::render(Vector2 plater_position, bool facingRight)
     {
         frameRec.y = 2 * (float)sword.height / 4;
         frameRec.x = (float)currentFrame * (float)sword.width / 4;
+        damage(player_position, facingRight);
     }
 
     if (facingRight)
     {
         if (attack_state == SWORD)
         {
+
             if (currentFrame == 0)
             {
                 adjustedPosition.x += 60; // left to right
@@ -83,7 +85,7 @@ void Attack::render(Vector2 plater_position, bool facingRight)
             {
 
                 adjustedPosition.x += 75; // left to right
-                adjustedPosition.y += 10;
+                adjustedPosition.y += 10; // Done
                 rotation += 90;
             }
             else if (currentFrame == 3)
@@ -91,7 +93,7 @@ void Attack::render(Vector2 plater_position, bool facingRight)
 
                 adjustedPosition.x += 75; // left to right
                 adjustedPosition.y += 10;
-                rotation += 90;
+                rotation += 90; // Done
 
                 attack_state = RESTING;
             }
@@ -128,14 +130,14 @@ void Attack::render(Vector2 plater_position, bool facingRight)
 
                 adjustedPosition.x -= 25; // left to right
                 adjustedPosition.y += 57; // up and down
-                rotation -= 90;
+                rotation -= 90;           // Done
             }
             else if (currentFrame == 3)
             {
 
                 adjustedPosition.x -= 26; // left to right
                 adjustedPosition.y += 57; // up and down
-                rotation -= 90;
+                rotation -= 90;           // Done
 
                 attack_state = RESTING;
             }
@@ -155,9 +157,24 @@ void Attack::render(Vector2 plater_position, bool facingRight)
 
 Rectangle Attack::GetRect()
 {
-    return Rectangle();
+    return damage_hitbox;
 }
 
 void Attack::DrawHitbox(bool isColliding)
 {
+}
+
+void Attack::damage(Vector2 player_position, bool facingRight)
+{
+
+    if (facingRight)
+    {
+        damage_hitbox = {player_position.x + 20, player_position.y - 5, 30, 25};
+    }
+    else
+    {
+        damage_hitbox = {player_position.x - 40, player_position.y - 5, 30, 25};
+    }
+
+    DrawRectangleRec(damage_hitbox, RED);
 }

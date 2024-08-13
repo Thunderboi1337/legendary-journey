@@ -22,12 +22,13 @@ public:
     void input(void);
     void render(Vector2 plater_position, bool facingRight);
     void DrawHitbox(bool isColliding);
+    void damage(Vector2 plater_position, bool facingRight);
 
     Rectangle GetRect();
 
-    Vector2 player_position;
     Texture2D sword;
     Rectangle frameRec;
+    Rectangle damage_hitbox;
 
     // Animation variables
     int player_speed;
