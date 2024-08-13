@@ -16,19 +16,16 @@ public:
 
     void render();
     void move(Vector2 guy_position, const std::vector<Rectangle> &obstacles);
-
-    Rectangle GetRect();
     void DrawHitbox(bool isColliding);
+    Rectangle GetRect();
 
     Texture2D sprite;
 
-    // Animation variables
+    Rectangle frameRec;
     int currentFrame;
     int framesCounter;
     int framesSpeed;
-    int frameCounter; // Current frame in the animation
-    Rectangle frameRec;
-
+    int frameCounter;
     bool facingRight;
 };
 
