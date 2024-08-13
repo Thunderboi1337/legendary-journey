@@ -11,7 +11,7 @@ enum PlayerState
 {
     IDLE,
     RUNNING,
-    ROLL
+    ROLL,
 };
 
 class Guy
@@ -22,22 +22,23 @@ public:
 
     void input(const std::vector<Rectangle> &obstacles);
     void render(void);
-    Vector2 target_postition();
-
-    Rectangle GetRect();
     void DrawHitbox(bool isColliding);
+    void Movement(void);
+
+    Vector2 target_postition();
+    Rectangle GetRect();
+    bool IsFacingRight(void);
+
+    Vector2 player_position;
+    Texture2D sprite;
+    Rectangle frameRec;
 
     int player_speed;
-    Vector2 player_position;
-
-    Texture2D sprite;
-
     // Animation variables
     int currentFrame;
     int framesCounter;
     int framesSpeed;
     int frameCounter; // Current frame in the animation
-    Rectangle frameRec;
 
     PlayerState player_state;
     bool facingRight;

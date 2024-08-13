@@ -15,6 +15,7 @@ Guy::Guy()
     frameRec = {0.0f, 0.0f, (float)sprite.width / 8, (float)sprite.height / 8};
 
     player_state = IDLE;
+
     facingRight = true;
 }
 
@@ -115,9 +116,8 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
     }
 }
 
-void Guy::render(void)
+void Guy::Movement(void)
 {
-
     frameCounter++;
 
     if (frameCounter >= (60 / framesSpeed))
@@ -159,6 +159,7 @@ void Guy::render(void)
         frameRec.y = 5 * (float)sprite.height / 8; // Third row for running animation
         frameRec.x = (float)currentFrame * (float)sprite.width / 8;
     }
+
     float scaleFactor = 1.5f;
 
     if (facingRight)
@@ -185,6 +186,12 @@ void Guy::render(void)
     }
 }
 
+void Guy::render(void)
+{
+
+    Movement();
+}
+
 Vector2 Guy::target_postition()
 {
 
@@ -194,6 +201,11 @@ Vector2 Guy::target_postition()
 Rectangle Guy::GetRect()
 {
     return Rectangle{player_position.x, player_position.y, 15, 20};
+}
+
+bool Guy::IsFacingRight(void)
+{
+    return facingRight;
 }
 
 void Guy::DrawHitbox(bool isColliding)
