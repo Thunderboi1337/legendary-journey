@@ -27,7 +27,6 @@ void Attack::input()
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
     {
         attack_state = SWORD;
-        currentFrame = 0;
     }
 }
 
@@ -38,7 +37,7 @@ void Attack::render(Vector2 plater_position, bool facingRight)
     if (frameCounter >= (60 / framesSpeed))
     {
         frameCounter = 0;
-        currentFrame = 3;
+        currentFrame++;
 
         if (currentFrame > 3)
             currentFrame = 0;
@@ -69,9 +68,9 @@ void Attack::render(Vector2 plater_position, bool facingRight)
         {
             if (currentFrame == 0)
             {
-                adjustedPosition.x += 30; // left to right
+                adjustedPosition.x += 60; // left to right
                 adjustedPosition.y -= 5;  // up and down
-                rotation += 30;           // DONE
+                rotation += 75;           // DONE
             }
 
             else if (currentFrame == 1)
@@ -93,6 +92,8 @@ void Attack::render(Vector2 plater_position, bool facingRight)
                 adjustedPosition.x += 75; // left to right
                 adjustedPosition.y += 10;
                 rotation += 90;
+
+                attack_state = RESTING;
             }
         }
         adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sword centered
@@ -112,8 +113,8 @@ void Attack::render(Vector2 plater_position, bool facingRight)
             if (currentFrame == 0)
             {
                 adjustedPosition.x -= 25; // left to right
-                adjustedPosition.y += 20; // up and down
-                rotation -= 30;           // DONE
+                adjustedPosition.y += 50; // up and down
+                rotation -= 75;           // DONE
             }
 
             else if (currentFrame == 1)
@@ -135,6 +136,8 @@ void Attack::render(Vector2 plater_position, bool facingRight)
                 adjustedPosition.x -= 26; // left to right
                 adjustedPosition.y += 57; // up and down
                 rotation -= 90;
+
+                attack_state = RESTING;
             }
         }
 
