@@ -5,6 +5,7 @@
 #include "world.h"
 #include "objects.h"
 #include "enemies.h"
+#include "attack.h"
 
 #define FPS 60
 
@@ -25,6 +26,7 @@ int main(void)
     Objects objects = Objects("maps.json");
     Objects trees = Objects("trees.json");
     Enemies enemies = Enemies();
+    Attack attack = Attack();
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -42,6 +44,7 @@ int main(void)
         objcts.insert(objcts.end(), treeObjects.begin(), treeObjects.end());
 
         guy.input(objcts);
+        attack.input();
         bool isColliding = objects.isColliding(guy.GetRect());
         bool isEColliding = objects.isColliding(enemies.GetRect());
 
@@ -66,6 +69,8 @@ int main(void)
         }
 
         guy.render();
+        attack.render(guy.target_postition());
+
         // enemies.render();
 
         world.render_trees();

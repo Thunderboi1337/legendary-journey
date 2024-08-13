@@ -3,7 +3,6 @@
 Guy::Guy()
 {
     sprite = LoadTexture("knight.png");
-    sword = LoadTexture("machete_iron.png");
 
     player_speed = 3;
     player_position = {811, 973};
@@ -16,14 +15,13 @@ Guy::Guy()
     frameRec = {0.0f, 0.0f, (float)sprite.width / 8, (float)sprite.height / 8};
 
     player_state = IDLE;
-    attack_state = RESTING;
+
     facingRight = true;
 }
 
 Guy::~Guy()
 {
     UnloadTexture(sprite);
-    UnloadTexture(sword);
 }
 
 void Guy::input(const std::vector<Rectangle> &obstacles)

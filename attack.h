@@ -20,8 +20,8 @@ public:
 
     AttackState attack_state;
 
-    void input(const std::vector<Rectangle> &obstacles);
-    void render(void);
+    void input(void);
+    void render(Vector2 plater_position);
     void DrawHitbox(bool isColliding);
 
     Rectangle GetRect();
