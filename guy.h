@@ -4,6 +4,7 @@
 #include <iostream>
 #include <raylib.h>
 #include <vector>
+#include "health.h"
 
 #define IDLE_FRAME_COUNT 4
 
@@ -19,6 +20,8 @@ class Guy
 public:
     Guy();
     ~Guy();
+
+    Health health;
 
     void input(const std::vector<Rectangle> &obstacles);
     void render(void);

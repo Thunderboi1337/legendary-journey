@@ -4,6 +4,8 @@ Guy::Guy()
 {
     sprite = LoadTexture("knight.png");
 
+    health = Health();
+
     player_speed = 3;
     player_position = {811, 973};
 
@@ -188,7 +190,6 @@ void Guy::Movement(void)
 
 void Guy::render(void)
 {
-
     Movement();
 }
 
@@ -210,7 +211,6 @@ bool Guy::IsFacingRight(void)
 
 enum PlayerState Guy::GetPlayerState(void)
 {
-
     return player_state;
 }
 

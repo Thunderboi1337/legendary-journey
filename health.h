@@ -11,6 +11,8 @@ public:
     ~Health();
 
     float CurrentHealth;
+    bool GameOver;
+    bool Dead;
 
     void Damage(bool hit);
 
