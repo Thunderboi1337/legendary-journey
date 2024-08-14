@@ -145,8 +145,15 @@ void Enemies::damage(void)
 
     if (health.Dead)
     {
-        enemies_position = {811, 800};
+        respawn();
     }
+}
+
+void Enemies::respawn(void)
+{
+    enemies_position = {811, 800};
+    health.CurrentHealth = 100.f;
+    health.Dead = false;
 }
 
 void Enemies::DrawHitbox(bool isColliding)

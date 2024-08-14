@@ -22,6 +22,7 @@ public:
     void DrawHitbox(bool isColliding);
     Rectangle GetRect();
     void damage(void);
+    void respawn(void);
 
     Texture2D sprite;
 
