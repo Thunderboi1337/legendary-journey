@@ -26,6 +26,5 @@ void Health::Damage(bool hit)
 
 void Health::DisplayHealth(void)
 {
-
     DrawRectangle(10, 10, CurrentHealth, 20, GREEN);
 }
