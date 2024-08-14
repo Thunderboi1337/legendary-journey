@@ -5,6 +5,8 @@ Enemies::Enemies()
 {
     sprite = LoadTexture("slime_green.png");
 
+    health = Health();
+
     enemies_position = {811, 800};
     enemies_speed = 2;
 
@@ -135,6 +137,23 @@ void Enemies::move(Vector2 guy_position, const std::vector<Rectangle> &obstacles
 Rectangle Enemies::GetRect()
 {
     return Rectangle{enemies_position.x, enemies_position.y, 20, 20};
+}
+
+void Enemies::damage(void)
+{
+    health.Damage(true);
+
+    if (health.Dead)
+    {
+        respawn();
+    }
+}
+
+void Enemies::respawn(void)
+{
+    enemies_position = {811, 800};
+    health.CurrentHealth = 100.f;
+    health.Dead = false;
 }
 
 void Enemies::DrawHitbox(bool isColliding)

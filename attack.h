@@ -21,7 +21,7 @@ public:
 
     void input(void);
     void render(Vector2 plater_position, bool facingRight);
-    void DrawHitbox(bool isColliding);
+    void RemoveHitbox(bool isColliding);
     void damage(Vector2 plater_position, bool facingRight);
 
     Rectangle GetRect();
@@ -35,7 +35,10 @@ public:
     int currentFrame;
     int framesCounter;
     int framesSpeed;
-    int frameCounter; // Current frame in the animation
+    int frameCounter;
+
+    bool attackRight;
+    int screenWidth;
 };
 
 #endif

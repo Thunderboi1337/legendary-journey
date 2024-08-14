@@ -2,6 +2,7 @@
 
 Attack::Attack()
 {
+
     sword = LoadTexture("machete_iron.png");
 
     player_speed = 3;
@@ -15,6 +16,8 @@ Attack::Attack()
     damage_hitbox = {0, 0, 0, 0};
 
     attack_state = RESTING;
+    attackRight = true;
+    screenWidth = GetScreenWidth();
 }
 
 Attack::~Attack()
@@ -24,9 +27,21 @@ Attack::~Attack()
 
 void Attack::input()
 {
+
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
     {
         attack_state = SWORD;
+
+        Vector2 mousePosition = GetMousePosition();
+
+        if (mousePosition.x > screenWidth / 2)
+        {
+            attackRight = true;
+        }
+        else
+        {
+            attackRight = false;
+        }
     }
 }
 
@@ -39,7 +54,7 @@ void Attack::render(Vector2 player_position, bool facingRight)
         frameCounter = 0;
         currentFrame++;
 
-        if (currentFrame > 3)
+        if (currentFrame > 3 || attack_state == RESTING)
             currentFrame = 0;
 
         frameRec.x = (float)currentFrame * (float)sword.width;
@@ -51,7 +66,6 @@ void Attack::render(Vector2 player_position, bool facingRight)
 
     if (attack_state == RESTING)
     {
-
         frameRec.y = (float)sword.height;
         frameRec.x = (float)currentFrame * (float)sword.width;
         adjustedPosition.x += 10; // left to right
@@ -63,9 +77,17 @@ void Attack::render(Vector2 player_position, bool facingRight)
         damage(player_position, facingRight);
     }
 
-    if (facingRight)
+    Rectangle flippedFrameRec = frameRec; // Flip the sword by drawing with a negative width
+
+    if (attackRight)
     {
-        if (attack_state == SWORD)
+
+        if (attack_state == RESTING && !facingRight)
+        {
+            adjustedPosition.x -= 20;
+            flippedFrameRec.width *= -1; // Invert the width
+        }
+        else if (attack_state == SWORD)
         {
 
             if (currentFrame == 0)
@@ -101,17 +123,20 @@ void Attack::render(Vector2 player_position, bool facingRight)
         adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sword centered
         adjustedPosition.y -= 15 * scaleFactor;
 
-        DrawTexturePro(sword, frameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
+        DrawTexturePro(sword, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
                        {0, 0}, rotation, WHITE);
     }
     else
     {
-        if (attack_state == RESTING)
+        if (attack_state == RESTING && !facingRight)
         {
             adjustedPosition.x -= 20;
+            flippedFrameRec.width *= -1; // Invert the width
         }
         else if (attack_state == SWORD)
         {
+            flippedFrameRec.width *= -1;
+
             if (currentFrame == 0)
             {
                 adjustedPosition.x -= 25; // left to right
@@ -144,8 +169,6 @@ void Attack::render(Vector2 player_position, bool facingRight)
         }
 
         // Flip the sword by drawing with a negative width
-        Rectangle flippedFrameRec = frameRec;
-        flippedFrameRec.width *= -1; // Invert the width
 
         adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sword centered
         adjustedPosition.y -= 15 * scaleFactor;
@@ -160,14 +183,15 @@ Rectangle Attack::GetRect()
     return damage_hitbox;
 }
 
-void Attack::DrawHitbox(bool isColliding)
+void Attack::RemoveHitbox(bool isColliding)
 {
+    damage_hitbox = {0, 0, 0, 0};
 }
 
 void Attack::damage(Vector2 player_position, bool facingRight)
 {
 
-    if (facingRight)
+    if (attackRight)
     {
         damage_hitbox = {player_position.x + 20, player_position.y - 5, 30, 25};
     }
