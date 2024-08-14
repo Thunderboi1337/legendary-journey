@@ -38,30 +38,16 @@ int main(void)
 
     std::vector<Rectangle> objcts = objects.GetObjects();
     std::vector<Rectangle> treeObjects = trees.GetObjects();
-
     objcts.insert(objcts.end(), treeObjects.begin(), treeObjects.end());
 
-    // Vector to hold multiple enemies
-    std::vector<Enemy> enemies;
-
     Enemy enemy = Enemy();
-    // Spawning multiple enemies
-    for (int i = 0; i < 5; i++) // Spawn 5 enemies as an example
-    {
-
-        enemy.setPosition(Vector2{static_cast<float>(i * 240), 100.0f}); // Position enemies with some spacing
-        enemies.push_back(enemy);
-    }
 
     while (!WindowShouldClose())
     {
         guy.input(objcts);
         attack.input();
 
-        for (Enemy &enemy : enemies)
-        {
-            enemy.move(guy.target_postition(), objcts);
-        }
+        enemy.move(guy.target_postition(), objcts);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -75,23 +61,18 @@ int main(void)
         attack.render(guy.target_postition(), guy.IsFacingRight());
 
         // Render all enemies
-        for (Enemy &enemy : enemies)
-        {
-            enemy.render();
-        }
+
+        enemy.render();
 
         world.render_trees();
 
-        for (Enemy &enemy : enemies)
+        if (CheckCollisionRecs(attack.GetRect(), enemy.GetRect()))
         {
-            if (CheckCollisionRecs(attack.GetRect(), enemy.GetRect()))
-            {
-                enemy.damage();
-            }
-            if (CheckCollisionRecs(guy.GetRect(), enemy.GetRect()))
-            {
-                guy.damage();
-            }
+            enemy.damage();
+        }
+        if (CheckCollisionRecs(guy.GetRect(), enemy.GetRect()))
+        {
+            guy.damage();
         }
 
         attack.RemoveHitbox(true);
@@ -109,10 +90,8 @@ int main(void)
             if (IsKeyDown(KEY_ENTER))
             {
                 guy.respawn();
-                for (Enemy &enemy : enemies)
-                {
-                    enemy.respawn();
-                }
+
+                enemy.respawn();
             }
         }
 
@@ -123,15 +102,8 @@ int main(void)
     guy.~Guy();
     objects.~Objects();
 
-    // No need to explicitly call destructors; this is just for illustration
-    for (Enemy &enemy : enemies)
-    {
-        {
-            enemy.~Enemy();
-        }
-    }
+    enemy.~Enemy();
 
-    enemies.clear();
     CloseWindow();
 
     return 0;

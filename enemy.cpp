@@ -7,7 +7,7 @@ Enemy::Enemy()
 
     health = Health();
 
-    enemies_position = {0, 0};
+    enemies_position = {250, 250};
     enemies_speed = 2;
 
     framesSpeed = 5;
@@ -24,49 +24,6 @@ Enemy::Enemy()
 Enemy::~Enemy()
 {
     UnloadTexture(sprite);
-}
-
-// Copy Constructor (Deep Copy)
-Enemy::Enemy(const Enemy &other)
-{
-    // Load a new texture for the new object
-    sprite = LoadTexture("slime_green.png");
-
-    // Copy other attributes (shallow copy)
-    health = other.health;
-    enemies_position = other.enemies_position;
-    enemies_speed = other.enemies_speed;
-    framesSpeed = other.framesSpeed;
-    currentFrame = other.currentFrame;
-    framesCounter = other.framesCounter;
-    frameCounter = other.frameCounter;
-    frameRec = other.frameRec;
-    facingRight = other.facingRight;
-}
-
-// Copy Assignment Operator (Deep Copy)
-Enemy &Enemy::operator=(const Enemy &other)
-{
-    if (this != &other)
-    { // Self-assignment check
-        // Unload the current texture
-        UnloadTexture(sprite);
-
-        // Load a new texture for the new object
-        sprite = LoadTexture("slime_green.png");
-
-        // Copy other attributes (shallow copy)
-        health = other.health;
-        enemies_position = other.enemies_position;
-        enemies_speed = other.enemies_speed;
-        framesSpeed = other.framesSpeed;
-        currentFrame = other.currentFrame;
-        framesCounter = other.framesCounter;
-        frameCounter = other.frameCounter;
-        frameRec = other.frameRec;
-        facingRight = other.facingRight;
-    }
-    return *this;
 }
 
 void Enemy::render()

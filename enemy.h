@@ -11,8 +11,6 @@ private:
 public:
     Enemy();
     ~Enemy();
-    Enemy(const Enemy &other);
-    Enemy &operator=(const Enemy &other);
 
     Health health;
 
