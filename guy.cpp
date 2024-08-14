@@ -4,6 +4,8 @@ Guy::Guy()
 {
     sprite = LoadTexture("knight.png");
 
+    health = Health();
+
     player_speed = 3;
     player_position = {811, 973};
 
@@ -186,9 +188,18 @@ void Guy::Movement(void)
     }
 }
 
+void Guy::damage(void)
+{
+    health.Damage(true);
+}
+
+void Guy::health_bar(void)
+{
+    health.DisplayHealth();
+}
+
 void Guy::render(void)
 {
-
     Movement();
 }
 
@@ -206,6 +217,11 @@ Rectangle Guy::GetRect()
 bool Guy::IsFacingRight(void)
 {
     return facingRight;
+}
+
+enum PlayerState Guy::GetPlayerState(void)
+{
+    return player_state;
 }
 
 void Guy::DrawHitbox(bool isColliding)

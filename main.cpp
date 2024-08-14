@@ -6,6 +6,7 @@
 #include "objects.h"
 #include "enemies.h"
 #include "attack.h"
+#include "health.h"
 
 #define FPS 60
 
@@ -27,6 +28,7 @@ int main(void)
     Objects trees = Objects("trees.json");
     Enemies enemies = Enemies();
     Attack attack = Attack();
+    Health health = Health();
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -38,6 +40,7 @@ int main(void)
 
     while (!WindowShouldClose())
     {
+
         std::vector<Rectangle> objcts;
         objcts = objects.GetObjects();
         std::vector<Rectangle> treeObjects = trees.GetObjects();
@@ -45,42 +48,41 @@ int main(void)
 
         guy.input(objcts);
         attack.input();
-        bool isColliding = objects.isColliding(guy.GetRect());
-        bool isEColliding = objects.isColliding(enemies.GetRect());
 
         enemies.move(guy.target_postition(), objcts);
 
         BeginDrawing();
-
         ClearBackground(RAYWHITE);
+
         BeginMode2D(cam);
-        trees.render();
-        objects.render();
+
         world.render();
         cam.target = guy.target_postition();
 
-        if (CheckCollisionRecs(attack.GetRect(), enemies.GetRect()))
-        {
-            enemies.DrawHitbox(true);
-            guy.DrawHitbox(true);
-            char bang[] = "BANG";
-            Vector2 pos = guy.target_postition();
-            DrawText(bang, pos.x, pos.y - 30, 20, RED);
-        }
-
         guy.render();
         attack.render(guy.target_postition(), guy.IsFacingRight());
-
         enemies.render();
-
         world.render_trees();
 
-        char position_text[50];
-        sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);
+        if (CheckCollisionRecs(attack.GetRect(), enemies.GetRect()))
+        {
+            enemies.damage();
+        }
+        if (CheckCollisionRecs(guy.GetRect(), enemies.GetRect()))
+        {
+            guy.damage();
+        }
+
+        attack.RemoveHitbox(true);
 
         EndMode2D();
 
-        DrawText(position_text, 10, 10, 20, DARKGRAY);
+        // char position_text[50];
+        // sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);
+        // DrawText(position_text, 10, 10, 20, DARKGRAY);
+
+        guy.health_bar();
+
         EndDrawing();
     }
 

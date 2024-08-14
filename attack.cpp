@@ -2,6 +2,7 @@
 
 Attack::Attack()
 {
+
     sword = LoadTexture("machete_iron.png");
 
     player_speed = 3;
@@ -182,8 +183,9 @@ Rectangle Attack::GetRect()
     return damage_hitbox;
 }
 
-void Attack::DrawHitbox(bool isColliding)
+void Attack::RemoveHitbox(bool isColliding)
 {
+    damage_hitbox = {0, 0, 0, 0};
 }
 
 void Attack::damage(Vector2 player_position, bool facingRight)
