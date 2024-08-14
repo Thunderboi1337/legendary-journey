@@ -81,7 +81,8 @@ int main(void)
         if (guy.isDead())
         {
             ClearBackground(RAYWHITE);
-            DrawText("GAME OVER!", (GetScreenWidth() / 2.0f) - 120, GetScreenHeight() / 2.0f, 40, DARKGRAY);
+            DrawText("GAME OVER!", (GetScreenWidth() / 2.0f) - 120, (GetScreenHeight() / 2.0f) - 40, 40, DARKGRAY);
+            DrawText("[Press Enter to try again]", (GetScreenWidth() / 2.0f) - 130, (GetScreenHeight() / 2.0f) + 20, 20, DARKGRAY);
 
             if (IsKeyDown(KEY_ENTER))
             {
