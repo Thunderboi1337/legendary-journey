@@ -1,14 +1,15 @@
 #include <iostream>
 #include <raylib.h>
 #include <vector>
-#include <memory> // Include this for std::unique_ptr
+#include <memory>
 #include "guy.h"
 #include "world.h"
 #include "objects.h"
-#include "enemy.h" // Renamed from enemies.h
+#include "enemy.h"
 #include "attack.h"
 
 #define FPS 60
+#define ENEMY_AMOUNT 5
 
 const int screenWidth = 800;
 const int screenHeight = 450;
@@ -45,7 +46,7 @@ int main(void)
     std::vector<std::unique_ptr<Enemy>> enemies;
 
     // Create and add enemies to the vector
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < ENEMY_AMOUNT; ++i)
     {
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
         enemy->setPosition({static_cast<float>(100 + i * 150), 420});
