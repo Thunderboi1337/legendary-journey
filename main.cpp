@@ -49,7 +49,7 @@ int main(void)
     for (int i = 0; i < 5; i++) // Spawn 5 enemies as an example
     {
 
-        enemy.setPosition(Vector2{static_cast<float>(i * 100), 100.0f}); // Position enemies with some spacing
+        enemy.setPosition(Vector2{static_cast<float>(i * 240), 100.0f}); // Position enemies with some spacing
         enemies.push_back(enemy);
     }
 

@@ -195,7 +195,7 @@ void Enemy::damage(void)
 
 void Enemy::respawn(void)
 {
-    enemies_position = {811, 800};
+    enemies_position = {200.f, 200.f};
     health.CurrentHealth = 100.f;
     health.Dead = false;
 }
