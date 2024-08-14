@@ -1,13 +1,13 @@
-#include "enemies.h"
+#include "enemy.h"
 #include "guy.h"
 
-Enemies::Enemies()
+Enemy::Enemy()
 {
     sprite = LoadTexture("slime_green.png");
 
     health = Health();
 
-    enemies_position = {811, 800};
+    enemies_position = {250, 250};
     enemies_speed = 2;
 
     framesSpeed = 5;
@@ -20,12 +20,13 @@ Enemies::Enemies()
     facingRight = true;
 }
 
-Enemies::~Enemies()
+// Destructor
+Enemy::~Enemy()
 {
     UnloadTexture(sprite);
 }
 
-void Enemies::render()
+void Enemy::render()
 {
     frameCounter++;
 
@@ -75,7 +76,7 @@ void Enemies::render()
     // Draw hitbox for debugging
 }
 
-void Enemies::move(Vector2 guy_position, const std::vector<Rectangle> &obstacles)
+void Enemy::move(Vector2 guy_position, const std::vector<Rectangle> &obstacles)
 {
     Vector2 new_position = enemies_position;
 
@@ -134,12 +135,12 @@ void Enemies::move(Vector2 guy_position, const std::vector<Rectangle> &obstacles
     }
 }
 
-Rectangle Enemies::GetRect()
+Rectangle Enemy::GetRect()
 {
     return Rectangle{enemies_position.x, enemies_position.y, 20, 20};
 }
 
-void Enemies::damage(void)
+void Enemy::damage(void)
 {
     health.Damage(true);
 
@@ -149,14 +150,19 @@ void Enemies::damage(void)
     }
 }
 
-void Enemies::respawn(void)
+void Enemy::respawn(void)
 {
-    enemies_position = {811, 800};
+    enemies_position = {200.f, 200.f};
     health.CurrentHealth = 100.f;
     health.Dead = false;
 }
 
-void Enemies::DrawHitbox(bool isColliding)
+void Enemy::setPosition(Vector2 position)
+{
+    enemies_position = position;
+}
+
+void Enemy::DrawHitbox(bool isColliding)
 {
     Color outlinecolor = isColliding ? RED : BLACK;
     DrawRectangleLinesEx(GetRect(), 3, outlinecolor);

@@ -1,13 +1,15 @@
 #include <iostream>
 #include <raylib.h>
 #include <vector>
+#include <memory>
 #include "guy.h"
 #include "world.h"
 #include "objects.h"
-#include "enemies.h"
+#include "enemy.h"
 #include "attack.h"
 
 #define FPS 60
+#define ENEMY_AMOUNT 5
 
 const int screenWidth = 800;
 const int screenHeight = 450;
@@ -25,7 +27,6 @@ int main(void)
     Guy guy = Guy();
     World world = World();
     Attack attack = Attack();
-    Enemies enemies = Enemies();
     Objects trees = Objects("trees.json");
     Objects objects = Objects("maps.json");
 
@@ -39,16 +40,28 @@ int main(void)
 
     std::vector<Rectangle> objcts = objects.GetObjects();
     std::vector<Rectangle> treeObjects = trees.GetObjects();
-
     objcts.insert(objcts.end(), treeObjects.begin(), treeObjects.end());
+
+    // Create a vector of unique pointers to Enemy objects
+    std::vector<std::unique_ptr<Enemy>> enemies;
+
+    // Create and add enemies to the vector
+    for (int i = 0; i < ENEMY_AMOUNT; ++i)
+    {
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
+        enemy->setPosition({static_cast<float>(100 + i * 150), 420});
+        enemies.push_back(std::move(enemy));
+    }
 
     while (!WindowShouldClose())
     {
-
         guy.input(objcts);
         attack.input();
 
-        enemies.move(guy.target_postition(), objcts);
+        for (auto &enemy : enemies)
+        {
+            enemy->move(guy.target_postition(), objcts);
+        }
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -60,16 +73,26 @@ int main(void)
 
         guy.render();
         attack.render(guy.target_postition(), guy.IsFacingRight());
-        enemies.render();
+
+        // Render all enemies
+        for (auto &enemy : enemies)
+        {
+            enemy->render();
+        }
+
         world.render_trees();
 
-        if (CheckCollisionRecs(attack.GetRect(), enemies.GetRect()))
+        // Collision checks
+        for (auto &enemy : enemies)
         {
-            enemies.damage();
-        }
-        if (CheckCollisionRecs(guy.GetRect(), enemies.GetRect()))
-        {
-            guy.damage();
+            if (CheckCollisionRecs(attack.GetRect(), enemy->GetRect()))
+            {
+                enemy->damage();
+            }
+            if (CheckCollisionRecs(guy.GetRect(), enemy->GetRect()))
+            {
+                guy.damage();
+            }
         }
 
         attack.RemoveHitbox(true);
@@ -87,17 +110,15 @@ int main(void)
             if (IsKeyDown(KEY_ENTER))
             {
                 guy.respawn();
-                enemies.respawn();
+                for (auto &enemy : enemies)
+                {
+                    enemy->respawn();
+                }
             }
         }
 
         EndDrawing();
     }
-
-    world.~World();
-    guy.~Guy();
-    objects.~Objects();
-    enemies.~Enemies();
 
     CloseWindow();
 

@@ -199,6 +199,4 @@ void Attack::damage(Vector2 player_position, bool facingRight)
     {
         damage_hitbox = {player_position.x - 40, player_position.y - 5, 30, 25};
     }
-
-    DrawRectangleRec(damage_hitbox, RED);
 }
