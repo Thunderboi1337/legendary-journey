@@ -41,13 +41,17 @@ int main(void)
     objcts.insert(objcts.end(), treeObjects.begin(), treeObjects.end());
 
     Enemy enemy = Enemy();
+    Enemy en = Enemy();
 
     while (!WindowShouldClose())
     {
         guy.input(objcts);
         attack.input();
 
+        en.setPosition({300, 420});
+
         enemy.move(guy.target_postition(), objcts);
+        en.move(guy.target_postition(), objcts);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -63,9 +67,14 @@ int main(void)
         // Render all enemies
 
         enemy.render();
+        en.render();
 
         world.render_trees();
 
+        if (CheckCollisionRecs(attack.GetRect(), en.GetRect()))
+        {
+            en.damage();
+        }
         if (CheckCollisionRecs(attack.GetRect(), enemy.GetRect()))
         {
             enemy.damage();
@@ -92,6 +101,8 @@ int main(void)
                 guy.respawn();
 
                 enemy.respawn();
+
+                en.respawn();
             }
         }
 
@@ -103,6 +114,7 @@ int main(void)
     objects.~Objects();
 
     enemy.~Enemy();
+    en.~Enemy();
 
     CloseWindow();
 
