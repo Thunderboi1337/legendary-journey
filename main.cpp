@@ -4,7 +4,7 @@
 #include "guy.h"
 #include "world.h"
 #include "objects.h"
-#include "enemies.h"
+#include "enemy.h" // Renamed from enemies.h
 #include "attack.h"
 
 #define FPS 60
@@ -25,7 +25,6 @@ int main(void)
     Guy guy = Guy();
     World world = World();
     Attack attack = Attack();
-    Enemies enemies = Enemies();
     Objects trees = Objects("trees.json");
     Objects objects = Objects("maps.json");
 
@@ -42,13 +41,27 @@ int main(void)
 
     objcts.insert(objcts.end(), treeObjects.begin(), treeObjects.end());
 
-    while (!WindowShouldClose())
+    // Vector to hold multiple enemies
+    std::vector<Enemy> enemies;
+
+    Enemy enemy = Enemy();
+    // Spawning multiple enemies
+    for (int i = 0; i < 5; i++) // Spawn 5 enemies as an example
     {
 
+        enemy.setPosition(Vector2{static_cast<float>(i * 100), 100.0f}); // Position enemies with some spacing
+        enemies.push_back(enemy);
+    }
+
+    while (!WindowShouldClose())
+    {
         guy.input(objcts);
         attack.input();
 
-        enemies.move(guy.target_postition(), objcts);
+        for (Enemy &enemy : enemies)
+        {
+            enemy.move(guy.target_postition(), objcts);
+        }
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -60,16 +73,25 @@ int main(void)
 
         guy.render();
         attack.render(guy.target_postition(), guy.IsFacingRight());
-        enemies.render();
+
+        // Render all enemies
+        for (Enemy &enemy : enemies)
+        {
+            enemy.render();
+        }
+
         world.render_trees();
 
-        if (CheckCollisionRecs(attack.GetRect(), enemies.GetRect()))
+        for (Enemy &enemy : enemies)
         {
-            enemies.damage();
-        }
-        if (CheckCollisionRecs(guy.GetRect(), enemies.GetRect()))
-        {
-            guy.damage();
+            if (CheckCollisionRecs(attack.GetRect(), enemy.GetRect()))
+            {
+                enemy.damage();
+            }
+            if (CheckCollisionRecs(guy.GetRect(), enemy.GetRect()))
+            {
+                guy.damage();
+            }
         }
 
         attack.RemoveHitbox(true);
@@ -87,7 +109,10 @@ int main(void)
             if (IsKeyDown(KEY_ENTER))
             {
                 guy.respawn();
-                enemies.respawn();
+                for (Enemy &enemy : enemies)
+                {
+                    enemy.respawn();
+                }
             }
         }
 
@@ -97,8 +122,16 @@ int main(void)
     world.~World();
     guy.~Guy();
     objects.~Objects();
-    enemies.~Enemies();
 
+    // No need to explicitly call destructors; this is just for illustration
+    for (Enemy &enemy : enemies)
+    {
+        {
+            enemy.~Enemy();
+        }
+    }
+
+    enemies.clear();
     CloseWindow();
 
     return 0;

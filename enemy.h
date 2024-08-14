@@ -1,16 +1,18 @@
-#ifndef ENEMIES_H
-#define ENEMIES_H
+#ifndef ENEMY_H
+#define ENEMY_H
 
 #include "raylib.h"
 #include <vector>
 #include "health.h"
 
-class Enemies
+class Enemy
 {
 private:
 public:
-    Enemies();
-    ~Enemies();
+    Enemy();
+    ~Enemy();
+    Enemy(const Enemy &other);
+    Enemy &operator=(const Enemy &other);
 
     Health health;
 
@@ -23,6 +25,7 @@ public:
     Rectangle GetRect();
     void damage(void);
     void respawn(void);
+    void setPosition(Vector2 position);
 
     Texture2D sprite;
 

@@ -65,7 +65,7 @@ FetchContent_MakeAvailable(json)
 add_library(guylib guy.cpp)
 add_library(worldlib world.cpp)
 add_library(objectslib objects.cpp)
-add_library(enemieslib enemies.cpp)
+add_library(enemieslib enemy.cpp)
 add_library(attacklib attack.cpp)
 add_library(healthlib health.cpp)
 
