@@ -66,11 +66,11 @@ int main(void)
 
         if (CheckCollisionRecs(attack.GetRect(), enemies.GetRect()))
         {
-            health.Damage(true);
+            enemies.damage();
         }
         if (CheckCollisionRecs(guy.GetRect(), enemies.GetRect()))
         {
-            health.Damage(true);
+            guy.damage();
         }
 
         attack.RemoveHitbox(true);
@@ -81,7 +81,7 @@ int main(void)
         // sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);
         // DrawText(position_text, 10, 10, 20, DARKGRAY);
 
-        health.DisplayHealth();
+        guy.health_bar();
 
         EndDrawing();
     }

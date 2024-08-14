@@ -188,6 +188,16 @@ void Guy::Movement(void)
     }
 }
 
+void Guy::damage(void)
+{
+    health.Damage(true);
+}
+
+void Guy::health_bar(void)
+{
+    health.DisplayHealth();
+}
+
 void Guy::render(void)
 {
     Movement();

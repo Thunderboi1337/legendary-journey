@@ -27,6 +27,8 @@ public:
     void render(void);
     void DrawHitbox(bool isColliding);
     void Movement(void);
+    void damage(void);
+    void health_bar(void);
 
     Vector2 target_postition();
     Rectangle GetRect();
