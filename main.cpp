@@ -42,16 +42,15 @@ int main(void)
 
     Enemy enemy = Enemy();
     Enemy en = Enemy();
+    en.setPosition({300, 420});
 
     while (!WindowShouldClose())
     {
         guy.input(objcts);
         attack.input();
 
-        en.setPosition({300, 420});
-
-        enemy.move(guy.target_postition(), objcts);
         en.move(guy.target_postition(), objcts);
+        enemy.move(guy.target_postition(), objcts);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
