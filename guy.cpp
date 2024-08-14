@@ -209,6 +209,18 @@ Vector2 Guy::target_postition()
     return player_position;
 }
 
+bool Guy::isDead(void)
+{
+    return health.Dead;
+}
+
+void Guy::respawn(void)
+{
+    health.Dead = false;
+    health.CurrentHealth = 100.f;
+    player_position = {811, 973};
+}
+
 Rectangle Guy::GetRect()
 {
     return Rectangle{player_position.x, player_position.y, 15, 20};

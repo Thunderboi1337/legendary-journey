@@ -29,6 +29,8 @@ public:
     void Movement(void);
     void damage(void);
     void health_bar(void);
+    bool isDead(void);
+    void respawn(void);
 
     Vector2 target_postition();
     Rectangle GetRect();
@@ -39,15 +41,15 @@ public:
     Texture2D sprite;
     Rectangle frameRec;
 
+    PlayerState player_state;
+    bool facingRight;
     int player_speed;
+
     // Animation variables
     int currentFrame;
     int framesCounter;
     int framesSpeed;
     int frameCounter; // Current frame in the animation
-
-    PlayerState player_state;
-    bool facingRight;
 
 private:
 };

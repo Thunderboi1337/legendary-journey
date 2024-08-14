@@ -6,7 +6,6 @@
 #include "objects.h"
 #include "enemies.h"
 #include "attack.h"
-#include "health.h"
 
 #define FPS 60
 
@@ -22,29 +21,29 @@ void init(void)
 int main(void)
 {
     init();
+
     Guy guy = Guy();
     World world = World();
-    Objects objects = Objects("maps.json");
-    Objects trees = Objects("trees.json");
-    Enemies enemies = Enemies();
     Attack attack = Attack();
-    Health health = Health();
+    Enemies enemies = Enemies();
+    Objects trees = Objects("trees.json");
+    Objects objects = Objects("maps.json");
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     cam.rotation = 0.0f;
     cam.zoom = 1.0f;
 
-    objects.GetWorldObjects();
     trees.GetWorldObjects();
+    objects.GetWorldObjects();
+
+    std::vector<Rectangle> objcts = objects.GetObjects();
+    std::vector<Rectangle> treeObjects = trees.GetObjects();
+
+    objcts.insert(objcts.end(), treeObjects.begin(), treeObjects.end());
 
     while (!WindowShouldClose())
     {
-
-        std::vector<Rectangle> objcts;
-        objcts = objects.GetObjects();
-        std::vector<Rectangle> treeObjects = trees.GetObjects();
-        objcts.insert(objcts.end(), treeObjects.begin(), treeObjects.end());
 
         guy.input(objcts);
         attack.input();
@@ -77,11 +76,19 @@ int main(void)
 
         EndMode2D();
 
-        // char position_text[50];
-        // sprintf(position_text, "X: %.2f, Y: %.2f", guy.player_position.x, guy.player_position.y);
-        // DrawText(position_text, 10, 10, 20, DARKGRAY);
-
         guy.health_bar();
+
+        if (guy.isDead())
+        {
+            ClearBackground(RAYWHITE);
+            DrawText("GAME OVER!", (GetScreenWidth() / 2.0f) - 120, GetScreenHeight() / 2.0f, 40, DARKGRAY);
+
+            if (IsKeyDown(KEY_ENTER))
+            {
+                guy.respawn();
+                enemies.respawn();
+            }
+        }
 
         EndDrawing();
     }
@@ -90,6 +97,7 @@ int main(void)
     guy.~Guy();
     objects.~Objects();
     enemies.~Enemies();
+
     CloseWindow();
 
     return 0;
