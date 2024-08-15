@@ -13,6 +13,7 @@ enum PlayerState
     IDLE,
     RUNNING,
     ROLL,
+    HITS,
 };
 
 class Guy
