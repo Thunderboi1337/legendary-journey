@@ -33,6 +33,8 @@ public:
     void respawn(void);
     void setPosition(Vector2 position);
 
+    bool isDead(void);
+
     Texture2D sprite;
 
     EnemyState enemey_state;
