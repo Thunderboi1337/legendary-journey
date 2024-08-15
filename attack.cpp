@@ -1,5 +1,5 @@
 #include "attack.h"
-
+#include "iostream"
 Attack::Attack()
 {
 
@@ -17,7 +17,10 @@ Attack::Attack()
 
     attack_state = RESTING;
     attackRight = true;
+    attackAbove = false;
+    attackBellow = false;
     screenWidth = GetScreenWidth();
+    screenHeight = GetScreenHeight();
 }
 
 Attack::~Attack()
@@ -27,21 +30,45 @@ Attack::~Attack()
 
 void Attack::input()
 {
-
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
     {
         attack_state = SWORD;
 
         Vector2 mousePosition = GetMousePosition();
 
-        if (mousePosition.x > screenWidth / 2)
+        // Check if the mouse is in the "above" triangle
+        if (CheckCollisionPointTriangle(mousePosition, {0, 0}, {screenWidth / 2, screenHeight / 2}, {screenWidth, 0}))
+        {
+            attackAbove = true;
+            attackBellow = attackRight = false;
+            std::cout << "attack above" << std::endl;
+        }
+        // Check if the mouse is in the "below" triangle
+        else if (CheckCollisionPointTriangle(mousePosition, {0, 450}, {800, 450}, {screenWidth / 2, screenHeight / 2}))
+        {
+            attackBellow = true;
+            attackAbove = attackRight = false;
+            std::cout << "attack bellow" << std::endl;
+        }
+        // Check if the mouse is in the "right" triangle
+        else if (CheckCollisionPointTriangle(mousePosition, {800, 450}, {800, 0}, {screenWidth / 2, screenHeight / 2}))
         {
             attackRight = true;
+            attackAbove = attackBellow = false;
+            std::cout << "attack right" << std::endl;
         }
-        else
+        // Otherwise, it's in the "left" triangle
+        else if (CheckCollisionPointTriangle(mousePosition, {0, 0}, {0, 450}, {screenWidth / 2, screenHeight / 2}))
         {
+            std::cout << "attack left" << std::endl;
             attackRight = false;
+            attackAbove = attackBellow = false;
         }
+
+        // DrawTriangle({0, 0}, {screenWidth / 2, screenHeight / 2}, {screenWidth, 0}, RED); //above
+        // DrawTriangle({0, 450}, {800, 450}, {screenWidth / 2, screenHeight / 2}, RED);    // under
+        // DrawTriangle({0, 0}, {0, 450}, {screenWidth / 2, screenHeight / 2}, RED); // left
+        // DrawTriangle({800, 450}, {800, 0}, {screenWidth / 2, screenHeight / 2}, RED);   Right
     }
 }
 

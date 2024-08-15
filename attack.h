@@ -38,7 +38,10 @@ public:
     int frameCounter;
 
     bool attackRight;
+    bool attackAbove;
+    bool attackBellow;
     int screenWidth;
+    int screenHeight;
 };
 
 #endif
