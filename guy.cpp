@@ -30,57 +30,63 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
 {
     Vector2 new_position = player_position; // Start with the current position
 
-    player_state = IDLE;
+    if (currentFrame <= 2 && player_state == HITS)
+    {
+    }
+    else
+    {
 
-    // Handle normal movement
-    if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))
-    {
-        new_position.y -= player_speed;
-        player_state = RUNNING;
-    }
-    if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
-    {
-        new_position.y += player_speed;
-        player_state = RUNNING;
-    }
-    if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))
-    {
-        new_position.x -= player_speed;
-        player_state = RUNNING;
-        facingRight = false;
-    }
-    if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
-    {
-        new_position.x += player_speed;
-        player_state = RUNNING;
-        facingRight = true;
-    }
+        player_state = IDLE;
 
-    // Handle sprint movement
-    if (IsKeyDown(KEY_W) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-        new_position.y -= player_speed * 5;
-        player_state = ROLL;
-    }
+        // Handle normal movement
+        if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))
+        {
+            new_position.y -= player_speed;
+            player_state = RUNNING;
+        }
+        if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
+        {
+            new_position.y += player_speed;
+            player_state = RUNNING;
+        }
+        if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))
+        {
+            new_position.x -= player_speed;
+            player_state = RUNNING;
+            facingRight = false;
+        }
+        if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
+        {
+            new_position.x += player_speed;
+            player_state = RUNNING;
+            facingRight = true;
+        }
 
-    if (IsKeyDown(KEY_S) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-        new_position.y += player_speed * 5;
-        player_state = ROLL;
-    }
-    if (IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-        new_position.x -= player_speed * 5;
-        player_state = ROLL;
-        facingRight = false;
-    }
-    if (IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT))
-    {
-        new_position.x += player_speed * 5;
-        player_state = ROLL;
-        facingRight = true;
-    }
+        // Handle sprint movement
+        if (IsKeyDown(KEY_W) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            new_position.y -= player_speed * 5;
+            player_state = ROLL;
+        }
 
+        if (IsKeyDown(KEY_S) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            new_position.y += player_speed * 5;
+            player_state = ROLL;
+        }
+        if (IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            new_position.x -= player_speed * 5;
+            player_state = ROLL;
+            facingRight = false;
+        }
+        if (IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT))
+        {
+            new_position.x += player_speed * 5;
+            player_state = ROLL;
+            facingRight = true;
+        }
+    }
     // Create a rectangle representing the new position
     Rectangle new_rectx = {new_position.x, player_position.y, 15, 20};
     Rectangle new_recty = {player_position.x, new_position.y, 15, 20};
@@ -161,6 +167,18 @@ void Guy::Movement(void)
         frameRec.y = 5 * (float)sprite.height / 8; // Third row for running animation
         frameRec.x = (float)currentFrame * (float)sprite.width / 8;
     }
+    else if (player_state == HITS)
+    {
+        if (currentFrame == 0)
+        {
+            currentFrame++;
+        }
+        if (currentFrame >= IDLE_FRAME_COUNT)
+            currentFrame = 0; // Loop the idle animation
+
+        frameRec.y = 6 * (float)sprite.height / 8; // Third row for running animation
+        frameRec.x = (float)currentFrame * (float)sprite.width / 8;
+    }
 
     float scaleFactor = 1.5f;
 
@@ -190,7 +208,11 @@ void Guy::Movement(void)
 
 void Guy::damage(void)
 {
-    health.Damage(true);
+    if (player_state != HITS)
+    {
+        health.Damage(true);
+        player_state = HITS;
+    }
 }
 
 void Guy::health_bar(void)
