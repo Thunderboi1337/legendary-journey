@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include "guy.h"
+#include <cstdlib>
 
 Enemy::Enemy()
 {
@@ -155,6 +156,11 @@ void Enemy::move(Vector2 guy_position, const std::vector<Rectangle> &obstacles)
     }
 }
 
+bool Enemy::isDead(void)
+{
+    return health.Dead;
+}
+
 Rectangle Enemy::GetRect()
 {
     return Rectangle{enemies_position.x, enemies_position.y, 20, 20};
@@ -164,16 +170,16 @@ void Enemy::damage(void)
 {
     health.Damage(true);
     enemey_state = HIT;
-
-    if (health.Dead)
-    {
-        respawn();
-    }
 }
 
 void Enemy::respawn(void)
 {
-    enemies_position = {200.f, 200.f};
+    Vector2 spawnpoint;
+    spawnpoint.x = 40 + (std::rand() % 800);
+    spawnpoint.y = 40 + (std::rand() % 800);
+
+    enemies_position = spawnpoint;
+
     health.CurrentHealth = 100.f;
     health.Dead = false;
 }
