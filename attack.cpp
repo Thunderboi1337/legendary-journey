@@ -36,37 +36,33 @@ void Attack::input()
 
         Vector2 mousePosition = GetMousePosition();
 
-        // Check if the mouse is in the "above" triangle
-        if (CheckCollisionPointTriangle(mousePosition, {0, 0}, {screenWidth / 2, screenHeight / 2}, {screenWidth, 0}))
+        if (CheckCollisionPointTriangle(mousePosition, {0, 0}, {screenWidth / 2, screenHeight / 2}, {screenWidth, 0})) // Check if the mouse is in the "above" triangle
         {
             attackAbove = true;
             attackBellow = false;
             attackRight = false;
             std::cout << "attack above" << attackAbove << std::endl;
         }
-        // Check if the mouse is in the "below" triangle
-        else if (CheckCollisionPointTriangle(mousePosition, {0, 450}, {800, 450}, {screenWidth / 2, screenHeight / 2}))
+        else if (CheckCollisionPointTriangle(mousePosition, {0, 450}, {800, 450}, {screenWidth / 2, screenHeight / 2})) // Check if the mouse is in the "below" triangle
         {
             attackBellow = true;
             attackAbove = false;
             attackRight = false;
             std::cout << "attack bellow" << attackBellow << std::endl;
         }
-        // Check if the mouse is in the "right" triangle
-        else if (CheckCollisionPointTriangle(mousePosition, {800, 450}, {800, 0}, {screenWidth / 2, screenHeight / 2}))
+        else if (CheckCollisionPointTriangle(mousePosition, {800, 450}, {800, 0}, {screenWidth / 2, screenHeight / 2})) // Check if the mouse is in the "right" triangle
         {
             attackRight = true;
             attackAbove = false;
             attackBellow = false;
             std::cout << "attack right" << attackRight << std::endl;
         }
-        // Otherwise, it's in the "left" triangle
-        else if (CheckCollisionPointTriangle(mousePosition, {0, 0}, {0, 450}, {screenWidth / 2, screenHeight / 2}))
+        else if (CheckCollisionPointTriangle(mousePosition, {0, 0}, {0, 450}, {screenWidth / 2, screenHeight / 2})) // Otherwise, it's in the "left" triangle
         {
-            std::cout << "attack left" << attackRight << std::endl;
             attackRight = false;
             attackAbove = false;
             attackBellow = false;
+            std::cout << "attack left" << attackRight << std::endl;
         }
     }
 }
@@ -104,6 +100,99 @@ void Attack::render(Vector2 player_position, bool facingRight)
     }
 
     Rectangle flippedFrameRec = frameRec; // Flip the sword by drawing with a negative width
+
+    if (attackAbove)
+    {
+
+        if (attack_state == SWORD)
+        {
+            flippedFrameRec.width *= -1;
+
+            if (currentFrame == 0)
+            {
+                adjustedPosition.x -= 25; // left to right
+                adjustedPosition.y += 50; // up and down
+                rotation += 0;            // DONE
+            }
+
+            else if (currentFrame == 1)
+            {
+                adjustedPosition.x -= 25; // left to right
+                adjustedPosition.y += 50; // up and down
+                rotation += 0;            // Done
+            }
+            else if (currentFrame == 2)
+            {
+
+                adjustedPosition.x -= 25; // left to right
+                adjustedPosition.y += 57; // up and down
+                rotation += 0;            // Done
+            }
+            else if (currentFrame == 3)
+            {
+
+                adjustedPosition.x -= 26; // left to right
+                adjustedPosition.y += 57; // up and down
+                rotation += 0;            // Done
+
+                attack_state = RESTING;
+            }
+        }
+
+        // Flip the sword by drawing with a negative width
+
+        adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sword centered
+        adjustedPosition.y -= 15 * scaleFactor;
+
+        DrawTexturePro(sword, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
+                       {0, 0}, rotation, WHITE);
+    }
+    else if (attackBellow)
+    {
+        if (attack_state == RESTING && !facingRight)
+        {
+            adjustedPosition.x -= 20;
+            flippedFrameRec.width *= -1; // Invert the width
+        }
+        else if (attack_state == SWORD)
+        {
+
+            if (currentFrame == 0)
+            {
+                adjustedPosition.x += 60; // left to right
+                adjustedPosition.y -= 5;  // up and down
+                rotation += 150;          // DONE
+            }
+
+            else if (currentFrame == 1)
+            {
+                adjustedPosition.x += 60; // DONE
+                adjustedPosition.y += 5;
+                rotation += 150;
+            }
+            else if (currentFrame == 2)
+            {
+
+                adjustedPosition.x += 75; // left to right
+                adjustedPosition.y += 10; // Done
+                rotation += 180;
+            }
+            else if (currentFrame == 3)
+            {
+
+                adjustedPosition.x += 75; // left to right
+                adjustedPosition.y += 10;
+                rotation += 180; // Done
+
+                attack_state = RESTING;
+            }
+        }
+        adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sword centered
+        adjustedPosition.y -= 15 * scaleFactor;
+
+        DrawTexturePro(sword, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
+                       {0, 0}, rotation, WHITE);
+    }
 
     if (attackRight)
     {
@@ -202,98 +291,6 @@ void Attack::render(Vector2 player_position, bool facingRight)
         DrawTexturePro(sword, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
                        {0, 0}, rotation, WHITE);
     }
-    else if (attackAbove)
-    {
-
-        if (attack_state == SWORD)
-        {
-            flippedFrameRec.width *= -1;
-
-            if (currentFrame == 0)
-            {
-                adjustedPosition.x -= 25; // left to right
-                adjustedPosition.y += 50; // up and down
-                rotation += 0;            // DONE
-            }
-
-            else if (currentFrame == 1)
-            {
-                adjustedPosition.x -= 25; // left to right
-                adjustedPosition.y += 50; // up and down
-                rotation += 0;            // Done
-            }
-            else if (currentFrame == 2)
-            {
-
-                adjustedPosition.x -= 25; // left to right
-                adjustedPosition.y += 57; // up and down
-                rotation += 0;            // Done
-            }
-            else if (currentFrame == 3)
-            {
-
-                adjustedPosition.x -= 26; // left to right
-                adjustedPosition.y += 57; // up and down
-                rotation += 0;            // Done
-
-                attack_state = RESTING;
-            }
-        }
-
-        // Flip the sword by drawing with a negative width
-
-        adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sword centered
-        adjustedPosition.y -= 15 * scaleFactor;
-
-        DrawTexturePro(sword, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
-                       {0, 0}, rotation, WHITE);
-    }
-    else if (attackBellow)
-    {
-        if (attack_state == RESTING && !facingRight)
-        {
-            adjustedPosition.x -= 20;
-            flippedFrameRec.width *= -1; // Invert the width
-        }
-        else if (attack_state == SWORD)
-        {
-
-            if (currentFrame == 0)
-            {
-                adjustedPosition.x += 60; // left to right
-                adjustedPosition.y -= 5;  // up and down
-                rotation += 150;          // DONE
-            }
-
-            else if (currentFrame == 1)
-            {
-                adjustedPosition.x += 60; // DONE
-                adjustedPosition.y += 5;
-                rotation += 150;
-            }
-            else if (currentFrame == 2)
-            {
-
-                adjustedPosition.x += 75; // left to right
-                adjustedPosition.y += 10; // Done
-                rotation += 180;
-            }
-            else if (currentFrame == 3)
-            {
-
-                adjustedPosition.x += 75; // left to right
-                adjustedPosition.y += 10;
-                rotation += 180; // Done
-
-                attack_state = RESTING;
-            }
-        }
-        adjustedPosition.x -= (frameRec.width - 20) * scaleFactor; // Adjust to keep sword centered
-        adjustedPosition.y -= 15 * scaleFactor;
-
-        DrawTexturePro(sword, flippedFrameRec, Rectangle{adjustedPosition.x, adjustedPosition.y, frameRec.width * scaleFactor, frameRec.height * scaleFactor},
-                       {0, 0}, rotation, WHITE);
-    }
 }
 
 Rectangle Attack::GetRect()
@@ -309,21 +306,22 @@ void Attack::RemoveHitbox(bool isColliding)
 void Attack::damage(Vector2 player_position)
 {
 
-    if (attackRight)
+    if (attackAbove)
+    {
+        damage_hitbox = {player_position.x, player_position.y - 40, 25, 30};
+    }
+    else if (attackBellow)
+    {
+        damage_hitbox = {player_position.x, player_position.y + 40, 25, 30};
+    }
+
+    else if (attackRight)
     {
         damage_hitbox = {player_position.x + 20, player_position.y - 5, 30, 25};
     }
     else if (!attackRight)
     {
         damage_hitbox = {player_position.x - 40, player_position.y - 5, 30, 25};
-    }
-    else if (attackAbove)
-    {
-        damage_hitbox = {player_position.x, player_position.y + 40, 30, 25};
-    }
-    else if (attackBellow)
-    {
-        damage_hitbox = {player_position.x, player_position.y - 40, 30, 25};
     }
 
     DrawRectangleRec(damage_hitbox, RED);
