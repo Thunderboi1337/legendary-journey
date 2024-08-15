@@ -152,7 +152,7 @@ int main(void)
 
         // DrawTriangle({0, 0}, {screenWidth / 2, screenHeight / 2}, {screenWidth, 0}, RED); //above
         // DrawTriangle({0, 450}, {800, 450}, {screenWidth / 2, screenHeight / 2}, RED);    // under
-        //   DrawTriangle({0, 0}, {0, 450}, {screenWidth / 2, screenHeight / 2}, RED); // left
+        // DrawTriangle({0, 0}, {0, 450}, {screenWidth / 2, screenHeight / 2}, RED); // left
         // DrawTriangle({800, 450}, {800, 0}, {screenWidth / 2, screenHeight / 2}, RED);
 
         EndDrawing();
