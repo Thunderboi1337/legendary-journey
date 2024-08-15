@@ -6,6 +6,13 @@
 #include "health.h"
 #include <memory>
 
+enum EnemyState
+{
+    MOVING,
+    HIT
+
+};
+
 class Enemy
 {
 private:
@@ -28,6 +35,7 @@ public:
 
     Texture2D sprite;
 
+    EnemyState enemey_state;
     Rectangle frameRec;
     int currentFrame;
     int framesCounter;
