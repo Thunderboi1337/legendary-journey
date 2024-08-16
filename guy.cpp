@@ -169,10 +169,6 @@ void Guy::Movement(void)
     }
     else if (player_state == HITS)
     {
-        if (currentFrame == 0)
-        {
-            currentFrame++;
-        }
         if (currentFrame >= IDLE_FRAME_COUNT)
             currentFrame = 0; // Loop the idle animation
 
@@ -212,6 +208,7 @@ void Guy::damage(void)
     {
         health->Damage(true);
         player_state = HITS;
+        currentFrame = 0;
     }
 }
 

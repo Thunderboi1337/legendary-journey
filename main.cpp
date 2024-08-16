@@ -56,7 +56,7 @@ int main(void)
     for (int i = 0; i < MAX_ENEMY_AMOUNT; ++i)
     {
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
-        enemy->setPosition({static_cast<float>(100 + i * 150), 420});
+        enemy->setPosition({static_cast<float>(100 + (i * 50)), 400});
         enemies.push_back(std::move(enemy));
     }
 
@@ -64,7 +64,7 @@ int main(void)
     {
         frameCounter++;
 
-        if (killcount == RoundAmount)
+        if (killcount >= RoundAmount)
         {
             RoundAmount += 5;
             killcount = 0;
@@ -114,7 +114,7 @@ int main(void)
             {
                 enemies[i]->damage();
             }
-            if (frameCounter >= 90)
+            if (frameCounter >= FPS)
             {
 
                 if (CheckCollisionRecs(guy.GetRect(), enemies[i]->GetRect()))
