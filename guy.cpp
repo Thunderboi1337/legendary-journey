@@ -4,7 +4,7 @@ Guy::Guy()
 {
     sprite = LoadTexture("knight.png");
 
-    health = Health();
+    health = std::make_unique<Health>();
 
     player_speed = 3;
     player_position = {811, 973};
@@ -210,14 +210,14 @@ void Guy::damage(void)
 {
     if (player_state != HITS)
     {
-        health.Damage(true);
+        health->Damage(true);
         player_state = HITS;
     }
 }
 
 void Guy::health_bar(void)
 {
-    health.DisplayHealth();
+    health->DisplayHealth();
 }
 
 void Guy::render(void)
@@ -233,13 +233,13 @@ Vector2 Guy::target_postition()
 
 bool Guy::isDead(void)
 {
-    return health.Dead;
+    return health->Dead;
 }
 
 void Guy::respawn(void)
 {
-    health.Dead = false;
-    health.CurrentHealth = 100.f;
+    health->Dead = false;
+    health->CurrentHealth = 100.f;
     player_position = {811, 973};
 }
 

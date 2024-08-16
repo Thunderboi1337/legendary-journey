@@ -5,12 +5,13 @@
 
 enum HealthLevel
 {
-    ONE_HEART = 20,
-    TWO_HEART = 40,
-    THREE_HEART = 60,
-    FOUR_HEART = 80,
-    FIVE_HEART = 100
-}
+    ONE_HEART,
+    TWO_HEART,
+    THREE_HEART,
+    FOUR_HEART,
+    FIVE_HEART,
+    START_HEART
+};
 
 class Health
 {
@@ -19,13 +20,15 @@ public:
     Health();
     ~Health();
 
-    float CurrentHealth;
+    int CurrentHealth;
     bool GameOver;
     bool Dead;
 
     HealthLevel health_level;
 
-    Texture2D sprite;
+    Texture2D heartRotation;
+    Texture2D heartBackground;
+    Texture2D heart;
 
     Rectangle frameRec;
     int currentFrame;

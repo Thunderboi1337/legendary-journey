@@ -2,25 +2,27 @@
 
 Health::Health()
 {
-    sprite = LoadTexture("heart.png");
+    heartRotation = LoadTexture("heart.rotate.png");
+    heartBackground = LoadTexture("background.png");
+    heart = LoadTexture("heart.png");
 
-    CurrentHealth = 100.f;
+    CurrentHealth = 100;
     GameOver = false;
     Dead = false;
 
-    health_level = FIVE_HEART;
+    health_level = START_HEART;
 
-    framesSpeed = 5;
+    framesSpeed = 10;
     currentFrame = 0;
     framesCounter = 0;
     frameCounter = 0;
 
-    frameRec = {0.0f, 0.0f, (float)sprite.width / 4, (float)sprite.height / 3};
+    frameRec = {0.0f, 0.0f, (float)heartRotation.width / 12, (float)heartRotation.height};
 }
 
 Health::~Health()
 {
-    UnloadTexture(sprite);
+    UnloadTexture(heartRotation);
 }
 
 void Health::DisplayHealth(void)
@@ -35,37 +37,95 @@ void Health::DisplayHealth(void)
         currentFrame++;
 
         // Loop back the frame when reaching the end
-        if (currentFrame > 4)
+        if (currentFrame > 11)
             currentFrame = 0;
-
-        // Set the frameRec for the current frame
-        frameRec.x = (float)currentFrame * (float)sprite.width / 4;
     }
 
     switch (health_level)
     {
-    case FIVE_HEART:
-        for (int i = 0; i < 5; i++)
+    case START_HEART:
+
+        frameRec.x = (float)currentFrame * (float)heartRotation.width / 12;
+
+        DrawTexturePro(heartRotation, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heartRotation, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heartRotation, frameRec, Rectangle{80, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heartRotation, frameRec, Rectangle{110, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heartRotation, frameRec, Rectangle{140, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        if (currentFrame == 11)
         {
-            DrawTexture(sprite, 10 * i, 10, WHITE);
+            health_level = FIVE_HEART;
         }
+
+        break;
+    case FIVE_HEART:
+        frameRec.x = (float)currentFrame * (float)heart.width;
+
+        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{80, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{110, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{140, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
         break;
 
     case FOUR_HEART:
+        frameRec.x = (float)currentFrame * (float)heart.width;
+        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{80, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{110, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        break;
+    case THREE_HEART:
+        frameRec.x = (float)currentFrame * (float)heart.width;
+        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{80, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        break;
+    case TWO_HEART:
+        frameRec.x = (float)currentFrame * (float)heart.width;
+        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        DrawTexturePro(heart, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+
+        break;
+    case ONE_HEART:
+        frameRec.x = (float)currentFrame * (float)heart.width;
+        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+
         break;
 
     default:
         break;
     }
 
-    DrawRectangle(10, 10, CurrentHealth, 20, GREEN);
+    // DrawRectangle(10, 10, CurrentHealth, 20, GREEN);
 }
 
 void Health::Damage(bool hit)
 {
     if (hit)
     {
-        CurrentHealth -= 2.f;
+        CurrentHealth -= 10;
+        health_level = CurrentHealth;
         if (CurrentHealth <= 0)
         {
             Dead = true;
