@@ -41,28 +41,24 @@ void Attack::input()
             attackAbove = true;
             attackBellow = false;
             attackRight = false;
-            std::cout << "attack above" << attackAbove << std::endl;
         }
         else if (CheckCollisionPointTriangle(mousePosition, {0, 450}, {800, 450}, {screenWidth / 2, screenHeight / 2})) // Check if the mouse is in the "below" triangle
         {
             attackBellow = true;
             attackAbove = false;
             attackRight = false;
-            std::cout << "attack bellow" << attackBellow << std::endl;
         }
         else if (CheckCollisionPointTriangle(mousePosition, {800, 450}, {800, 0}, {screenWidth / 2, screenHeight / 2})) // Check if the mouse is in the "right" triangle
         {
             attackRight = true;
             attackAbove = false;
             attackBellow = false;
-            std::cout << "attack right" << attackRight << std::endl;
         }
         else if (CheckCollisionPointTriangle(mousePosition, {0, 0}, {0, 450}, {screenWidth / 2, screenHeight / 2})) // Otherwise, it's in the "left" triangle
         {
             attackRight = false;
             attackAbove = false;
             attackBellow = false;
-            std::cout << "attack left" << attackRight << std::endl;
         }
     }
 }
@@ -114,27 +110,27 @@ void Attack::render(Vector2 player_position, bool facingRight)
 
             if (currentFrame == 0)
             {
-                adjustedPosition.x += 15; // left to right
+                adjustedPosition.x += 10; // left to right
                 adjustedPosition.y -= 20; // up and down
                 rotation += 24;           // DONE
             }
             else if (currentFrame == 1)
             {
-                adjustedPosition.x += 15; // left to right
+                adjustedPosition.x += 10; // left to right
                 adjustedPosition.y -= 20; // up and down
                 rotation += 24;           // Done
             }
             else if (currentFrame == 2)
             {
 
-                adjustedPosition.x += 0;  // left to right
+                adjustedPosition.x -= 10; // left to right
                 adjustedPosition.y -= 20; // up and down
                 rotation += 0;
             }
             else if (currentFrame == 3)
             {
 
-                adjustedPosition.x += 15; // left to right
+                adjustedPosition.x -= 10; // left to right
                 adjustedPosition.y -= 20; // up and down
                 rotation += 0;
 
@@ -161,30 +157,30 @@ void Attack::render(Vector2 player_position, bool facingRight)
 
             if (currentFrame == 0)
             {
-                adjustedPosition.x += 60; // left to right
-                adjustedPosition.y -= 5;  // up and down
+                adjustedPosition.x += 65; // left to right
+                adjustedPosition.y += 65; // up and down
                 rotation += 150;          // DONE
             }
 
             else if (currentFrame == 1)
             {
-                adjustedPosition.x += 60; // DONE
-                adjustedPosition.y += 5;
+                adjustedPosition.x += 65; // left to right
+                adjustedPosition.y += 65; // up and down
                 rotation += 150;
             }
             else if (currentFrame == 2)
             {
 
-                adjustedPosition.x += 75; // left to right
-                adjustedPosition.y += 10; // Done
+                adjustedPosition.x += 40; // left to right
+                adjustedPosition.y += 80; // up and down
                 rotation += 180;
             }
             else if (currentFrame == 3)
             {
 
-                adjustedPosition.x += 75; // left to right
-                adjustedPosition.y += 10;
-                rotation += 180; // Done
+                adjustedPosition.x += 40; // left to right
+                adjustedPosition.y += 80; // up and down
+                rotation += 180;          // Done
 
                 attack_state = RESTING;
             }
