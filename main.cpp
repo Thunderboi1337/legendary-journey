@@ -9,7 +9,7 @@
 #include "attack.h"
 
 #define FPS 60
-#define MAX_ENEMY_AMOUNT 30
+#define MAX_ENEMY_AMOUNT 50
 
 const int screenWidth = 800;
 const int screenHeight = 450;
@@ -80,7 +80,7 @@ int main(void)
         attack.input();
 
         // Update and render only the active enemies
-        for (int i = 0; i < activeEnemies - 1; ++i)
+        for (int i = 0; i < activeEnemies - 1; i++)
         {
             if (!CheckCollisionRecs(enemies[i]->GetRect(), enemies[i + 1]->GetRect()))
             {
