@@ -22,7 +22,7 @@ public:
     void input(void);
     void render(Vector2 plater_position, bool facingRight);
     void RemoveHitbox(bool isColliding);
-    void damage(Vector2 plater_position, bool facingRight);
+    void damage(Vector2 plater_position);
 
     Rectangle GetRect();
 
@@ -38,7 +38,10 @@ public:
     int frameCounter;
 
     bool attackRight;
+    bool attackAbove;
+    bool attackBellow;
     int screenWidth;
+    int screenHeight;
 };
 
 #endif

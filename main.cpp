@@ -27,6 +27,8 @@ void init(void)
 
 int main(void)
 {
+    static int frameCounter;
+
     init();
 
     Guy guy = Guy();
@@ -54,14 +56,15 @@ int main(void)
     for (int i = 0; i < MAX_ENEMY_AMOUNT; ++i)
     {
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
-        enemy->setPosition({static_cast<float>(100 + i * 150), 420});
+        enemy->setPosition({static_cast<float>(100 + (i * 50)), 400});
         enemies.push_back(std::move(enemy));
     }
 
     while (!WindowShouldClose())
     {
+        frameCounter++;
 
-        if (killcount == RoundAmount)
+        if (killcount >= RoundAmount)
         {
             RoundAmount += 5;
             killcount = 0;
@@ -77,9 +80,12 @@ int main(void)
         attack.input();
 
         // Update and render only the active enemies
-        for (int i = 0; i < activeEnemies; ++i)
+        for (int i = 0; i < activeEnemies - 1; ++i)
         {
-            enemies[i]->move(guy.target_postition(), objcts);
+            if (!CheckCollisionRecs(enemies[i]->GetRect(), enemies[i + 1]->GetRect()))
+            {
+                enemies[i]->move(guy.target_postition(), objcts);
+            }
         }
 
         BeginDrawing();
@@ -108,9 +114,15 @@ int main(void)
             {
                 enemies[i]->damage();
             }
-            if (CheckCollisionRecs(guy.GetRect(), enemies[i]->GetRect()))
+            if (frameCounter >= FPS)
             {
-                guy.damage();
+
+                if (CheckCollisionRecs(guy.GetRect(), enemies[i]->GetRect()))
+                {
+                    guy.damage();
+
+                    frameCounter = 0;
+                }
             }
             if (enemies[i]->isDead())
             {
@@ -148,6 +160,7 @@ int main(void)
                 }
             }
         }
+        Vector2 locatio = guy.target_postition();
 
         EndDrawing();
     }

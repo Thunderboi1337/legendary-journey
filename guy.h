@@ -5,6 +5,7 @@
 #include <raylib.h>
 #include <vector>
 #include "health.h"
+#include <memory>
 
 #define IDLE_FRAME_COUNT 4
 
@@ -22,7 +23,7 @@ public:
     Guy();
     ~Guy();
 
-    Health health;
+    std::unique_ptr<Health> health;
 
     void input(const std::vector<Rectangle> &obstacles);
     void render(void);
