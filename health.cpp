@@ -3,7 +3,6 @@
 Health::Health()
 {
     heartRotation = LoadTexture("heart.rotate.png");
-    heartBackground = LoadTexture("background.png");
     heart = LoadTexture("heart.png");
 
     CurrentHealth = 100;
@@ -11,6 +10,8 @@ Health::Health()
     Dead = false;
 
     health_level = START_HEART;
+
+    currentHEARTS = 10;
 
     framesSpeed = 10;
     currentFrame = 0;
@@ -47,85 +48,40 @@ void Health::DisplayHealth(void)
 
         frameRec.x = (float)currentFrame * (float)heartRotation.width / 12;
 
-        DrawTexturePro(heartRotation, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heartRotation, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heartRotation, frameRec, Rectangle{80, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heartRotation, frameRec, Rectangle{110, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heartRotation, frameRec, Rectangle{140, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        for (int i = 0; i < 10; i++)
+        {
+            DrawTexturePro(heartRotation, frameRec, Rectangle{20 + 30 * i, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                           {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        }
+
         if (currentFrame == 11)
         {
-            health_level = FIVE_HEART;
+            health_level = HEARTS;
         }
 
         break;
-    case FIVE_HEART:
+
+    case HEARTS:
         frameRec.x = (float)currentFrame * (float)heart.width;
 
-        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{80, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{110, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{140, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        break;
-
-    case FOUR_HEART:
-        frameRec.x = (float)currentFrame * (float)heart.width;
-        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{80, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{110, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        break;
-    case THREE_HEART:
-        frameRec.x = (float)currentFrame * (float)heart.width;
-        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{80, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        break;
-    case TWO_HEART:
-        frameRec.x = (float)currentFrame * (float)heart.width;
-        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-        DrawTexturePro(heart, frameRec, Rectangle{50, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-
-        break;
-    case ONE_HEART:
-        frameRec.x = (float)currentFrame * (float)heart.width;
-        DrawTexturePro(heart, frameRec, Rectangle{20 * 1, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
-                       {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
-
+        for (int i = 0; i < currentHEARTS; i++)
+        {
+            DrawTexturePro(heart, frameRec, Rectangle{20 + 30 * i, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+                           {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
+        }
         break;
 
     default:
         break;
     }
-
-    // DrawRectangle(10, 10, CurrentHealth, 20, GREEN);
 }
 
 void Health::Damage(bool hit)
 {
     if (hit)
     {
-        CurrentHealth -= 10;
-        health_level = CurrentHealth;
+        CurrentHealth -= 1;
+        currentHEARTS -= 1;
         if (CurrentHealth <= 0)
         {
             Dead = true;

@@ -5,12 +5,8 @@
 
 enum HealthLevel
 {
-    ONE_HEART,
-    TWO_HEART,
-    THREE_HEART,
-    FOUR_HEART,
-    FIVE_HEART,
-    START_HEART
+    START_HEART,
+    HEARTS
 };
 
 class Health
@@ -27,8 +23,9 @@ public:
     HealthLevel health_level;
 
     Texture2D heartRotation;
-    Texture2D heartBackground;
     Texture2D heart;
+
+    int currentHEARTS;
 
     Rectangle frameRec;
     int currentFrame;
