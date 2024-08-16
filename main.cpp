@@ -80,7 +80,7 @@ int main(void)
         attack.input();
 
         // Update and render only the active enemies
-        for (int i = 0; i < activeEnemies; ++i)
+        for (int i = 0; i < activeEnemies - 1; ++i)
         {
             if (!CheckCollisionRecs(enemies[i]->GetRect(), enemies[i + 1]->GetRect()))
             {
