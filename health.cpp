@@ -80,7 +80,7 @@ void Health::Damage(bool hit)
 {
     if (hit)
     {
-        CurrentHealth -= 1;
+        CurrentHealth -= 10;
         currentHEARTS -= 1;
         if (CurrentHealth <= 0)
         {

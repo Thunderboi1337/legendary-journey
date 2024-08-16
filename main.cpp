@@ -62,6 +62,7 @@ int main(void)
 
     while (!WindowShouldClose())
     {
+        frameCounter++;
 
         if (killcount == RoundAmount)
         {
@@ -113,9 +114,15 @@ int main(void)
             {
                 enemies[i]->damage();
             }
-            if (CheckCollisionRecs(guy.GetRect(), enemies[i]->GetRect()))
+            if (frameCounter >= 90)
             {
-                guy.damage();
+
+                if (CheckCollisionRecs(guy.GetRect(), enemies[i]->GetRect()))
+                {
+                    guy.damage();
+
+                    frameCounter = 0;
+                }
             }
             if (enemies[i]->isDead())
             {

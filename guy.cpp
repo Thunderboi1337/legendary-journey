@@ -241,6 +241,7 @@ void Guy::respawn(void)
     health->Dead = false;
     health->CurrentHealth = 100.f;
     player_position = {811, 973};
+    health->currentHEARTS = 10;
 }
 
 Rectangle Guy::GetRect()
