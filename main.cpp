@@ -90,7 +90,6 @@ int main(void)
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
-
         BeginMode2D(cam);
 
         world.render();
@@ -139,7 +138,6 @@ int main(void)
         char roundcounter_text[50];
         sprintf(killcount_text, "KillCount: %d", killcount);
         sprintf(roundcounter_text, "Round: %d", RoundCounter);
-
         DrawText(killcount_text, 10, 40, 20, DARKGRAY);
         DrawText(roundcounter_text, 10, 60, 20, DARKGRAY);
 
@@ -160,7 +158,6 @@ int main(void)
                 }
             }
         }
-        Vector2 locatio = guy.target_postition();
 
         EndDrawing();
     }
