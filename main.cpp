@@ -1,5 +1,4 @@
 #include <iostream>
-#include <raylib.h>
 #include <vector>
 #include <memory>
 #include "guy.h"
@@ -8,6 +7,8 @@
 #include "enemy.h"
 #include "attack.h"
 #include "menu.h"
+#include "audio.h"
+
 enum Scenes
 {
 
@@ -48,6 +49,7 @@ int main(void)
     Objects trees = Objects("trees.json");
     Objects objects = Objects("maps.json");
     Menu menu = Menu();
+    Audio audio = Audio();
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -76,6 +78,7 @@ int main(void)
 
     while (!WindowShouldClose())
     {
+        audio.playMusic();
 
         switch (scenes)
         {
