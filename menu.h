@@ -1,15 +1,27 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "raygui.h"
+#include "raylib.h"
+
+enum MenuOptions
+{
+    INIT,
+    START_GAME,
+    MUSIC_TOGGLE,
+    QUIT
+};
 
 class Menu
 {
 private:
-    /* data */
 public:
-    Menu(/* args */);
+    Menu();
     ~Menu();
+
+    MenuOptions menu_options;
+
+    void render(void);
+    MenuOptions getOptions(void);
 };
 
 #endif
