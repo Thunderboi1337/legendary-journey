@@ -21,15 +21,16 @@ Audio::Audio()
 Audio::~Audio()
 {
     UnloadMusicStream(music);
+    CloseAudioDevice();
 }
 
 void Audio::playMusic(void)
 {
-    if (music.stream.buffer != NULL) // Ensure music is valid
+    if (music.stream.buffer != NULL)
     {
         UpdateMusicStream(music);
 
-        if (IsKeyPressed(KEY_M)) // Use IsKeyPressed to toggle on key press, not key down
+        if (IsKeyPressed(KEY_M))
         {
             pause = !pause;
 

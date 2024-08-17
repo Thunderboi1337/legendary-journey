@@ -5,16 +5,15 @@
 class Audio
 {
 private:
-    /* data */
+    bool pause;
+
 public:
-    Audio(/* args */);
+    Audio();
     ~Audio();
 
     Music music;
 
     void playMusic(void);
-
-    bool pause;
 };
 
 #endif
