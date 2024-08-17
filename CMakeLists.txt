@@ -68,6 +68,7 @@ add_library(objectslib objects.cpp)
 add_library(enemieslib enemy.cpp)
 add_library(attacklib attack.cpp)
 add_library(healthlib health.cpp)
+add_library(menulib menu.cpp)
 
 # Ensure the include directories are set for tileson
 include_directories(ThirdParty/tileson/include)
@@ -80,7 +81,8 @@ add_executable(main main.cpp)
 target_include_directories(worldlib PRIVATE ${json_SOURCE_DIR}/include . ThirdParty/raylib-cpp/include ThirdParty/tileson/include )
 target_include_directories(objectslib PRIVATE ${json_SOURCE_DIR}/include )
 # Link libraries to the main executable
-target_link_libraries(main raylib guylib worldlib tylesonlib nlohmann_json::nlohmann_json objectslib enemieslib attacklib healthlib)  
+target_link_libraries(menulib PRIVATE raygui)
+target_link_libraries(main raylib raygui nlohmann_json::nlohmann_json guylib worldlib tylesonlib  objectslib enemieslib attacklib healthlib menulib)  
 
 # Apply strict compile flags only to the main executable
 target_compile_options(main PRIVATE ${STRICT_COMPILE_FLAGS})

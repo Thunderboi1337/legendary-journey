@@ -7,6 +7,15 @@
 #include "objects.h"
 #include "enemy.h"
 #include "attack.h"
+#include "menu.h"
+enum Scenes
+{
+
+    INTRO,
+    MENU,
+    GAME,
+
+};
 
 #define FPS 60
 #define MAX_ENEMY_AMOUNT 50
@@ -29,6 +38,8 @@ int main(void)
 {
     static int frameCounter;
 
+    Scenes scenes = MENU;
+
     init();
 
     Guy guy = Guy();
@@ -36,6 +47,7 @@ int main(void)
     Attack attack = Attack();
     Objects trees = Objects("trees.json");
     Objects objects = Objects("maps.json");
+    Menu menu = Menu();
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
@@ -60,112 +72,167 @@ int main(void)
         enemies.push_back(std::move(enemy));
     }
 
+    MenuOptions menu_options = INIT;
+
     while (!WindowShouldClose())
     {
-        frameCounter++;
 
-        if (killcount >= RoundAmount)
+        switch (scenes)
         {
-            RoundAmount += 5;
-            killcount = 0;
-            RoundCounter++;
-            activeEnemies += 5; // Increase the number of active enemies each round
-            if (activeEnemies > MAX_ENEMY_AMOUNT)
+        case INTRO:
+
+            break;
+        case MENU:
+
+            menu.render();
+            menu_options = menu.getOptions();
+
+            switch (menu_options)
             {
-                activeEnemies = MAX_ENEMY_AMOUNT; // Cap the number of active enemies
-            }
-        }
+            case START_GAME:
+                scenes = GAME;
 
-        guy.input(objcts);
-        attack.input();
+                break;
 
-        // Update and render only the active enemies
-        for (int i = 0; i < activeEnemies - 1; i++)
-        {
-            if (!CheckCollisionRecs(enemies[i]->GetRect(), enemies[i + 1]->GetRect()))
-            {
-                enemies[i]->move(guy.target_postition(), objcts);
-            }
-        }
+            case QUIT:
 
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
+                guy.~Guy();
+                world.~World();
+                trees.~Objects();
 
-        BeginMode2D(cam);
-
-        world.render();
-        cam.target = guy.target_postition();
-
-        guy.render();
-        attack.render(guy.target_postition(), guy.IsFacingRight());
-
-        // Render only the active enemies
-        for (int i = 0; i < activeEnemies; ++i)
-        {
-            enemies[i]->render();
-        }
-
-        world.render_trees();
-
-        // Collision checks only for active enemies
-        for (int i = 0; i < activeEnemies; ++i)
-        {
-            if (CheckCollisionRecs(attack.GetRect(), enemies[i]->GetRect()))
-            {
-                enemies[i]->damage();
-            }
-            if (frameCounter >= FPS)
-            {
-
-                if (CheckCollisionRecs(guy.GetRect(), enemies[i]->GetRect()))
+                objects.~Objects();
+                attack.~Attack();
+                menu.~Menu();
+                for (int i = 0; i < MAX_ENEMY_AMOUNT; i++)
                 {
-                    guy.damage();
+                    enemies[i]->~Enemy();
+                }
+                CloseWindow();
 
-                    frameCounter = 0;
+                break;
+
+            default:
+                break;
+            }
+
+            break;
+
+        case GAME:
+            frameCounter++;
+
+            if (killcount >= RoundAmount)
+            {
+                RoundAmount += 5;
+                killcount = 0;
+                RoundCounter++;
+                activeEnemies += 5; // Increase the number of active enemies each round
+                if (activeEnemies > MAX_ENEMY_AMOUNT)
+                {
+                    activeEnemies = MAX_ENEMY_AMOUNT; // Cap the number of active enemies
                 }
             }
-            if (enemies[i]->isDead())
+
+            guy.input(objcts);
+            attack.input();
+
+            // Update and render only the active enemies
+            for (int i = 0; i < activeEnemies - 1; i++)
             {
-                killcount++;
-                enemies[i]->respawn(); // Respawn the enemy
+                if (!CheckCollisionRecs(enemies[i]->GetRect(), enemies[i + 1]->GetRect()))
+                {
+                    enemies[i]->move(guy.target_postition(), objcts);
+                }
             }
-        }
 
-        attack.RemoveHitbox(true);
-
-        EndMode2D();
-
-        char killcount_text[50];
-        char roundcounter_text[50];
-        sprintf(killcount_text, "KillCount: %d", killcount);
-        sprintf(roundcounter_text, "Round: %d", RoundCounter);
-
-        DrawText(killcount_text, 10, 40, 20, DARKGRAY);
-        DrawText(roundcounter_text, 10, 60, 20, DARKGRAY);
-
-        guy.health_bar();
-
-        if (guy.isDead())
-        {
+            BeginDrawing();
             ClearBackground(RAYWHITE);
-            DrawText("GAME OVER!", (GetScreenWidth() / 2.0f) - 120, (GetScreenHeight() / 2.0f) - 40, 40, DARKGRAY);
-            DrawText("[Press Enter to try again]", (GetScreenWidth() / 2.0f) - 130, (GetScreenHeight() / 2.0f) + 20, 20, DARKGRAY);
+            BeginMode2D(cam);
 
-            if (IsKeyDown(KEY_ENTER))
+            world.render();
+            cam.target = guy.target_postition();
+
+            guy.render();
+            attack.render(guy.target_postition(), guy.IsFacingRight());
+
+            // Render only the active enemies
+            for (int i = 0; i < activeEnemies; ++i)
             {
-                guy.respawn();
-                for (auto &enemy : enemies)
+                enemies[i]->render();
+            }
+
+            world.render_trees();
+
+            // Collision checks only for active enemies
+            for (int i = 0; i < activeEnemies; ++i)
+            {
+                if (CheckCollisionRecs(attack.GetRect(), enemies[i]->GetRect()))
                 {
-                    enemy->respawn();
+                    enemies[i]->damage();
+                }
+                if (frameCounter >= FPS)
+                {
+
+                    if (CheckCollisionRecs(guy.GetRect(), enemies[i]->GetRect()))
+                    {
+                        guy.damage();
+
+                        frameCounter = 0;
+                    }
+                }
+                if (enemies[i]->isDead())
+                {
+                    killcount++;
+                    enemies[i]->respawn(); // Respawn the enemy
                 }
             }
-        }
-        Vector2 locatio = guy.target_postition();
 
-        EndDrawing();
+            attack.RemoveHitbox(true);
+
+            EndMode2D();
+
+            char killcount_text[50];
+            char roundcounter_text[50];
+            sprintf(killcount_text, "KillCount: %d", killcount);
+            sprintf(roundcounter_text, "Round: %d", RoundCounter);
+            DrawText(killcount_text, 10, 40, 20, DARKGRAY);
+            DrawText(roundcounter_text, 10, 60, 20, DARKGRAY);
+
+            guy.health_bar();
+
+            if (guy.isDead())
+            {
+                ClearBackground(RAYWHITE);
+                DrawText("GAME OVER!", (GetScreenWidth() / 2.0f) - 120, (GetScreenHeight() / 2.0f) - 40, 40, DARKGRAY);
+                DrawText("[Press Enter to try again]", (GetScreenWidth() / 2.0f) - 130, (GetScreenHeight() / 2.0f) + 20, 20, DARKGRAY);
+
+                if (IsKeyDown(KEY_ENTER))
+                {
+                    guy.respawn();
+                    for (auto &enemy : enemies)
+                    {
+                        enemy->respawn();
+                    }
+                }
+            }
+
+            EndDrawing();
+            break;
+
+        default:
+            break;
+        }
     }
 
+    guy.~Guy();
+    world.~World();
+    trees.~Objects();
+    objects.~Objects();
+    attack.~Attack();
+    menu.~Menu();
+    for (int i = 0; i < MAX_ENEMY_AMOUNT; i++)
+    {
+        enemies[i]->~Enemy();
+    }
     CloseWindow();
-
     return 0;
 }

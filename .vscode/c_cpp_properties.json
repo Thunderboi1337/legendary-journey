@@ -6,7 +6,8 @@
                 "${workspaceFolder}/*",
                 "/home/marcus/Desktop/legendary-journey",
                 "*",
-                "${workspaceFolder}/build/_deps/tmx-src/src"
+                "${workspaceFolder}/build/_deps/tmx-src/src",
+                "${workspaceFolder}/ThirdParty"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
