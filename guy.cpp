@@ -7,7 +7,7 @@ Guy::Guy()
     health = std::make_unique<Health>();
 
     player_speed = 3;
-    player_position = {811, 973};
+    player_position = {1500, 1500};
 
     framesSpeed = 10;
     currentFrame = 0;

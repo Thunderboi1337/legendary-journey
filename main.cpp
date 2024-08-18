@@ -46,8 +46,8 @@ int main(void)
     Guy guy = Guy();
     World world = World();
     Attack attack = Attack();
-    Objects trees = Objects("trees.json");
-    Objects objects = Objects("maps.json");
+    Objects trees = Objects("newtrees.json");
+    Objects objects = Objects("newmap.json");
     Menu menu = Menu();
     Audio audio = Audio();
 
@@ -70,7 +70,7 @@ int main(void)
     for (int i = 0; i < MAX_ENEMY_AMOUNT; ++i)
     {
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
-        enemy->setPosition({static_cast<float>(100 + (i * 50)), 400});
+        enemy->setPosition({static_cast<float>(1000 + (i * 50)), 1400});
         enemies.push_back(std::move(enemy));
     }
 

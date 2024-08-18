@@ -11,8 +11,8 @@ public:
     World();
     ~World();
 
-    Map map = LoadTiled("maps.json");
-    Map trees = LoadTiled("trees.json");
+    Map map = LoadTiled("newmap.json");
+    Map trees = LoadTiled("newtrees.json");
 
     void render(void);
     void render_trees(void);
