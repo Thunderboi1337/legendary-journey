@@ -78,6 +78,7 @@ int main(void)
 
     while (!WindowShouldClose())
     {
+
         audio.playMusic();
 
         switch (scenes)
