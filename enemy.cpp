@@ -175,8 +175,8 @@ void Enemy::damage(void)
 void Enemy::respawn(void)
 {
     Vector2 spawnpoint;
-    spawnpoint.x = 40 + (std::rand() % 800);
-    spawnpoint.y = 40 + (std::rand() % 800);
+    spawnpoint.x = 1500 + (std::rand() % 1800);
+    spawnpoint.y = 1500 + (std::rand() % 2000);
 
     enemies_position = spawnpoint;
 
