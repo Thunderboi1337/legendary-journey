@@ -38,6 +38,7 @@ void init(void)
 int main(void)
 {
     static int frameCounter;
+    static int j = 1;
 
     Scenes scenes = MENU;
 
@@ -46,8 +47,8 @@ int main(void)
     Guy guy = Guy();
     World world = World();
     Attack attack = Attack();
-    Objects trees = Objects("trees.json");
-    Objects objects = Objects("maps.json");
+    Objects trees = Objects("newtrees.json");
+    Objects objects = Objects("newmap.json");
     Menu menu = Menu();
     Audio audio = Audio();
 
@@ -70,7 +71,7 @@ int main(void)
     for (int i = 0; i < MAX_ENEMY_AMOUNT; ++i)
     {
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
-        enemy->setPosition({static_cast<float>(100 + (i * 50)), 400});
+        enemy->setPosition({static_cast<float>(1000 + (i * 50)), 1400});
         enemies.push_back(std::move(enemy));
     }
 
@@ -140,12 +141,13 @@ int main(void)
             attack.input();
 
             // Update and render only the active enemies
-            for (int i = 0; i < activeEnemies - 1; i++)
+            for (int i = 0; i < activeEnemies; i++)
             {
-                if (!CheckCollisionRecs(enemies[i]->GetRect(), enemies[i + 1]->GetRect()))
+                if (!CheckCollisionRecs(enemies[i]->GetRect(), enemies[j]->GetRect()))
                 {
                     enemies[i]->move(guy.target_postition(), objcts);
                 }
+                j = (j + 1) % MAX_ENEMY_AMOUNT;
             }
 
             BeginDrawing();
@@ -159,7 +161,7 @@ int main(void)
             attack.render(guy.target_postition(), guy.IsFacingRight());
 
             // Render only the active enemies
-            for (int i = 0; i < activeEnemies; ++i)
+            for (int i = 0; i < activeEnemies; i++)
             {
                 enemies[i]->render();
             }
@@ -186,7 +188,7 @@ int main(void)
                 if (enemies[i]->isDead())
                 {
                     killcount++;
-                    enemies[i]->respawn(); // Respawn the enemy
+                    enemies[i]->respawn();
                 }
             }
 
@@ -212,6 +214,12 @@ int main(void)
                 if (IsKeyDown(KEY_ENTER))
                 {
                     guy.respawn();
+
+                    RoundAmount = 5;
+                    killcount = 0;
+                    RoundCounter = 0;
+                    activeEnemies = 5;
+
                     for (auto &enemy : enemies)
                     {
                         enemy->respawn();

@@ -14,11 +14,8 @@ public:
     Objects(std::string file_name);
     ~Objects();
 
-    json data;
-
     void GetWorldObjects();
     void render(void);
-    std::vector<Rectangle> rectangles;
 
     std::vector<Rectangle> GetObjects();
     bool isColliding(const Rectangle &rect);
@@ -30,6 +27,10 @@ private:
     int width;
     int x;
     int y;
+
+    std::vector<Rectangle> rectangles;
+
+    json data;
 };
 
 #endif

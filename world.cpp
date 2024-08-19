@@ -3,6 +3,9 @@
 
 World::World()
 {
+    map = LoadTiled("newmap.json");
+
+    trees = LoadTiled("newtrees.json");
 }
 
 World::~World()

@@ -12,10 +12,6 @@ enum HealthLevel
 class Health
 {
 private:
-public:
-    Health();
-    ~Health();
-
     int CurrentHealth;
     bool GameOver;
     bool Dead;
@@ -34,8 +30,16 @@ public:
     int frameCounter;
     bool facingRight;
 
+public:
+    Health();
+    ~Health();
+
     void DisplayHealth(void);
     void Damage(bool hit);
+    bool isDead(void);
+    void setDead(bool DeadState);
+    void setCurrentHealth(float Health);
+    void setHealthAmount(int Hearts);
 };
 
 #endif

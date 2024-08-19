@@ -158,7 +158,7 @@ void Enemy::move(Vector2 guy_position, const std::vector<Rectangle> &obstacles)
 
 bool Enemy::isDead(void)
 {
-    return health.Dead;
+    return health.isDead();
 }
 
 Rectangle Enemy::GetRect()
@@ -174,14 +174,47 @@ void Enemy::damage(void)
 
 void Enemy::respawn(void)
 {
+
+    int spawnselect = 0;
     Vector2 spawnpoint;
-    spawnpoint.x = 40 + (std::rand() % 800);
-    spawnpoint.y = 40 + (std::rand() % 800);
+
+    spawnselect = 1 + (std::rand() % 8);
+
+    switch (spawnselect)
+    {
+    case 1:
+        spawnpoint = {880, 1340};
+        break;
+    case 2:
+        spawnpoint = {2900, 1340};
+        break;
+    case 3:
+        spawnpoint = {880, 2350};
+        break;
+    case 4:
+        spawnpoint = {1500, 2500};
+        break;
+    case 5:
+        spawnpoint = {880, 1500};
+        break;
+    case 6:
+        spawnpoint = {2900, 1600};
+        break;
+    case 7:
+        spawnpoint = {880, 2000};
+        break;
+    case 8:
+        spawnpoint = {1500, 2500};
+        break;
+
+    default:
+        break;
+    }
 
     enemies_position = spawnpoint;
 
-    health.CurrentHealth = 100.f;
-    health.Dead = false;
+    health.setCurrentHealth(100.f);
+    health.setDead(false);
 }
 
 void Enemy::setPosition(Vector2 position)

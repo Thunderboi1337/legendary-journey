@@ -13,18 +13,7 @@ enum AttackState
 class Attack
 {
 private:
-public:
-    Attack();
-    ~Attack();
-
     AttackState attack_state;
-
-    void input(void);
-    void render(Vector2 plater_position, bool facingRight);
-    void RemoveHitbox(bool isColliding);
-    void damage(Vector2 plater_position);
-
-    Rectangle GetRect();
 
     Texture2D sword;
     Rectangle frameRec;
@@ -42,6 +31,17 @@ public:
     bool attackBellow;
     int screenWidth;
     int screenHeight;
+
+public:
+    Attack();
+    ~Attack();
+
+    void input(void);
+    void render(Vector2 plater_position, bool facingRight);
+    void RemoveHitbox(bool isColliding);
+    void damage(Vector2 plater_position);
+
+    Rectangle GetRect();
 };
 
 #endif
