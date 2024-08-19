@@ -88,3 +88,24 @@ void Health::Damage(bool hit)
         }
     }
 }
+
+bool Health::isDead(void)
+{
+    return Dead;
+}
+
+void Health::setDead(bool DeadState)
+{
+    Dead = DeadState;
+}
+
+void Health::setCurrentHealth(float Health)
+{
+
+    CurrentHealth = Health;
+}
+
+void Health::setHealthAmount(int Hearts)
+{
+    currentHEARTS = Hearts;
+}

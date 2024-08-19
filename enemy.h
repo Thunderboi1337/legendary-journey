@@ -16,14 +16,24 @@ enum EnemyState
 class Enemy
 {
 private:
+    Texture2D sprite;
+
+    EnemyState enemey_state;
+    Rectangle frameRec;
+    int currentFrame;
+    int framesCounter;
+    int framesSpeed;
+    int frameCounter;
+    bool facingRight;
+
+    Vector2 enemies_position;
+    int enemies_speed;
+
 public:
     Enemy();
     ~Enemy();
 
     Health health;
-
-    Vector2 enemies_position;
-    int enemies_speed;
 
     void render();
     void move(Vector2 guy_position, const std::vector<Rectangle> &obstacles);
@@ -34,16 +44,6 @@ public:
     void setPosition(Vector2 position);
 
     bool isDead(void);
-
-    Texture2D sprite;
-
-    EnemyState enemey_state;
-    Rectangle frameRec;
-    int currentFrame;
-    int framesCounter;
-    int framesSpeed;
-    int frameCounter;
-    bool facingRight;
 };
 
 #endif

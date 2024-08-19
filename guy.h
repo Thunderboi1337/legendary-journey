@@ -23,8 +23,6 @@ public:
     Guy();
     ~Guy();
 
-    std::unique_ptr<Health> health;
-
     void input(const std::vector<Rectangle> &obstacles);
     void render(void);
     void DrawHitbox(bool isColliding);
@@ -39,6 +37,8 @@ public:
     bool IsFacingRight(void);
     enum PlayerState GetPlayerState(void);
 
+private:
+    std::unique_ptr<Health> health;
     Vector2 player_position;
     Texture2D sprite;
     Rectangle frameRec;
@@ -52,8 +52,6 @@ public:
     int framesCounter;
     int framesSpeed;
     int frameCounter; // Current frame in the animation
-
-private:
 };
 
 #endif

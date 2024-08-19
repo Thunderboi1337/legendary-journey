@@ -11,15 +11,14 @@ public:
     World();
     ~World();
 
-    Map map = LoadTiled("maps.json");
-    Map trees = LoadTiled("trees.json");
-
     void render(void);
     void render_trees(void);
 
 private:
     Texture2D tilesetTexture;
     int tileSize;
+    Map map;
+    Map trees;
 };
 
 #endif
