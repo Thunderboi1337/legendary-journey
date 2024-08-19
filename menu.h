@@ -21,11 +21,12 @@ public:
     ~Menu();
 
     // Methods to render elements and manage menu options
-    void render(void);              // Main render function to draw all elements
-    void render_knight(void);       // Render the Knight sprite
-    void render_slime(void);        // Render the first Slime sprite
-    void render_second_slime(void); // Render the second Slime sprite
-    MenuOptions getOptions(void);   // Get the current menu option
+    void render(void);                    // Main render function to draw all elements
+    void render_knight(void);             // Render the Knight sprite
+    void render_slime(void);              // Render the first Slime sprite
+    void render_second_slime(void);       // Render the second Slime sprite
+    void setOptions(MenuOptions setMenu); // Set the current menu option
+    MenuOptions getOptions(void);         // Get the current menu option
 
 private:
     // Private members
