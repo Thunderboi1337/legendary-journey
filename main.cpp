@@ -188,7 +188,7 @@ int main(void)
                 if (enemies[i]->isDead())
                 {
                     killcount++;
-                    enemies[i]->respawn(); // Respawn the enemy
+                    enemies[i]->respawn();
                 }
             }
 

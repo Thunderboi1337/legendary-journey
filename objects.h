@@ -14,8 +14,6 @@ public:
     Objects(std::string file_name);
     ~Objects();
 
-    json data;
-
     void GetWorldObjects();
     void render(void);
     std::vector<Rectangle> rectangles;
@@ -30,6 +28,8 @@ private:
     int width;
     int x;
     int y;
+
+    json data;
 };
 
 #endif

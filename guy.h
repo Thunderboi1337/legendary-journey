@@ -39,6 +39,7 @@ public:
     bool IsFacingRight(void);
     enum PlayerState GetPlayerState(void);
 
+private:
     Vector2 player_position;
     Texture2D sprite;
     Rectangle frameRec;
@@ -52,8 +53,6 @@ public:
     int framesCounter;
     int framesSpeed;
     int frameCounter; // Current frame in the animation
-
-private:
 };
 
 #endif
