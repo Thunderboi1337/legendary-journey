@@ -230,15 +230,15 @@ Vector2 Guy::target_postition()
 
 bool Guy::isDead(void)
 {
-    return health->Dead;
+    return health->isDead();
 }
 
 void Guy::respawn(void)
 {
-    health->Dead = false;
-    health->CurrentHealth = 100.f;
+    health->setDead(false);
+    health->setCurrentHealth(100.f);
     player_position = {1900, 1970};
-    health->currentHEARTS = 10;
+    health->setHealthAmount(10);
 }
 
 Rectangle Guy::GetRect()

@@ -8,7 +8,8 @@
                 "*",
                 "${workspaceFolder}/build/_deps/tmx-src/src",
                 "${workspaceFolder}/ThirdParty",
-                "${workspaceFolder}/build/_deps/json-src/include"
+                "${workspaceFolder}/build/_deps/json-src/include",
+                "${workspaceFolder}/ThirdParty/tileson/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

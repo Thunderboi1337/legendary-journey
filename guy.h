@@ -23,8 +23,6 @@ public:
     Guy();
     ~Guy();
 
-    std::unique_ptr<Health> health;
-
     void input(const std::vector<Rectangle> &obstacles);
     void render(void);
     void DrawHitbox(bool isColliding);
@@ -40,6 +38,7 @@ public:
     enum PlayerState GetPlayerState(void);
 
 private:
+    std::unique_ptr<Health> health;
     Vector2 player_position;
     Texture2D sprite;
     Rectangle frameRec;

@@ -158,7 +158,7 @@ void Enemy::move(Vector2 guy_position, const std::vector<Rectangle> &obstacles)
 
 bool Enemy::isDead(void)
 {
-    return health.Dead;
+    return health.isDead();
 }
 
 Rectangle Enemy::GetRect()
@@ -213,8 +213,8 @@ void Enemy::respawn(void)
 
     enemies_position = spawnpoint;
 
-    health.CurrentHealth = 100.f;
-    health.Dead = false;
+    health.setCurrentHealth(100.f);
+    health.setDead(false);
 }
 
 void Enemy::setPosition(Vector2 position)
