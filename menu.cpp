@@ -9,7 +9,9 @@
 // Constructor for the Menu class
 Menu::Menu()
 {
-    menu_options = INIT; // Initialize menu options
+    menu_options = INIT;   // Initialize menu options
+    show_controls = false; // Initialize show_controls flag
+    music_enabled = true;  // Initialize music enabled flag
 
     // Load textures for Knight and Slime
     Knight = LoadTexture("knight.png");
@@ -60,36 +62,47 @@ void Menu::render(void)
         DrawLine(0, y, screenWidth, y, color);
     }
 
-    // Set styles for buttons
-    GuiSetStyle(BUTTON, TEXT_ALIGNMENT, TEXT_ALIGN_CENTER); // Center text
-    GuiSetStyle(BUTTON, BASE_COLOR_NORMAL, 0x4CAF50FF);     // Normal state: green
-    GuiSetStyle(BUTTON, BASE_COLOR_PRESSED, 0x3D8B40FF);    // Pressed state: even darker green
-    GuiSetStyle(BUTTON, BORDER_COLOR_NORMAL, 0x388E3CFF);   // Border color normal
-    GuiSetStyle(BUTTON, BORDER_WIDTH, 2);
-    GuiSetStyle(BUTTON, TEXT_SIZE, 100); // Larger text size for buttons
-
-    // Draw title text with a shadow effect
-    DrawTextEx(GetFontDefault(), "THIS IS A GAME", (Vector2){(screenWidth / 2) - 195, 85}, 50, 2, DARKGREEN);
-    DrawTextEx(GetFontDefault(), "THIS IS A GAME", (Vector2){(screenWidth / 2) - 190, 80}, 50, 2, GREEN);
-
-    update_positions(); // Update the positions of all moving sprites
-
+    // Draw Knight and Slime animations
+    update_positions();    // Update the positions of all moving sprites
     render_knight();       // Render Knight sprite
     render_slime();        // Render the first Slime sprite
     render_second_slime(); // Render the second Slime sprite behind the first one
 
-    // Draw a separator line between buttons
-    DrawLine(screenWidth / 2 - 150, 140, screenWidth / 2 + 150, 140, DARKGRAY);
-
-    // Draw buttons with updated styles and larger text
-    if (GuiButton((Rectangle){(screenWidth / 2) - 120, 180, BUTTON_WIDTH, BUTTON_HEIGHT}, "Start Game"))
+    // Draw title text with a shadow effect
+    if (!show_controls)
     {
-        menu_options = START_GAME; // Set menu option to start game if "Start Game" button is clicked
+        DrawTextEx(GetFontDefault(), "THIS IS A GAME", (Vector2){(screenWidth / 2) - 195, 85}, 50, 2, DARKGREEN);
+        DrawTextEx(GetFontDefault(), "THIS IS A GAME", (Vector2){(screenWidth / 2) - 190, 80}, 50, 2, GREEN);
+
+        // Draw a separator line between buttons
+        DrawLine(screenWidth / 2 - 150, 140, screenWidth / 2 + 150, 140, DARKGRAY);
+
+        // Draw buttons with updated styles and larger text
+        if (GuiButton((Rectangle){(screenWidth / 2) - 120, 150, BUTTON_WIDTH, BUTTON_HEIGHT}, "Start Game"))
+        {
+            menu_options = START_GAME; // Set menu option to start game if "Start Game" button is clicked
+        }
+
+        if (GuiButton((Rectangle){(screenWidth / 2) - 120, 220, BUTTON_WIDTH, BUTTON_HEIGHT}, "Show Controls"))
+        {
+            show_controls = true; // Show controls
+        }
+
+        if (GuiButton((Rectangle){(screenWidth / 2) - 120, 290, BUTTON_WIDTH, BUTTON_HEIGHT}, "Quit"))
+        {
+            menu_options = QUIT; // Set menu option to quit if "Quit" button is clicked
+        }
     }
-
-    if (GuiButton((Rectangle){(screenWidth / 2) - 120, 260, BUTTON_WIDTH, BUTTON_HEIGHT}, "Quit"))
+    else
     {
-        menu_options = QUIT; // Set menu option to quit if "Quit" button is clicked
+        // Display controls
+        display_controls(); // Display controls if the flag is set
+
+        // Draw the Back to Menu button
+        if (GuiButton((Rectangle){(screenWidth / 2) - 120, screenHeight - 100, BUTTON_WIDTH, BUTTON_HEIGHT}, "Back to Menu"))
+        {
+            show_controls = false; // Hide controls and return to menu
+        }
     }
 
     EndDrawing();
@@ -196,8 +209,26 @@ void Menu::render_second_slime(void)
                    {slimeFrameRec.width / 2, slimeFrameRec.height / 2}, 0.0f, WHITE);
 }
 
+// Display controls for movement and attack
+void Menu::display_controls(void)
+{
+    const char *controlText =
+        "Controls:\n"
+        "W - Move Up\n"
+        "S - Move Down\n"
+        "A - Move Left\n"
+        "D - Move Right\n"
+        "Left Mouse Button - Attack\n"
+        "M - Toggle Music";
+
+    // Draw control text in the center of the screen
+    DrawTextEx(GetFontDefault(), controlText, (Vector2){screenWidth / 2 - 150, screenHeight / 2 - 100}, 20, 2, WHITE);
+}
+
 // Return the current menu option
 MenuOptions Menu::getOptions(void)
 {
     return menu_options;
 }
+
+// Handle input for toggling controls display and music

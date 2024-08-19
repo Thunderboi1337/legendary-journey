@@ -35,6 +35,7 @@ private:
     MenuOptions menu_options; // Current menu option
 
     void update_positions(void); // Update positions of sprites
+    void display_controls(void); // Display the control instructions
 
     Rectangle frameRec; // General frame rectangle for sprites (if needed)
 
@@ -62,6 +63,10 @@ private:
 
     // Second Slime position
     float secondSlimeXPos; // X position of the second Slime sprite
+
+    // New private members for controls and music
+    bool show_controls; // Flag to determine if controls should be displayed
+    bool music_enabled; // Flag to determine if music is enabled
 };
 
 #endif // MENU_H
