@@ -209,6 +209,12 @@ void Menu::render_second_slime(void)
                    {slimeFrameRec.width / 2, slimeFrameRec.height / 2}, 0.0f, WHITE);
 }
 
+void Menu::setOptions(MenuOptions setMenu)
+{
+
+    menu_options = setMenu;
+}
+
 // Display controls for movement and attack
 void Menu::display_controls(void)
 {

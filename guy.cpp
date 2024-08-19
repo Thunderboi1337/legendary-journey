@@ -61,31 +61,31 @@ void Guy::input(const std::vector<Rectangle> &obstacles)
             player_state = RUNNING;
             facingRight = true;
         }
+        // This movment made the game to easy, want to bring it back later. But for now, no rolling. I was also a good way to check the map for bugs hehe
+        /*    // Handle roll movement
+           if (IsKeyDown(KEY_W) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT_SHIFT))
+           {
+               new_position.y -= player_speed * 5;
+               player_state = ROLL;
+           }
 
-        // Handle sprint movement
-        if (IsKeyDown(KEY_W) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_UP) && IsKeyDown(KEY_LEFT_SHIFT))
-        {
-            new_position.y -= player_speed * 5;
-            player_state = ROLL;
-        }
-
-        if (IsKeyDown(KEY_S) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT_SHIFT))
-        {
-            new_position.y += player_speed * 5;
-            player_state = ROLL;
-        }
-        if (IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT))
-        {
-            new_position.x -= player_speed * 5;
-            player_state = ROLL;
-            facingRight = false;
-        }
-        if (IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT))
-        {
-            new_position.x += player_speed * 5;
-            player_state = ROLL;
-            facingRight = true;
-        }
+           if (IsKeyDown(KEY_S) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_DOWN) && IsKeyDown(KEY_LEFT_SHIFT))
+           {
+               new_position.y += player_speed * 5;
+               player_state = ROLL;
+           }
+           if (IsKeyDown(KEY_A) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT))
+           {
+               new_position.x -= player_speed * 5;
+               player_state = ROLL;
+               facingRight = false;
+           }
+           if (IsKeyDown(KEY_D) && IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT))
+           {
+               new_position.x += player_speed * 5;
+               player_state = ROLL;
+               facingRight = true;
+           } */
     }
     // Create a rectangle representing the new position
     Rectangle new_rectx = {new_position.x, player_position.y, 15, 20};
@@ -162,11 +162,11 @@ void Guy::Movement(void)
             frameRec.x = (float)(currentFrame - 8) * (float)sprite.width / 8;
         }
     }
-    else if (player_state == ROLL)
-    {
-        frameRec.y = 5 * (float)sprite.height / 8; // Third row for running animation
-        frameRec.x = (float)currentFrame * (float)sprite.width / 8;
-    }
+    /*  else if (player_state == ROLL)
+     {
+         frameRec.y = 5 * (float)sprite.height / 8; // Third row for running animation
+         frameRec.x = (float)currentFrame * (float)sprite.width / 8;
+     } */
     else if (player_state == HITS)
     {
         if (currentFrame >= IDLE_FRAME_COUNT)

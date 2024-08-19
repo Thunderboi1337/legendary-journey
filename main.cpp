@@ -33,6 +33,7 @@ void init(void)
 {
     InitWindow(screenWidth, screenHeight, "Main window");
     SetTargetFPS(FPS);
+    SetExitKey(0);
 }
 
 int main(void)
@@ -96,6 +97,18 @@ int main(void)
             {
             case START_GAME:
                 scenes = GAME;
+
+                guy.respawn();
+
+                RoundAmount = 5;
+                killcount = 0;
+                RoundCounter = 0;
+                activeEnemies = 5;
+
+                for (auto &enemy : enemies)
+                {
+                    enemy->respawn();
+                }
 
                 break;
 
@@ -208,8 +221,27 @@ int main(void)
             if (guy.isDead())
             {
                 ClearBackground(RAYWHITE);
-                DrawText("GAME OVER!", (GetScreenWidth() / 2.0f) - 120, (GetScreenHeight() / 2.0f) - 40, 40, DARKGRAY);
-                DrawText("[Press Enter to try again]", (GetScreenWidth() / 2.0f) - 130, (GetScreenHeight() / 2.0f) + 20, 20, DARKGRAY);
+                const int textSizeGameOver = 40;
+                const int textSizeRoundCounter = 20;
+                const int textSizeTryAgain = 20;
+                const int textSizeBackToMenu = 20;
+
+                // "GAME OVER!" text
+                int textWidthGameOver = MeasureText("GAME OVER!", textSizeGameOver);
+                DrawText("GAME OVER!", (GetScreenWidth() / 2.0f) - (textWidthGameOver / 2), (GetScreenHeight() / 2.0f) - 40, textSizeGameOver, DARKGRAY);
+
+                // Round counter text
+                sprintf(roundcounter_text, "WOW! %d Rounds! COOL!", RoundCounter);
+                int textWidthRoundCounter = MeasureText(roundcounter_text, textSizeRoundCounter);
+                DrawText(roundcounter_text, (GetScreenWidth() / 2.0f) - (textWidthRoundCounter / 2), (GetScreenHeight() / 2.0f) + 10, textSizeRoundCounter, DARKGRAY);
+
+                // "[Press Enter to try again]" text
+                int textWidthTryAgain = MeasureText("[Press Enter to try again]", textSizeTryAgain);
+                DrawText("[Press Enter to try again]", (GetScreenWidth() / 2.0f) - (textWidthTryAgain / 2), (GetScreenHeight() / 2.0f) + 40, textSizeTryAgain, DARKGRAY);
+
+                // "[or press ESC to go back to the menu]" text
+                int textWidthBackToMenu = MeasureText("[or press ESC to go back to the menu]", textSizeBackToMenu);
+                DrawText("[or press ESC to go back to the menu]", (GetScreenWidth() / 2.0f) - (textWidthBackToMenu / 2), (GetScreenHeight() / 2.0f) + 80, textSizeBackToMenu, DARKGRAY);
 
                 if (IsKeyDown(KEY_ENTER))
                 {
@@ -224,6 +256,14 @@ int main(void)
                     {
                         enemy->respawn();
                     }
+                }
+                else if (IsKeyPressed(KEY_ESCAPE))
+                {
+                    menu_options = INIT;
+                    scenes = MENU;
+                    menu.setOptions(INIT);
+
+                    break;
                 }
             }
 
