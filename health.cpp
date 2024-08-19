@@ -50,7 +50,7 @@ void Health::DisplayHealth(void)
 
         for (int i = 0; i < 10; i++)
         {
-            DrawTexturePro(heartRotation, frameRec, Rectangle{20 + 30 * i, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+            DrawTexturePro(heartRotation, frameRec, Rectangle{20.f + 30.f * i, 20.f, frameRec.width * 1.0f, frameRec.height * 1.0f},
                            {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
         }
 
@@ -66,7 +66,7 @@ void Health::DisplayHealth(void)
 
         for (int i = 0; i < currentHEARTS; i++)
         {
-            DrawTexturePro(heart, frameRec, Rectangle{20 + 30 * i, 20, frameRec.width * 1.0f, frameRec.height * 1.0f},
+            DrawTexturePro(heart, frameRec, Rectangle{20.f + 30.f * i, 20.f, frameRec.width * 1.0f, frameRec.height * 1.0f},
                            {frameRec.width / 2, frameRec.height / 2}, 0.0f, WHITE);
         }
         break;

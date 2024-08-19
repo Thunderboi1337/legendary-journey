@@ -71,24 +71,24 @@ void Menu::render(void)
     // Draw title text with a shadow effect
     if (!show_controls)
     {
-        DrawTextEx(GetFontDefault(), "THIS IS A GAME", (Vector2){(screenWidth / 2) - 195, 85}, 50, 2, DARKGREEN);
-        DrawTextEx(GetFontDefault(), "THIS IS A GAME", (Vector2){(screenWidth / 2) - 190, 80}, 50, 2, GREEN);
+        DrawTextEx(GetFontDefault(), "THIS IS A GAME", (Vector2){((float)screenWidth / 2) - 195, 85}, 50, 2, DARKGREEN);
+        DrawTextEx(GetFontDefault(), "THIS IS A GAME", (Vector2){((float)screenWidth / 2) - 190, 80}, 50, 2, GREEN);
 
         // Draw a separator line between buttons
-        DrawLine(screenWidth / 2 - 150, 140, screenWidth / 2 + 150, 140, DARKGRAY);
+        DrawLine((float)screenWidth / 2 - 150, 140, (float)screenWidth / 2 + 150, 140, DARKGRAY);
 
         // Draw buttons with updated styles and larger text
-        if (GuiButton((Rectangle){(screenWidth / 2) - 120, 150, BUTTON_WIDTH, BUTTON_HEIGHT}, "Start Game"))
+        if (GuiButton((Rectangle){((float)screenWidth / 2) - 120, 150, BUTTON_WIDTH, BUTTON_HEIGHT}, "Start Game"))
         {
             menu_options = START_GAME; // Set menu option to start game if "Start Game" button is clicked
         }
 
-        if (GuiButton((Rectangle){(screenWidth / 2) - 120, 220, BUTTON_WIDTH, BUTTON_HEIGHT}, "Show Controls"))
+        if (GuiButton((Rectangle){((float)screenWidth / 2) - 120, 220, BUTTON_WIDTH, BUTTON_HEIGHT}, "Show Controls"))
         {
             show_controls = true; // Show controls
         }
 
-        if (GuiButton((Rectangle){(screenWidth / 2) - 120, 290, BUTTON_WIDTH, BUTTON_HEIGHT}, "Quit"))
+        if (GuiButton((Rectangle){((float)screenWidth / 2) - 120, 290, BUTTON_WIDTH, BUTTON_HEIGHT}, "Quit"))
         {
             menu_options = QUIT; // Set menu option to quit if "Quit" button is clicked
         }
@@ -99,7 +99,7 @@ void Menu::render(void)
         display_controls(); // Display controls if the flag is set
 
         // Draw the Back to Menu button
-        if (GuiButton((Rectangle){(screenWidth / 2) - 120, screenHeight - 100, BUTTON_WIDTH, BUTTON_HEIGHT}, "Back to Menu"))
+        if (GuiButton((Rectangle){((float)screenWidth / 2) - 120, (float)screenHeight - 100, BUTTON_WIDTH, BUTTON_HEIGHT}, "Back to Menu"))
         {
             show_controls = false; // Hide controls and return to menu
         }
@@ -228,7 +228,7 @@ void Menu::display_controls(void)
         "M - Toggle Music";
 
     // Draw control text in the center of the screen
-    DrawTextEx(GetFontDefault(), controlText, (Vector2){screenWidth / 2 - 150, screenHeight / 2 - 100}, 20, 2, WHITE);
+    DrawTextEx(GetFontDefault(), controlText, (Vector2){(float)screenWidth / 2 - 150, (float)screenHeight / 2 - 100}, 20, 2, WHITE);
 }
 
 // Return the current menu option

@@ -53,6 +53,7 @@ emcc -o main.html main.cpp attack.cpp audio.cpp enemy.cpp guy.cpp health.cpp men
 -I/home/marcus/raylib/src -I/home/marcus/raylib/src/external \
 -I/home/marcus/raylib-tileson/include \
 -I/home/marcus/json/include \
+-I/home/marcus/raygui/src/raygui.h \
 -L/home/marcus/raylib/src \
 -s USE_GLFW=3 -s ASYNCIFY -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1 \
 --preload-file /home/marcus/Desktop/legendary-journey/sprites \
@@ -61,3 +62,97 @@ emcc -o main.html main.cpp attack.cpp audio.cpp enemy.cpp guy.cpp health.cpp men
 --shell-file /home/marcus/raylib/src/shell.html \
 /home/marcus/raylib/src/web/libraylib.a -DPLATFORM_WEB \
 -s 'EXPORTED_FUNCTIONS=["_free","_malloc","_main"]' -s EXPORTED_RUNTIME_METHODS=ccall
+
+/home/marcus/raygui/src/raygui.h
+
+emcc -o main.html main.cpp attack.cpp audio.cpp enemy.cpp guy.cpp health.cpp menu.cpp objects.cpp world.cpp -Wall -std=c++14 -D_DEFAULT_SOURCE -Wno-missing-braces -Wunused-result -Os \
+-I/home/marcus/raylib/src -I/home/marcus/raylib/src/external \
+-I/home/marcus/raylib-tileson/include \
+-I/home/marcus/json/include \
+-I/home/marcus/raygui/src/ \
+-L/home/marcus/raylib/src \
+-s USE_GLFW=3 -s ASYNCIFY -s TOTAL_MEMORY=67108864 -s FORCE_FILESYSTEM=1 \
+--preload-file /home/marcus/Desktop/legendary-journey/sprites \
+--preload-file /home/marcus/Desktop/legendary-journey/music \
+--preload-file /home/marcus/Desktop/legendary-journey/maps \
+--shell-file /home/marcus/raylib/src/shell.html \
+/home/marcus/raylib/src/web/libraylib.a -DPLATFORM_WEB \
+-s 'EXPORTED_FUNCTIONS=["_free","_malloc","_main"]' -s EXPORTED_RUNTIME_METHODS=ccall
+
+/home/marcus/raylib-tileson/src
+
+emcc -o main.html main.cpp attack.cpp audio.cpp enemy.cpp guy.cpp health.cpp menu.cpp objects.cpp world.cpp raylib-tileson.cpp \
+  -Wall -std=c++17 -D_DEFAULT_SOURCE -Wno-missing-braces -Wunused-result -Os \
+  -I/home/marcus/raylib/src \
+  -I/home/marcus/raylib/src/external \
+  -I/home/marcus/raylib-tileson/include \
+  -I/home/marcus/raylib-tileson/src \
+  -I/home/marcus/json/include \
+  -I/home/marcus/raygui/src \
+  -L/home/marcus/raylib/src \
+  -L/path/to/glfw/lib \
+  -lglfw \
+  -s USE_GLFW=3 \
+  -s ASYNCIFY \
+  -s TOTAL_MEMORY=67108864 \
+  -s FORCE_FILESYSTEM=1 \
+  --preload-file /home/marcus/Desktop/legendary-journey/sprites \
+  --preload-file /home/marcus/Desktop/legendary-journey/music \
+  --preload-file /home/marcus/Desktop/legendary-journey/maps \
+  --shell-file /home/marcus/raylib/src/shell.html \
+  /home/marcus/raylib/src/web/libraylib.a \
+  -DPLATFORM_WEB \
+  -s 'EXPORTED_FUNCTIONS=["_free","_malloc","_main","_DrawTiled","_LoadTiled","_UnloadMap","_glfwSetWindowContentScaleCallback"]' \
+  -s EXPORTED_RUNTIME_METHODS=ccall
+
+emcc -o main.html main.cpp attack.cpp audio.cpp enemy.cpp guy.cpp health.cpp menu.cpp objects.cpp world.cpp raylib-tileson.cpp \
+  -Wall -std=c++17 -D_DEFAULT_SOURCE -Wno-missing-braces -Wunused-result -Os \
+  -I/home/marcus/raylib/src \
+  -I/home/marcus/raylib/src/external \
+  -I/home/marcus/raylib-tileson/include \
+  -I/home/marcus/raylib-tileson/src \
+  -I/home/marcus/json/include \
+  -I/home/marcus/raygui/src \
+  -L/home/marcus/raylib/src \
+  -L/path/to/glfw/lib \
+  -lglfw \
+  -s USE_GLFW=3 \
+  -s ASYNCIFY \
+  -s TOTAL_MEMORY=67108864 \
+  -s FORCE_FILESYSTEM=1 \
+  --preload-file /home/marcus/Desktop/legendary-journey/sprites@sprites \
+  --preload-file /home/marcus/Desktop/legendary-journey/music@music \
+  --preload-file /home/marcus/Desktop/legendary-journey/maps@maps \
+  --shell-file /home/marcus/raylib/src/shell.html \
+  /home/marcus/raylib/src/web/libraylib.a \
+  -DPLATFORM_WEB \
+  -s EXPORTED_FUNCTIONS="['_free','_malloc','_main','_DrawTiled','_LoadTiled','_UnloadMap','_glfwSetWindowContentScaleCallback']" \
+  -s EXPORTED_RUNTIME_METHODS="['ccall']" \
+  -s LLD_REPORT_UNDEFINED
+
+
+emcc -o main.html main.cpp attack.cpp audio.cpp enemy.cpp guy.cpp health.cpp menu.cpp objects.cpp world.cpp raylib-tileson.cpp \
+  -Wall -std=c++17 -D_DEFAULT_SOURCE -Wno-missing-braces -Wunused-result -Os \
+  -I/home/marcus/raylib/src \
+  -I/home/marcus/raylib/src/external \
+  -I/home/marcus/raylib-tileson/include \
+  -I/home/marcus/raylib-tileson/src \
+  -I/home/marcus/json/include \
+  -I/home/marcus/raygui/src \
+  -L/home/marcus/raylib/src \
+  -L/path/to/glfw/lib \
+  -L/usr/lib/x86_64-linux-gnu/ \
+  -lglfw \
+  -s USE_GLFW=3 \
+  -s ASYNCIFY \
+  -s TOTAL_MEMORY=67108864 \
+  -s FORCE_FILESYSTEM=1 \
+  --preload-file /home/marcus/Desktop/legendary-journey/sprites@sprites \
+  --preload-file /home/marcus/Desktop/legendary-journey/music@music \
+  --preload-file /home/marcus/Desktop/legendary-journey/maps@maps \
+  --shell-file /home/marcus/raylib/src/shell.html \
+  /home/marcus/raylib/src/web/libraylib.a \
+  -DPLATFORM_WEB \
+  -s EXPORTED_FUNCTIONS="['_free','_malloc','_main','_DrawTiled','_LoadTiled','_UnloadMap','_glfwSetWindowContentScaleCallback']" \
+  -s EXPORTED_RUNTIME_METHODS="['ccall']" \
+  -s LLD_REPORT_UNDEFINED
