@@ -174,9 +174,42 @@ void Enemy::damage(void)
 
 void Enemy::respawn(void)
 {
+
+    int spawnselect = 0;
     Vector2 spawnpoint;
-    spawnpoint.x = 1500 + (std::rand() % 1800);
-    spawnpoint.y = 1500 + (std::rand() % 2000);
+
+    spawnselect = 1 + (std::rand() % 8);
+
+    switch (spawnselect)
+    {
+    case 1:
+        spawnpoint = {880, 1340};
+        break;
+    case 2:
+        spawnpoint = {2900, 1340};
+        break;
+    case 3:
+        spawnpoint = {880, 2350};
+        break;
+    case 4:
+        spawnpoint = {1500, 2500};
+        break;
+    case 5:
+        spawnpoint = {880, 1500};
+        break;
+    case 6:
+        spawnpoint = {2900, 1600};
+        break;
+    case 7:
+        spawnpoint = {880, 2000};
+        break;
+    case 8:
+        spawnpoint = {1500, 2500};
+        break;
+
+    default:
+        break;
+    }
 
     enemies_position = spawnpoint;
 

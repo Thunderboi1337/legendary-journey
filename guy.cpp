@@ -7,7 +7,7 @@ Guy::Guy()
     health = std::make_unique<Health>();
 
     player_speed = 3;
-    player_position = {1500, 1500};
+    player_position = {1900, 1970};
 
     framesSpeed = 10;
     currentFrame = 0;
@@ -237,7 +237,7 @@ void Guy::respawn(void)
 {
     health->Dead = false;
     health->CurrentHealth = 100.f;
-    player_position = {811, 973};
+    player_position = {1900, 1970};
     health->currentHEARTS = 10;
 }
 
