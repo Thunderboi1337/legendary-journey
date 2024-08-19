@@ -36,25 +36,25 @@ void Attack::input()
 
         Vector2 mousePosition = GetMousePosition();
 
-        if (CheckCollisionPointTriangle(mousePosition, {0, 0}, {screenWidth / 2, screenHeight / 2}, {screenWidth, 0})) // Check if the mouse is in the "above" triangle
+        if (CheckCollisionPointTriangle(mousePosition, {0.0f, 0.0f}, {static_cast<float>(screenWidth) / 2.0f, static_cast<float>(screenHeight) / 2.0f}, {static_cast<float>(screenWidth), 0.0f})) // Check if the mouse is in the "above" triangle
         {
             attackAbove = true;
             attackBellow = false;
             attackRight = false;
         }
-        else if (CheckCollisionPointTriangle(mousePosition, {0, 450}, {800, 450}, {screenWidth / 2, screenHeight / 2})) // Check if the mouse is in the "below" triangle
+        else if (CheckCollisionPointTriangle(mousePosition, {0.0f, 450.0f}, {800.0f, 450.0f}, {static_cast<float>(screenWidth) / 2.0f, static_cast<float>(screenHeight) / 2.0f})) // Check if the mouse is in the "below" triangle
         {
             attackBellow = true;
             attackAbove = false;
             attackRight = false;
         }
-        else if (CheckCollisionPointTriangle(mousePosition, {800, 450}, {800, 0}, {screenWidth / 2, screenHeight / 2})) // Check if the mouse is in the "right" triangle
+        else if (CheckCollisionPointTriangle(mousePosition, {800.0f, 450.0f}, {800.0f, 0.0f}, {static_cast<float>(screenWidth) / 2.0f, static_cast<float>(screenHeight) / 2.0f})) // Check if the mouse is in the "right" triangle
         {
             attackRight = true;
             attackAbove = false;
             attackBellow = false;
         }
-        else if (CheckCollisionPointTriangle(mousePosition, {0, 0}, {0, 450}, {screenWidth / 2, screenHeight / 2})) // Otherwise, it's in the "left" triangle
+        else if (CheckCollisionPointTriangle(mousePosition, {0.0f, 0.0f}, {0.0f, 450.0f}, {static_cast<float>(screenWidth) / 2.0f, static_cast<float>(screenHeight) / 2.0f})) // Otherwise, it's in the "left" triangle
         {
             attackRight = false;
             attackAbove = false;

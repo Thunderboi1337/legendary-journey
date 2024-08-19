@@ -38,7 +38,7 @@ public:
     enum PlayerState GetPlayerState(void);
 
 private:
-    std::unique_ptr<Health> health;
+    Health health;
     Vector2 player_position;
     Texture2D sprite;
     Rectangle frameRec;

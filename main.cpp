@@ -11,11 +11,9 @@
 
 enum Scenes
 {
-
     INTRO,
     MENU,
     GAME,
-
 };
 
 #define FPS 60
@@ -45,13 +43,13 @@ int main(void)
 
     init();
 
-    Guy guy = Guy();
     World world = World();
     Attack attack = Attack();
     Objects trees = Objects("newtrees.json");
     Objects objects = Objects("newmap.json");
     Menu menu = Menu();
     Audio audio = Audio();
+    Guy guy = Guy();
 
     Camera2D cam = {0};
     cam.offset = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
