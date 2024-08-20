@@ -50,7 +50,7 @@ Here's a glimpse of the action:
 ## Gameplay Video
 Want to see the game in action? Check out the gameplay video below:
 
-![Gameplay Video]([Screenshots/Editedgamevideo.mp4](https://youtu.be/90T6ZYYAarw))
+[![Gameplay Video]([https://www.youtube.com/watch?v=your-video-id](https://youtu.be/90T6ZYYAarw))
 
 ## Credits
 - **Sprites**: [Link to sprite credits](link-to-sprite-credits)
