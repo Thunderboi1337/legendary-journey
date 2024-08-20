@@ -1,5 +1,5 @@
 # This is a Game
-### "Or legendary-journey(Github generated that name..."
+#### "Or legendary-journey(Github generated that name..."
 
 ![Game Banner](Screenshots/thisisagame.webp)
 
