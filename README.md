@@ -39,9 +39,9 @@ To play "This is a Game", follow these steps:
 Here's a glimpse of the action:
 
 ### Screenshots
-![Screenshot 1](screenshot1.png)
-![Screenshot 2](screenshot2.png)
-![Screenshot 3](screenshot3.png)
+![Screenshot 1](Screenshots/Menu1.png)
+![Screenshot 2](Screenshots/Spawn.png)
+![Screenshot 3](Screenshots/GameOver.png)
 
 ### GIFs
 ![Gameplay GIF 1](gameplay1.gif)
