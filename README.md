@@ -55,8 +55,8 @@ Want to see the game in action? Check out the gameplay video below:
 
 ## Credits
 - **Sprites**: [Link to sprite credits](link-to-sprite-credits)
-- **Music**: [Link to music credits](link-to-music-credits)
-- **Development**: Made using [raylib](https://www.raylib.com/) and C++
+- **Music**: [link-to-music-credits](https://soundcloud.com/knut-lyv-n/k-nutting))
+- **Development**: Made using [raylib](https://www.raylib.com/), [raygui](https://github.com/raysan5/raygui), [raylib-tileson](https://github.com/RobLoach/raylib-tileson), [nlohmann_json](https://github.com/nlohmann/json), Cmake and C++
 
 ## License
 This project is open-source and available under the MIT License. Feel free to use the code in your own projects.
