@@ -1,4 +1,5 @@
 # This is a Game
+## Or legendary-journey(Github generated that name...)
 
 ![Game Banner](your-screenshot-or-banner-image.png)
 
@@ -54,15 +55,15 @@ Want to see the game in action? Check out the gameplay video below:
 
 
 ## Credits
-- **Sprites**: [Link to sprite credits](link-to-sprite-credits)
-- **Music**: [link-to-music-credits](https://soundcloud.com/knut-lyv-n/k-nutting))
+- **Sprites**: [HEARTS]([link-to-sprite-credits](https://skristi.itch.io/heart-and-health-bars)),[Player & Slimes](www.google.com), [World and props design](www.goggle.com),[Machete](www.google.com), Will add more links to creator, but something is wrong with itch.io. So can't access there pages. //I linked it to google for now.
+- **Music**: [K-nutting](https://soundcloud.com/knut-lyv-n/k-nutting))
 - **Development**: Made using [raylib](https://www.raylib.com/), [raygui](https://github.com/raysan5/raygui), [raylib-tileson](https://github.com/RobLoach/raylib-tileson), [nlohmann_json](https://github.com/nlohmann/json), Cmake and C++
 
 ## License
 This project is open-source and available under the MIT License. Feel free to use the code in your own projects.
 
 ## Future Updates
-"This is a Game" is a foundational project that I plan to expand upon in the future. The current version is rounds-based, offering a simple and engaging gameplay experience. In the future, I aim to add more features, enemies, levels, and story elements to create a more comprehensive game.
+"This is a Game" is a foundational project that I plan to expand upon in the future. The current version is rounds-based, offering a simple gameplay experience. In the future, I aim to add more features, enemies, levels, and story elements to create a more comprehensive game.
 
 For now, I'm focusing on other projects, but stay tuned for updates in the future!
 
