@@ -1,7 +1,7 @@
 # This is a Game
 ## Or legendary-journey(Github generated that name...)
 
-![Game Banner](your-screenshot-or-banner-image.png)
+![Game Banner](Screenshots/thisisagame.webp)
 
 ## Table of Contents
 - [About the Game](#about-the-game)
