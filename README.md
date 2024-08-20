@@ -18,6 +18,8 @@
 ## About the Game
 "This is a Game" is a simple 2D game where you play as a knight armed with a machete, fending off endless waves of slime attacks. Survive as long as you can while slashing through hordes of enemies in this fast-paced survival game.
 
+Made it in ubuntu and havn't had the time to test for windows. So might not work there. But will be added the the far far future ;)
+
 ## Gameplay
 
 ### Controls
