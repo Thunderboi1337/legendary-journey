@@ -56,7 +56,7 @@ Want to see the game in action? Check out the gameplay video below:
 
 
 ## Credits
-- **Sprites**: [HEARTS](https://skristi.itch.io/heart-and-health-bars),[Player & Slimes](www.google.com), [World and props design](www.goggle.com),[Machete](www.google.com), Will add more links to creator, but something is wrong with itch.io. So can't access there pages. //I linked it to google for now.
+- **Sprites**: [HEARTS](https://skristi.itch.io/heart-and-health-bars),[Player & Slimes](https://brackeysgames.itch.io/brackeys-platformer-bundle?download), [World and props design](https://cainos.itch.io/pixel-art-top-down-basic),[Machete](https://analogstudios.itch.io/desertsprites?download)
 - **Music**: [K-nutting](https://soundcloud.com/knut-lyv-n/k-nutting))
 - **Development**: Made using [raylib](https://www.raylib.com/), [raygui](https://github.com/raysan5/raygui), [raylib-tileson](https://github.com/RobLoach/raylib-tileson), [nlohmann_json](https://github.com/nlohmann/json), Cmake and C++
 
