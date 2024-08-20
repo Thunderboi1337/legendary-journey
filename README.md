@@ -20,7 +20,7 @@
 ## Gameplay
 
 ### Controls
-- **WASD**: Move your character
+- **W = up,A = left.S = down,D = right**: Move your character
 - **Left Click**: Attack with your machete
 - **M**: Pause or unpause the music
 
@@ -44,13 +44,13 @@ Here's a glimpse of the action:
 ![Screenshot 3](Screenshots/GameOver.png)
 
 ### GIFs
-![Gameplay GIF 1](gameplay1.gif)
-![Gameplay GIF 2](gameplay2.gif)
+![Gameplay GIF 1](Screenshots/ThisIsGame.gif)
+![Gameplay GIF 2](Screenshots/Attack.gif)
 
 ## Gameplay Video
 Want to see the game in action? Check out the gameplay video below:
 
-![Gameplay Video](gameplay-video.mp4)
+![Gameplay Video](Screenshots/Editedgamevideo.mp4)
 
 ## Credits
 - **Sprites**: [Link to sprite credits](link-to-sprite-credits)
