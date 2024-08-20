@@ -31,10 +31,11 @@ Your objective is simple: **Don't die**. Survive as many rounds as you can by de
 ## Installation
 To play "This is a Game", follow these steps:
 1. Clone the repository.
-2. Use CMake to build the project.
-3. Run the executable.
-
-*For detailed instructions, see the [Installation Guide](installation-guide-link).*
+2. make a build directory and jump into build(mkdir build && cd build)
+4. run cmake(cmake ..)
+5. Then run make (make)
+6. Then the exe (./main)
+7. PLay the game :)
 
 ## Screenshots & GIFs
 Here's a glimpse of the action:
@@ -55,7 +56,7 @@ Want to see the game in action? Check out the gameplay video below:
 
 
 ## Credits
-- **Sprites**: [HEARTS]([link-to-sprite-credits](https://skristi.itch.io/heart-and-health-bars)),[Player & Slimes](www.google.com), [World and props design](www.goggle.com),[Machete](www.google.com), Will add more links to creator, but something is wrong with itch.io. So can't access there pages. //I linked it to google for now.
+- **Sprites**: [HEARTS](https://skristi.itch.io/heart-and-health-bars),[Player & Slimes](www.google.com), [World and props design](www.goggle.com),[Machete](www.google.com), Will add more links to creator, but something is wrong with itch.io. So can't access there pages. //I linked it to google for now.
 - **Music**: [K-nutting](https://soundcloud.com/knut-lyv-n/k-nutting))
 - **Development**: Made using [raylib](https://www.raylib.com/), [raygui](https://github.com/raysan5/raygui), [raylib-tileson](https://github.com/RobLoach/raylib-tileson), [nlohmann_json](https://github.com/nlohmann/json), Cmake and C++
 
